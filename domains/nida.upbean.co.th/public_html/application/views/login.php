@@ -21,7 +21,7 @@ date_default_timezone_set('Asia/Bangkok');
         .login-body { padding: 0; }
         .login-wrap { padding: 80px 30px; }
         .login-brand { margin-left: 0; margin-right: 0; width: 170px; }
-        .banner_login { background: rgb(239, 176, 125); background: linear-gradient(45deg, rgb(203, 127, 67) 0%, rgb(133, 62, 6) 100%); }
+        .banner_login { background: rgb(239, 176, 125); background: linear-gradient(45deg, #006633 0%, #003333 90%); }
         .banner_login img { width: 100%; }
     </style>
 </head>
@@ -31,8 +31,8 @@ date_default_timezone_set('Asia/Bangkok');
         <div class="row">
             <div class="col-md-5" style="padding-right: 0;">
                 <div class="login-wrap">
-                    <h3 style="color: #000;">CHOLADA COFFEE</h3>
-                    <h4>ยินดีต้อนรับระบบแอดมิน,</h4>
+                    <h3 style="color: #000;">GSPA NIDA</h3>
+                    <h4>ยินดีต้อนรับระบบแอดมิน</h4>
                     <h3 style="margin-top: 0; color: #000;">เข้าสู่ระบบ</h3>
                     <div class="login-form">
                         <?php if(@$_GET["error"] == 1) { ?><div class="alert alert-danger" role="alert">อีเมล์/รหัสผ่าน ไม่ถูกต้อง</div><?php } ?>

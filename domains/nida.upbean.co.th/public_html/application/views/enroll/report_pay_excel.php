@@ -3,23 +3,28 @@ $start_date_sql = $this->center_function->ConvertToSQLDate($param['start_date'])
 $end_date_sql = $this->center_function->ConvertToSQLDate($param['end_date']);
 $date = "วันที่ ".$this->center_function->ConvertToThaiDate($start_date_sql,1,0)
     ." ถึงวันที่ ".$this->center_function->ConvertToThaiDate($end_date_sql,1,0);
-if ($param['branch'] == 0){
-    $br_name = "ทั้งหมด";
-} else {
-    $br_name = $branch['name'];
+
+    if ($param['subject'] != ''){
+    $subject_name = $subject['name'];
+    // print_r($subject);
+} 
+else {
+    $subject_name = "ทั้งหมด";
 }
 
 if ($_GET['unpaid'] == 'on'){
-    $type_and_branch = "สถานะ   รอชำระเงิน   หลักสูตร   ".$br_name;
-    $total_size = 12;
-} else if ($_GET['paid'] == 'on'){
-    $type_and_branch = "สถานะ   ชำระแล้ว   หลักสูตร   ".$br_name;
-    $total_size = 12;
+    $type_and_subject = "สถานะ   รอชำระเงิน   หลักสูตร   ".$subject_name;
+    $total_size = 14;
 } 
-// else {
-//     $total_size = 12;
-//     $type_and_branch = "การชำระเงิน   ทั้งหมด   สาขา   ".$br_name;
-// }
+else if ($_GET['paid'] == 'on'){
+    $type_and_subject = "สถานะ   ชำระเงินแล้ว   หลักสูตร   ".$subject_name;
+    $total_size = 14;
+} 
+else {
+    $type_and_subject = "สถานะ   ทั้งหมด   หลักสูตร   ".$subject_name;
+    $total_size = 14;
+} 
+
 ?>
 <?php
 header("Content-type: application/vnd.ms-excel;charset=utf-8;");
@@ -111,7 +116,7 @@ date_default_timezone_set('Asia/Bangkok');
 						<th class="table_title" colspan="<?php echo $total_size ?>"><?php echo $date ?></th>
 					</tr>
                     <tr>
-                        <th class="table_title" colspan="<?php echo $total_size ?>" rowspan="2"><?php echo $type_and_branch ?></th>
+                        <th class="table_title" colspan="<?php echo $total_size ?>" rowspan="2"><?php echo $type_and_subject ?></th>
 					</tr>
                 </tr>
 			</table>
@@ -120,9 +125,10 @@ date_default_timezone_set('Asia/Bangkok');
 				<thead>
 					<tr>
 						<th class="table_header_top" colspan="2" style="vertical-align: middle;">ลำดับ</th>
-						<th class="table_header_top" colspan="3" style="vertical-align: middle;">วันที่/เวลา</th>
-						<th class="table_header_top" colspan="2" style="vertical-align: middle;">Ref1/เลขที่คำสั่งซื้อ/รหัสการทำรายการ</th>
-                        <th class="table_header_top" colspan="3" style="vertical-align: middle;">หลักสูตร</th>
+						<th class="table_header_top" colspan="3" style="vertical-align: middle;">วันที่ลงทะเบียน</th>
+						<th class="table_header_top" colspan="2" style="vertical-align: middle;">Ref1</th>
+                        <th class="table_header_top" colspan="3" style="vertical-align: middle;">ชื่อนามสกุล</th>
+                        <th class="table_header_top" colspan="2" style="vertical-align: middle;">สถานะ</th>
                         <th class="table_header_top" colspan="2"  style="vertical-align: middle;">จำนวนเงิน</th>
 					</tr>
 				</thead>
@@ -136,23 +142,14 @@ date_default_timezone_set('Asia/Bangkok');
                     ?>
                     <tr>
 								<td class="table_body" colspan="2" style="text-align: center;"><?php echo $count;?></td>
-                                <?php if (empty($data['order_created'])){ ?>
-                                    <td class="table_body" colspan="3" style="text-align: center;"><?php echo $this->center_function->ConvertToThaiDate($data['import_created']); ?></td>
-                                <?php } else { ?>
-                                    <td class="table_body" colspan="3" style="text-align: center;"><?php echo $this->center_function->ConvertToThaiDate($data['order_created']); ?></td>
-                                <?php }
-                                if (!empty($data['ref_1'])){ ?>
-                                    <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['ref_1'];?></td>
-                                <?php } else {?>
-                                    <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['ref'];?></td>
-                                <?php } ?>
-                                
-								    <td class="table_body" colspan="3" style="text-align: left;"><?php echo $data['name'] ?></td>
-                                
-								<td class="table_body" colspan="2" style="text-align: right;"><?php echo number_format($data['payment_amt'],2) ?></td>
+                                <td class="table_body" colspan="3" style="text-align: center;"><?php echo $this->center_function->ConvertToThaiDate($data['order_created']); ?></td>
+                                <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['ref_1']?></td>
+                                <td class="table_body" colspan="3" style="text-align: left;"><?php echo $data['firstname']."   ".$data['lastname'] ?></td>
+                                <td class="table_body" colspan="2" style="text-align: left;"><?php echo $data['payment_status'] ?></td>
+								<td class="table_body" colspan="2" style="text-align: right;"><?php echo number_format($data['enroll_cost'],2) ?></td>
 						  </tr>
                     <?php
-                        $total += $data['payment_amt'];
+                        $total += $data['enroll_cost'];
                     }
                 ?>
                             <tr>

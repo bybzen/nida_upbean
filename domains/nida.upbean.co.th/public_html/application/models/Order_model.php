@@ -8,11 +8,19 @@ class Order_model extends CI_Model
         parent::__construct();
     }
 
-    function get_order_data($id=null){
+    function get_order_data($search=null){
+        $where = "t1.status = 1 AND t2.name = ".'"'.'สาขากรุงเทพ'.'"';
         $where = "t1.status = 1 ";
+        $where = "t1.status = 1";
         if (!empty($id)){
             $where .= " AND t1.id = ".$id;
         }
+
+        if (!empty($search)){
+            $where .= " AND t2.id = ".$search;
+            // $where .= " AND t2.name = 'สาขากรุงเทพ'";
+        }
+
         $sql = "SELECT t1.* , t2.name AS branch_name , t2.tel as branch_tel FROM coop_order AS t1
                 INNER JOIN coop_branch AS t2 ON t1.branch_id = t2.id where ".$where." ORDER BY t1.created_at DESC";
         $rs = $this->db->query($sql)->result_array();
@@ -55,6 +63,7 @@ class Order_model extends CI_Model
         $data['no'] = $no;
         return $data;
     }
+
 
     function create_order($param){
         $process_time = date("Y-m-d H:i:s");
@@ -209,26 +218,53 @@ class Order_model extends CI_Model
     }
 
     function get_report_data($param){
-        $where = "t4.status = 1 AND (t2.status IS NULL OR t2.status = 1)";
-        if (!empty($param['type'])){
-            $type = $param['type'];
-            if ($type == 1){
-                $where .= " AND t1.order_id IS NOT NULL ";
-            } else if ($type == 2){
-                $where .= " AND t1.order_id IS NULL ";
-            }
+        // $where = "t4.status = 1 AND (t2.status IS NULL OR t2.status = 1)";
+        // if (!empty($param['type'])){
+        //     $type = $param['type'];
+        //     if ($type == 1){
+        //         $where .= " AND t1.order_id IS NOT NULL ";
+        //     } else if ($type == 2){
+        //         $where .= " AND t1.order_id IS NULL ";
+        //     }
+        // }
+
+        // $start_date =  "'".$this->center_function->ConvertToSQLDate($param['start_date'])." 00:00:00'";
+        // $end_date = "'".$this->center_function->ConvertToSQLDate($param['end_date'])." 23:59:59'";
+        // $where .= " AND t4.created_at BETWEEN ".$start_date." AND ".$end_date;
+        // if ($param['branch'] != 0 and $param['type'] != 2){
+        //     $where .= " AND t3.id = ".$param['branch'];
+        // }
+        // $sql = "SELECT t1.* , t2.ref_1 , t2.created_at AS order_created ,t4.created_at AS import_created ,t2.order_no, t3.name FROM coop_import_detail AS t1
+        //         left JOIN coop_order AS t2 ON t1.order_id = t2.id
+        //         LEFT JOIN coop_branch AS t3 ON t2.branch_id = t3.id
+        //         LEFT JOIN coop_import AS t4 ON t4.id = t1.import_id where ".$where;
+
+
+        // ----- new -----
+        $where ="";
+
+        if ($param['branch'] != 0){
+            $where .= " AND t2.id = ".$param['branch'];
         }
 
-        $start_date =  "'".$this->center_function->ConvertToSQLDate($param['start_date'])." 00:00:00'";
-        $end_date = "'".$this->center_function->ConvertToSQLDate($param['end_date'])." 23:59:59'";
-        $where .= " AND t4.created_at BETWEEN ".$start_date." AND ".$end_date;
-        if ($param['branch'] != 0 and $param['type'] != 2){
-            $where .= " AND t3.id = ".$param['branch'];
-        }
-        $sql = "SELECT t1.* , t2.ref_1 , t2.created_at AS order_created ,t4.created_at AS import_created ,t2.order_no, t3.name FROM coop_import_detail AS t1
-                left JOIN coop_order AS t2 ON t1.order_id = t2.id
-                LEFT JOIN coop_branch AS t3 ON t2.branch_id = t3.id
-                LEFT JOIN coop_import AS t4 ON t4.id = t1.import_id where ".$where;
+        // else if ($param['branch'] != 0){
+        //     $where .= " AND t2.id = ".$param['branch'];
+        // }
+
+        if (!empty($param['type'])){
+                $type = $param['type'];
+                if ($type == 1){
+                    $sql = "SELECT t1.* ,  t1.created_at AS order_created ,t1.order_no, t2.name FROM coop_order AS t1
+                    LEFT JOIN coop_branch AS t2 ON t1.branch_id = t2.id
+                    WHERE t1.payment_status = 1".$where;
+                    
+                } else if ($type == 2){
+                    $sql = "SELECT t1.* ,  t1.created_at AS order_created ,t1.order_no, t2.name FROM coop_order AS t1
+                    LEFT JOIN coop_branch AS t2 ON t1.branch_id = t2.id
+                    WHERE t1.payment_status = 0".$where;
+                   
+                }
+            }
 
         return $this->db->query($sql)->result_array();
     }
@@ -257,4 +293,5 @@ class Order_model extends CI_Model
         return $this->db->query($sql)->result_array();
     }
 
+    
 }

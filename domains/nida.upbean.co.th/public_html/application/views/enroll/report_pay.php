@@ -36,9 +36,10 @@
         <div class="row gutter-xs">
             <div class="col-xs-12 col-md-12">
                 <div class="panel panel-body" style="padding-top:0px !important;">
-                    <div class="g24-col-sm-24">
-                        <h3>รายงานการสมัคร</h3>
+                    <div class="text-center" style=" margin-bottom: 20px">
+                        <h3><b> รายงานการสมัคร </b></h3>
                     </div>
+                    
                     <form method="GET" action="" id="pdf_excel_form" target="_blank">
                         <div class="g24-col-sm-24 mar-10">
                             <label class="g24-col-sm-8">วันที่</label>
@@ -58,13 +59,13 @@
                         <div class="g24-col-sm-24 mar-10">
                             <label class="g24-col-sm-8">สถานะ</label>
 
-                            <!-- <div class="g24-col-sm-1 div-radio">
-                                <input class="radio-click" type="radio" id="radio-1" checked name="type_all">
+                            <div class="g24-col-sm-1 div-radio">
+                                <input class="radio-click" type="radio" id="radio-3" checked name="paid_all">
                             </div>
-                            <label class="g24-col-sm-2 txt-left">ทั้งหมด</label> -->
+                            <label class="g24-col-sm-2 txt-left">ทั้งหมด</label>
 
                             <div class="g24-col-sm-1 div-radio">
-                                <input class="radio-click" type="radio" id="radio-1" name="paid" checked>
+                                <input class="radio-click" type="radio" id="radio-1" name="paid">
                             </div>
                             <label class="g24-col-sm-3 txt-left" >ชำระเงินแล้ว</label>
                             
@@ -78,11 +79,11 @@
                         <div class="g24-col-sm-24 mar-10" id="div-branch">
                             <label class="g24-col-sm-8">หลักสูตร</label>
                             <div class="g24-col-sm-7">
-                                <select id="branch" name="branch" class="form-control" type="text">
-                                    <option value="0" selected>--เลือกหลักสูตร--</option>
+                                <select id="subject" name="subject" class="form-control" type="text">
+                                    <option value="" selected>---- เลือกหลักสูตร ----</option>
 
-                                    <?php foreach ($branch as $value){ ?>
-                                        <option value="<?php echo $value['id'] ?>"><?php echo $value['name'] ?></option>
+                                    <?php foreach ($subject as $value){ ?>
+                                        <option value="<?php echo $value['name'] ?>"><?php echo $value['name'] ?></option>
                                     <?php } ?>
 
                                 </select>
@@ -101,6 +102,7 @@
         </div>
     </div>
 </div>
+<?php echo '55sds' ?>
 <script>
     $(document).ready(function(){
         $(".my-date").datepicker({
@@ -124,14 +126,13 @@
                 warning_text += "กรุณากรอกวันที่\n";
                 
             }
-
-            // else if ($('#branch').val() == 0){
-            //     warning_text += "กรุณาเลือกหลักสูตร\n"
-            // }
+            else if ($('#subject').val() == ''){
+                warning_text += "กรุณาเลือกหลักสูตร\n"
+            }
 
 
             if (warning_text == ""){
-                $('#pdf_excel_form').attr("action",base_url + "order/report_pay_pdf");
+                $('#pdf_excel_form').attr("action",base_url + "enroll/report_pay_pdf");
                 $('#pdf_excel_form').submit();
             } else {
                 swal("กรุณากรอกข้อมูล",warning_text,"warning")
@@ -143,8 +144,12 @@
             if ($('#start_date').val() == "" || $('#end_date').val() == ""){
                 warning_text += "กรุณากรอกวันที่\n";
             }
+            else if ($('#subject').val() == ''){
+                warning_text += "กรุณาเลือกหลักสูตร\n"
+            }
+
             if (warning_text == ""){
-                $('#pdf_excel_form').attr("action",base_url + "order/report_pay_excel");
+                $('#pdf_excel_form').attr("action",base_url + "enroll/report_pay_excel");
                 $('#pdf_excel_form').submit();
             } else {
                 swal("กรุณากรอกข้อมูล",warning_text,"warning")
@@ -156,20 +161,21 @@
             // เลือก radio-1 ไม่เลือก 2-3
             if (id == 'radio-1'){
                 $('#radio-2').prop('checked',false); 
-                // $('#radio-3').prop('checked',false);
+                $('#radio-3').prop('checked',false);
                 $('#div-branch').attr('style','');
             } 
             // เลือก radio-2 ไม่เลือก 1-3
             else if (id == 'radio-2'){
                 $('#radio-1').prop('checked',false);
-                // $('#radio-3').prop('checked',false);
+                $('#radio-3').prop('checked',false);
                 $('#div-branch').attr('style','');
             }
-            //  else if (id == 'radio-3'){
-            //     $('#radio-1').prop('checked',false);
-            //     $('#radio-2').prop('checked',false);
-            //     // $('#div-branch').attr('style','display:none');
-            // }
+            // เลือก radio-3 ไม่เลือก 1-2
+            else if (id == 'radio-3'){
+                $('#radio-1').prop('checked',false);
+                $('#radio-2').prop('checked',false);
+                $('#div-branch').attr('style','');
+            }
         });
     });
 </script>
