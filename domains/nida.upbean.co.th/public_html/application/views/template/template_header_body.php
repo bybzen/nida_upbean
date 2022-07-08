@@ -181,7 +181,6 @@ function get_menu_id($menus, $url) {
                                     </a>
                                 </li>
                         <?php
-
                             }
                         } ?>
 
