@@ -16,9 +16,9 @@ $col_x_3 = $col_w_2 + $col_x_2;
 $col_w_3 = 65;
 $col_x_4 = $col_w_3 + $col_x_3;
 $col_w_4 = 30;
-$col_x_5 = $col_w_4 + $col_x_4;
-$col_w_5 = 50;
-$col_x_6 = $col_w_5 + $col_x_5;
+$col_x_5 = $col_w_4 + $col_x_4 + 5;
+$col_w_5 = 20;
+$col_x_6 = $col_w_5 + $col_x_5 - 5;
 $col_w_6 = 30;
 
 $pdf = new FPDI('P','mm', "A4");
@@ -34,34 +34,29 @@ $end_date_sql = $this->center_function->ConvertToSQLDate($param['end_date']);
 $date = "วันที่ ".$this->center_function->ConvertToThaiDate($start_date_sql,1,0)
        ." ถึงวันที่ ".$this->center_function->ConvertToThaiDate($end_date_sql,1,0);
 
-if ($param['branch'] != 0){
-    $br_name = $branch['name'];
-    // print_r($branch);
+if ($param['subject'] != ''){
+    $subject_name = $subject['name'];
+    // print_r($subject);
 } 
-else {
-    $br_name = "ทั้งหมด";
-}
+// else {
+//     $subject_name = "ทั้งหมด";
+// }
 
-// if ($_GET['unpaid'] == 'on'){
-//     $type_and_branch = "การชำระเงิน   รายการที่ไม่พบ";
-//     $col_x_2 += 10;
-//     $col_x_3 += 15;
-
-// } 
 
  if ($_GET['paid'] == 'on'){
-    $type_and_branch = "สถานะ   ชำระแล้ว   หลักสูตร    ".$br_name;
-    $stat = 1;
-    // echo $stat;
+    $type_and_subject = "สถานะ   ชำระเงินแล้ว   หลักสูตร   ".$subject_name;
+
+
 } 
 else if ($_GET['unpaid'] == 'on'){
-    $type_and_branch = "สถานะ   รอชำระเงิน  หลักสูตร    ".$br_name;
-    $stat = 0;
-    // echo $stat;
+    $type_and_subject = "สถานะ   รอชำระเงิน   หลักสูตร   ".$subject_name;
+    
 }
-// else {
-//     $type_and_branch = "สถานะ   ทั้งหมด    หลักสูตร    ".$br_name;
-// }
+
+else{
+    $type_and_subject = "สถานะ   ทั้งหมด   หลักสูตร   ".$subject_name;
+}
+
 
 
 if(!empty($datas)){
@@ -87,33 +82,33 @@ if(!empty($datas)){
 
             $y_point += 10;
             $pdf->SetXY( 0, $y_point );
-            $pdf->MultiCell(210, 10, U2T($type_and_branch), 0, "C");
+            $pdf->MultiCell(210, 10, U2T($type_and_subject), 0, "C");
 
 
             $y_point += 10;
             $pdf->SetXY( $col_x_1, $y_point );
-            $pdf->MultiCell(190, 10, "", "B", "C");
+            $pdf->MultiCell(195, 10, "", "B", "C");
             $pdf->SetFont('b', '', 15 );
             $pdf->setXY($col_x_1,$y_point);
             $pdf->MultiCell($col_w_1, 10, U2T("ลำดับ"), 0, "C");
 
             $pdf->setXY($col_x_2,$y_point);
-            $pdf->MultiCell($col_w_2, 10, U2T("วันที่/เวลา"), 0, "C");
+            $pdf->MultiCell($col_w_2, 10, U2T("วันที่ลงทะเบียน"), 0, "C");
 
             $pdf->setXY($col_x_3,$y_point);
-            $pdf->MultiCell($col_w_3, 10, U2T("Ref1/เลขที่คำสั่งซื้อ/รหัสการทำรายการ"), 0, "C");
+            $pdf->MultiCell($col_w_3, 10, U2T("Ref1"), 0, "C");
 
-            // if ($_GET['unpaid'] != 'on'){
-                $pdf->setXY($col_x_4,$y_point);
-                $pdf->MultiCell($col_w_4, 10, U2T("หลักสูตร"), 0, "C");
-            // }
-
+            
+            $pdf->setXY($col_x_4,$y_point);
+            $pdf->MultiCell($col_w_4, 10, U2T("ชื่อนามสกุล"), 0, "C");
+            
             $pdf->setXY($col_x_5,$y_point);
-            $pdf->MultiCell($col_w_5, 10, U2T("จำนวนเงิน"), 0, "C");
+            $pdf->MultiCell($col_w_5, 10, U2T("สถานะ"), 0, "C");
+
+            $pdf->setXY($col_x_6,$y_point);
+            $pdf->MultiCell($col_w_6, 10, U2T("จำนวนเงิน"), 0, "R");
 
         }
-
-        
 
         $count++;
         $y_point += 10;
@@ -135,15 +130,17 @@ if(!empty($datas)){
             $pdf->MultiCell($col_w_3, 10, U2T($data['ref']), 0, "C");
         }
 
-        // if ($_GET['unpaid'] != 'on') {
-            $pdf->setXY($col_x_4, $y_point);
-            $pdf->MultiCell($col_w_4, 10, U2T($data['name']), 0, "L");
-            
-        // }
+        
+        $pdf->setXY($col_x_4, $y_point);
+        $pdf->MultiCell($col_w_4, 10, U2T($data['firstname']."   ".$data['lastname']), 0, "C");
+        
+        $pdf->setXY($col_x_5, $y_point);
+        $pdf->MultiCell($col_w_5, 10, U2T($data['payment_status']), 0, "C");
+        
 
-        $pdf->setXY($col_x_5,$y_point);
-        $pdf->MultiCell($col_w_5, 10, U2T(number_format($data['payment_amt'],2)), 0, "R");
-        $total += $data['payment_amt'];
+        $pdf->setXY($col_x_6,$y_point);
+        $pdf->MultiCell($col_w_6, 10, U2T(number_format($data['enroll_cost'],2)), 0, "R");
+        $total += $data['enroll_cost'];
         
     }
 } 
@@ -168,7 +165,7 @@ else {
 
     $y_point += 10;
     $pdf->SetXY( 0, $y_point );
-    $pdf->MultiCell(210, 10, U2T($type_and_branch), 0, "C");
+    $pdf->MultiCell(210, 10, U2T($type_and_subject), 0, "C");
 
 
     $y_point += 10;
@@ -179,25 +176,27 @@ else {
     $pdf->MultiCell($col_w_1, 10, U2T("ลำดับ"), 0, "C");
 
     $pdf->setXY($col_x_2,$y_point);
-    $pdf->MultiCell($col_w_2, 10, U2T("วันที่/เวลา"), 0, "C");
+    $pdf->MultiCell($col_w_2, 10, U2T("วันที่สมัคร"), 0, "C");
 
     $pdf->setXY($col_x_3,$y_point);
-    $pdf->MultiCell($col_w_3, 10, U2T("Ref1/เลขที่คำสั่งซื้อ/รหัสการทำรายการ"), 0, "C");
+    $pdf->MultiCell($col_w_3, 10, U2T("Ref1"), 0, "C");
 
-    // if ($_GET['unpaid'] != 'on'){
-        $pdf->setXY($col_x_4,$y_point);
-        $pdf->MultiCell($col_w_4, 10, U2T("หลักสูตร"), 0, "C");
-    // }
-
+    
+    $pdf->setXY($col_x_4,$y_point);
+    $pdf->MultiCell($col_w_4, 10, U2T("ชื่อนามสกุล"), 0, "C");
+    
     $pdf->setXY($col_x_5,$y_point);
-    $pdf->MultiCell($col_w_5, 10, U2T("จำนวนเงิน"), 0, "C");
+    $pdf->MultiCell($col_w_5, 10, U2T("สถานะ"), 0, "C");
+
+    $pdf->setXY($col_x_6,$y_point);
+    $pdf->MultiCell($col_w_6, 10, U2T("จำนวนเงิน"), 0, "R");
 }
 $y_point += 10;
 $pdf->SetXY( $col_x_1, $y_point );
-$pdf->MultiCell(190, 10, "", "T", "C");
+$pdf->MultiCell(195, 10, "", "T", "C");
 $pdf->SetFont('b', '', 15 );
-$pdf->setXY($col_x_5,$y_point);
-$pdf->MultiCell($col_w_5, 10, U2T("รวม   ".number_format($total,2)), 0, "R");
+$pdf->setXY($col_x_6,$y_point);
+$pdf->MultiCell($col_w_6, 10, U2T("รวม   ".number_format($total,2)), 0, "R");
 
 $pdf->Output();
 ?>

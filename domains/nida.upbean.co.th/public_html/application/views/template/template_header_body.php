@@ -69,7 +69,7 @@ function get_menu_id($menus, $url) {
     <div class="navbar navbar-default">
         <div class="navbar-header">
             <a class="navbar-brand navbar-brand-center" href="/">
-                <span style="font-size: 28px;font-family: 'upbean';letter-spacing:3px;font-weight:bold;"><?php echo $_SESSION['COOP_SHORT_NAME_EN']; ?></span>
+                <span style="font-size: 28px;font-family: 'upbean';letter-spacing:3px;font-weight:bold;">GSPA NIDA</span>
             </a>
             <button class="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse" data-target="#sidenav">
                 <span class="sr-only">Toggle navigation</span>
@@ -172,7 +172,7 @@ function get_menu_id($menus, $url) {
                     ?>
                     <ul class="sidenav">
                         <li class="sidenav-heading">เมนูหลัก</li>
-                        <?php if (!empty($left_menu)){
+                        <!-- <?php if (!empty($left_menu)){
                             foreach ($left_menu as $index => $val){
                                 ?>
                                 <li class="sidenav-item<?php if($current_path == $val['menu_url']) { ?> active<?php } ?>">
@@ -183,7 +183,26 @@ function get_menu_id($menus, $url) {
                         <?php
 
                             }
-                        } ?>
+                        } ?> -->
+
+                        <li class="sidenav-item<?php if($current_path == '/subject/index') { ?> active<?php } ?>">
+                            <a href="<?php echo PROJECTPATH; ?>/subject/index">
+                                <span class="sidenav-label">จัดการหลักสูตร</span>
+                            </a>
+                        </li>
+
+                        <li class="sidenav-item<?php if($current_path == '/enroll/manage_qr') { ?> active<?php } ?>">
+                            <a href="<?php echo PROJECTPATH; ?>/enroll/manage_enroll">
+                                <span class="sidenav-label">ข้อมูลการสมัคร</span>
+                            </a>
+                        </li>
+
+                        <li class="sidenav-item<?php if($current_path == '/enroll/report_pay') { ?> active<?php } ?>">
+                            <a href="<?php echo PROJECTPATH; ?>/enroll/report_pay">
+                                <span class="sidenav-label">รายงานการสมัคร</span>
+                            </a>
+                        </li>
+
                         <li class="sidenav-item<?php if($current_path == '/main_menu/profile') { ?> active<?php } ?>">
                             <a href="<?php echo PROJECTPATH; ?>/main_menu/profile">
                                 <span class="sidenav-label">เปลี่ยนรหัสผ่าน</span>

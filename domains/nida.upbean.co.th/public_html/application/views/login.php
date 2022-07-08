@@ -21,7 +21,7 @@ date_default_timezone_set('Asia/Bangkok');
         .login-body { padding: 0; }
         .login-wrap { padding: 80px 30px; }
         .login-brand { margin-left: 0; margin-right: 0; width: 170px; }
-        .banner_login { background: rgb(239, 176, 125); background: linear-gradient(45deg, rgb(53, 208, 58) 0%, rgb(9, 137, 7) 100%); }
+        .banner_login { background: rgb(239, 176, 125); background: linear-gradient(45deg, #006633 0%, #003333 90%); }
         .banner_login img { width: 100%; }
     </style>
 </head>

@@ -55,3 +55,9 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['pay/(:any)'] = 'Enroll/print_pay_in/$1';
 $route['enroll/bill_payment/(:any)'] = 'Enroll/print_qr/$1';
+//$route['folder_view/file_view'] = 'folder_controller/function_controller';
+$route['enroll/manage_qr'] = 'enroll/manage_enroll';
+$route['enroll/report_pay'] = 'enroll/report_pay';
+$route['enroll/report_pay_pdf'] = 'enroll/report_pay_pdf';
+
+

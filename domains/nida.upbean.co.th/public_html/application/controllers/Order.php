@@ -12,6 +12,8 @@ class Order extends CI_Controller
     }
 
     function manage_qr(){
+        $search = $_GET['filter_serach'];
+        // echo json_encode($search);
         $arr_data = array();
         $result = $this->Branch->get_branch(1);
         $arr_data['branch'] = $result;
@@ -19,6 +21,8 @@ class Order extends CI_Controller
         $arr_data['orders'] = $orders;
         $this->libraries->template('order/manage_qr',$arr_data);
     }
+    
+    
 
     function gen_qr(){
         $arr_data = array();
@@ -118,9 +122,9 @@ class Order extends CI_Controller
 
     function report_pay_pdf(){
         $arr_data = array();
-        if ($_GET['type_found'] == 'on'){
+        if ($_GET['paid'] == 'on'){
             $_GET['type'] = 1;
-        } else if ($_GET['type_not_found'] == 'on'){
+        } else if ($_GET['unpaid'] == 'on'){
             $_GET['type'] = 2;
         }
         $arr_data['datas'] = $this->Order->get_report_data($_GET);
@@ -133,9 +137,9 @@ class Order extends CI_Controller
 
     function report_pay_excel(){
         $arr_data = array();
-        if ($_GET['type_found'] == 'on'){
+        if ($_GET['paid'] == 'on'){
             $_GET['type'] = 1;
-        } else if ($_GET['type_not_found'] == 'on'){
+        } else if ($_GET['unpaid'] == 'on'){
             $_GET['type'] = 2;
         }
         $arr_data['datas'] = $this->Order->get_report_data($_GET);
@@ -155,9 +159,9 @@ class Order extends CI_Controller
 
     function report_all_pay_pdf(){
         $arr_data = array();
-        if ($_GET['type_found'] == 'on'){
+        if ($_GET['paid'] == 'on'){
             $_GET['type'] = 1;
-        } else if ($_GET['type_not_found'] == 'on'){
+        } else if ($_GET['unpaid'] == 'on'){
             $_GET['type'] = 2;
         }
         $arr_data['datas'] = $this->Order->get_report_total_data($_GET);
@@ -170,9 +174,9 @@ class Order extends CI_Controller
 
     function report_all_pay_excel(){
         $arr_data = array();
-        if ($_GET['type_found'] == 'on'){
+        if ($_GET['paid'] == 'on'){
             $_GET['type'] = 1;
-        } else if ($_GET['type_not_found'] == 'on'){
+        } else if ($_GET['unpaid'] == 'on'){
             $_GET['type'] = 2;
         }
         $arr_data['datas'] = $this->Order->get_report_total_data($_GET);
@@ -182,6 +186,7 @@ class Order extends CI_Controller
         }
         $this->load->view('order/report_all_pay_excel',$arr_data);
     }
+
 
     function ajax_generate_ref(){
         $branch_id = $_POST['branch_id'];
@@ -224,4 +229,7 @@ class Order extends CI_Controller
         $this->Order->delete_import($_POST['id']);
     }
 
+    
+ 
+   
 }

@@ -13,24 +13,27 @@
             <div class="col-xs-12 col-md-12">
                 <div class="panel panel-body" style="padding-top:0px !important;">
                     <div class="g24-col-sm-24">
-                        <h3>จัดการสาขา</h3>
-                        <button id='add_btn' class="btn btn-primary" style="float: right; margin: 10px">เพิ่มสาขา</button>
+                        <h3>จัดการหลักสูตร</h3>
+                        <button id='add_btn' class="btn btn-primary" style="float: right; margin: 10px">เพิ่มหลักสูตร</button>
                     </div>
                     <div class="g24-col-sm-24">
                         <table class="table">
                             <tr>
                                 <th class="text-center">ลำดับ</th>
-                                <th class="text-center">รหัสสาขา</th>
-                                <th class="text-center">ชื่อสาขา</th>
+                                <th class="text-center">รหัสหลักสูตร</th>
+                                <th class="text-center">ชื่อหลักสูตร</th>
+                                <th class="text-center">ค่าลงทะเบียน</th>
                                 <th class="text-center"></th>
                             </tr>
                             <tbody id = 'branch_data'>
                                 <?php
                                 foreach ($branch as $index => $value) {?>
                                 <tr>
-                                    <td class="text-center"><?php echo $index+1 ?></td>
-                                    <td class="text-center"><?php echo $value['code'] ?></td>
-                                    <td class="text-left"><?php echo $value['name'] ?></td>
+                                    <td class="text-center"><?php echo $index+1 ?></td>  <!--- ลำดับ --->
+                                    <td class="text-center"><?php echo $value['code'] ?></td>  <!--- รหัสหลักสูตร --->
+                                    <td class="text-left"><?php echo $value['name'] ?></td>   <!--- ชื่อหลักสูตรเป็น link --->
+                                    <td class="text-center"><?php echo $index+1 ?></td> <!-- ค่าลงทะเบียน -->
+
                                     <td class="text-center">
                                         <a onclick="edit(<?php echo $value['id'] ?>)">แก้ไข</a>
                                         |
@@ -52,26 +55,26 @@
         <div class="modal-content data_modal">
             <div class="modal-header modal-header-confirmSave">
                 <button type="button" class="close" data-dismiss="modal">x</button>
-                <h2 class="modal-title" id="type_name">เพิ่มสาขา</h2>
+                <h2 class="modal-title" id="type_name">เพิ่มหลักสูตร</h2>
             </div>
-            <div class="modal-body" style="height: 180px">
+            <div class="modal-body" style="height: 300px">
                 <form id="modal_form">
                     <input type="hidden" id="modal_type">
                     <input type="hidden" id="branch_id" name="id">
                     <div class="g24-col-sm-24 margin-10">
-                        <label class="g24-col-sm-4 text-right label-margin"> ชื่อ </label>
+                        <label class="g24-col-sm-5 text-right label-margin"> ชื่อหลักสูตร </label>
                         <div class="g24-col-sm-10">
                             <input type="text" class="form-control" id="name" name="name">
                         </div>
-                        <label class="g24-col-sm-3 text-right label-margin">รหัส</label>
+                        <label class="g24-col-sm-4 text-right label-margin">รหัสหลักสูตร </label>
                         <div class="g24-col-sm-5">
                             <input type="text" class="form-control" id="code" name="code">
                         </div>
                     </div>
                     <div class="g24-col-sm-24 margin-10">
-                        <label class="g24-col-sm-4 text-right label-margin">เบอร์โทร</label>
-                        <div class="g24-col-sm-18">
-                            <input type="text" class="form-control" id="tel" name="tel">
+                        <label class="g24-col-sm-5 text-right label-margin">ค่าลงทะเบียน</label>
+                        <div class="g24-col-sm-10">
+                            <input type="text" class="form-control" id="" name="">
                         </div>
                     </div>
                 </form>
@@ -105,13 +108,13 @@
             let code = $('#code').val();
             let tel = $('#tel').val();
             if (name == ''){
-                warning_text += '-ชื่อสาขา\n';
+                warning_text += '-ชื่อหลักสูตร\n';
             }
             if (code == ''){
-                warning_text += '-รหัสสาขา\n';
+                warning_text += '-รหัสหลักสูตร\n';
             }
             if (tel == ''){
-                warning_text += '-เบอร์โทร\n';
+                warning_text += '-ค่าลงทะเบียน\n';
             }
             if (warning_text != ''){
                 swal('กรุณากรอกข้อมูล',warning_text,'warning');

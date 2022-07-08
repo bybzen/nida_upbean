@@ -1,57 +1,88 @@
 <style>
     .margin-10 {
-        margin: 7px;
+        margin: 7px ;
     }
 
     .label-margin {
-        margin-top: 8px;
+        margin-top: 8px ;
     }
 </style>
+
+
+
+
+
 <div class="layout-content">
     <div class="layout-content-body">
         <div class="row gutter-xs">
             <div class="col-xs-12 col-md-12">
                 <div class="panel panel-body" style="padding-top:0px !important;">
-                    <div class="g24-col-sm-24">
-                        <h3>จัดการ QRCODE</h3>
-                        <button id='add_btn' class="btn btn-primary" style="float: right; margin: 10px">เพิ่มรายการ</button>
+                    <div class="g24-col-sm-24" style="margin-bottom: 0px">
+                        <h2>ข้อมูลการสมัคร</h2>
                     </div>
+                        <!-- <div class="g24-col-sm-24">
+                            <h3 class="g24-col-sm-2">ค้นหา</h3>
+                            <button id='add_btn' class="btn btn-primary" style="float: left; margin: 10px 500px 0px ">เพิ่มรายการ</button>
+                            <div class="" style="float: left; margin: 5px">
+                                <input type="text" class="form-control" id="" name="">
+                            </div>
+                        </div> -->
+                        <form method="POST" id="search">
+                            <div class="" style="margin-bottom: 20px">
+                                <label><h2>ค้นหา</h2></label>
+                                <input  id="filter_search" class="" name="filter_search" type="number" style="width:350px;  height : 35px; margin-left : 10px;"  placeholder="ชื่อนามสกุล/เบอร์โทร/เลขบัตรประชาชน">
+                            </div>  
+                        </form>
+                        
+                        <!-- margin: top right bottom left -->
+                        <div style=" margin:-65px 0px 20px 427px " > 
+                            <button onclick="search_branch(<?php echo $_POST["filter_search"] ?>)" id='btn_search' class="btn btn-primary"  name="btn_search" >ค้นหา</button>                   
+                        </div>
+                        
+                        
+                            
                     <div class="g24-col-sm-24">
-                        <table class="table">
+                        <table class="table" >
                             <tr>
                                 <th class="text-center">ลำดับ</th>
-                                <th class="text-center">วันที่สร้าง</th>
-                                <th class="text-center">สาขา</th>
-                                <th class="text-center">เลขที่คำสั่งซื้อ</th>
-                                <th class="text-center">ยอดเงิน</th>
                                 <th class="text-center">Ref1</th>
                                 <th class="text-center">Ref2</th>
+                                <th class="text-center">วันที่/เวลา</th>
+                                <th class="text-center">ชื่อนามสกุล</th>
+                                <th class="text-center">เบอร์โทร/เลขบัตร ปชช</th>
+                                <th class="text-center">หลักสูตร</th>
+                                <th class="text-center">จำนวนเงิน</th>
                                 <th class="text-center">สถานะ</th>
-                                <th class="text-center">ยอดชำระ</th>
-                                <th class="text-center">วันที่ชำระ</th>
                                 <th class="text-center"></th>
                             </tr>
                             <?php foreach ($orders as $index => $order){ ?>
+                                
                                 <tr>
-                                    <td class="text-center"><?php echo $index+1 ?></td>
-                                    <td class="text-center"><?php echo $this->center_function->ConvertToThaiDate($order['created_at']) ?></td>
-                                    <td class="text-left"><?php echo $order['branch_name'] ?></td>
-                                    <td class="text-center"><?php echo $order['order_no'] ?></td>
-                                    <td class="text-right"><?php echo number_format($order['value'],2) ?></td>
-                                    <td class="text-center"><?php echo $order['ref_1'] ?></td>
+                                    <!-- <?php print_r($order['name']) ?>  print array  -->
+                                    <td class="text-center"><?php echo $index+1 ?></td> <!-- ลำดับ -->
+                                    <td class="text-center"><?php echo $order['ref_1'] ?></td> <!-- ref 1 -->
                                     <td class="text-center"><?php echo $order['ref_2'] ?></td>
+                                    <!-- วันเวลาสร้าง -->
+                                    <td class="text-center"><?php echo $this->center_function->ConvertToThaiDate($order['created_at']) ?></td>
+                                    <td></td> <!-- ชื่อนามสกุล -->
+                                    <td></td> <!-- เบอร์ + บัตร ปชช -->
+                                    <td></td> <!-- หลักสูตร -->
+                                    <td class="text-right"><?php echo number_format($order['value'],2) ?></td> <!-- จำนวนเงิน -->
+                                    <!-- สถานะ -->
                                     <td class="text-center"><?php echo $order['payment_status'] == 1 ? 'ชำระแล้ว' : 'ยังไม่ได้ชำระ'; ?></td>
-                                    <td class="text-right"><?php echo $order['payment_status'] == 1 ? number_format($order['payment_amt'],2) : ''; ?></td>
-                                    <td class="text-center"><?php echo $order['payment_status'] == 1 ? $this->center_function->ConvertToThaiDate($order['payment_date']) : ''; ?></td>
+
+                                    
+
                                     <td>
                                         <a onclick="print_qr(<?php echo $order['id'] ?>)">
                                             พิมพ์ QR CODE
+                                            <?php echo "id = ".$order['id'] ?>
                                         </a>
                                         <?php if ($order['is_print'] == 0  || true){ ?>
                                             <div id="edit-del-<?php echo $order['id'] ?>" style="display: inline-block">
                                                 |
                                                 <a id = "edit_<?php echo $order['id'] ?>" onclick="edit(<?php echo $order['id'] ?>)">
-                                                    แก้ไข
+                                                    จัดการ
                                                 </a>
                                                 |
                                                 <a onclick="del(<?php echo $order['id'] ?>)" style="color:red;">
@@ -75,12 +106,63 @@
         <div class="modal-content data_modal">
             <div class="modal-header modal-header-confirmSave">
                 <button type="button" class="close" data-dismiss="modal">x</button>
-                <h2 class="modal-title" id="type_name">เพิ่มรายการ</h2>
+                <h2 class="modal-title" id="type_name">ข้อมูลการสมัคร</h2>
             </div>
             <div class="modal-body clearfix">
                 <form id="modal_form">
                     <input type="hidden" id="modal_type">
                     <input type="hidden" id="order_id" name="order_id">
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin">Ref1</label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="ref_1" name="ref_1" readonly>
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin">Ref2</label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="ref_2" name="ref_2" readonly>
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> วันที่/เวลา</label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="" name="" >
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> ชื่อนามสกุล </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="" name="">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> เบอร์ </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="" name="">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> เลขบัตรประชาชน </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="" name="">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin">หลักสูตร</label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="branch_id" name="branch_id">
+                        </div>
+                    </div>
+                    
+                    <!-- ของเก่า -->
                     <div class="g24-col-sm-24 margin-10">
                         <label class="g24-col-sm-6 text-right label-margin">สาขา</label>
                         <div class="g24-col-sm-14">
@@ -92,30 +174,24 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="g24-col-sm-24 margin-10">
                         <label class="g24-col-sm-6 text-right label-margin">เลขที่การสั่งซื้อ</label>
                         <div class="g24-col-sm-14">
                             <input type="text" class="form-control" id="order_no" name="order_no">
                         </div>
                     </div>
+                    <!-- ของเก่า -->
+
                     <div class="g24-col-sm-24 margin-10">
-                        <label class="g24-col-sm-6 text-right label-margin">ยอดเงิน</label>
+                        <label class="g24-col-sm-6 text-right label-margin">จำนวนเงิน</label>
                         <div class="g24-col-sm-14">
                             <input type="text" class="form-control" id="value" name="value">
                         </div>
                     </div>
-                    <div class="g24-col-sm-24 margin-10">
-                        <label class="g24-col-sm-6 text-right label-margin">Ref1</label>
-                        <div class="g24-col-sm-14">
-                            <input type="text" class="form-control" id="ref_1" name="ref_1" readonly>
-                        </div>
-                    </div>
-                    <div class="g24-col-sm-24 margin-10">
-                        <label class="g24-col-sm-6 text-right label-margin">Ref2</label>
-                        <div class="g24-col-sm-14">
-                            <input type="text" class="form-control" id="ref_2" name="ref_2" readonly>
-                        </div>
-                    </div>
+                    
+                    
+
                     <div id="payment_wrap">
                         <div class="g24-col-sm-24 margin-10">
                             <label class="g24-col-sm-6 text-right label-margin">สถานะ</label>
@@ -128,28 +204,49 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="g24-col-sm-24 margin-10">
+
+                        <!-- <div class="g24-col-sm-24 margin-10">
                             <label class="g24-col-sm-6 text-right label-margin">ยอดชำระ</label>
                             <div class="g24-col-sm-14">
                                 <input type="text" class="form-control" id="payment_amt" name="payment_amt">
                             </div>
-                        </div>
+                        </div> -->
+                        
                         <div class="g24-col-sm-24 margin-10">
                             <label class="g24-col-sm-6 text-right label-margin">วันที่ชำระ</label>
                             <div class="g24-col-sm-8">
                                 <input type="text" class="form-control my-date" id="payment_date_d" name="payment_date_d" data-date-language="th-th">
                             </div>
-                            <div class="g24-col-sm-3">
+
+                            <!-- <div class="g24-col-sm-4 ">
                                 <select id="payment_date_h" name="payment_date_h" class="form-control">
                                     <?php for($h = 0; $h <= 23; $h++) { ?><option value="<?php printf("%02d", $h); ?>"><?php printf("%02d", $h); ?></option><?php } ?>
                                 </select>
                             </div>
-                            <div class="g24-col-sm-3">
+                            <div class="g24-col-sm-4">
+                                <select id="payment_date_m" name="payment_date_m" class="form-control">
+                                    <?php for($m = 0; $m <= 59; $m++) { ?><option value="<?php printf("%02d", $m); ?>"><?php printf("%02d", $m); ?></option><?php } ?>
+                                </select>
+                            </div> -->
+
+                        </div>
+
+                        <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin">เวลาที่ชำระ</label>
+
+                        <div class="g24-col-sm-4 ">
+                                <select id="payment_date_h" name="payment_date_h" class="form-control">
+                                    <?php for($h = 0; $h <= 23; $h++) { ?><option value="<?php printf("%02d", $h); ?>"><?php printf("%02d", $h); ?></option><?php } ?>
+                                </select>
+                            </div>
+                            <div class="g24-col-sm-4">
                                 <select id="payment_date_m" name="payment_date_m" class="form-control">
                                     <?php for($m = 0; $m <= 59; $m++) { ?><option value="<?php printf("%02d", $m); ?>"><?php printf("%02d", $m); ?></option><?php } ?>
                                 </select>
                             </div>
+
                         </div>
+
                     </div>
                 </form>
                 <form method="post" target="_blank" action="" id="print_qr_form" action="">
@@ -165,7 +262,9 @@
         </div>
     </div>
 </div>
+
 <script>
+    
     $(document).ready(function(){
         $(".my-date").datepicker({
             prevText : "ก่อนหน้า",
@@ -181,6 +280,9 @@
             yearRange: "c-50:c+10",
             autoclose: true,
         });
+
+        // 
+    
 
         $('#add_btn').click(function(){
             $('#modal_type').val(1);
@@ -201,14 +303,14 @@
             let modal_type = $('#modal_type').val();
             let url;
             let warning_text = "";
-            if (branch_id == 0){
-                warning_text += '-สาขา\n';
-            }
-            if (order_no == ''){
-                warning_text += '-เลขที่การสั่งซื้อ\n';
-            }
+            // if (branch_id == 0){
+            //     warning_text += '-สาขา\n';
+            // }
+            // if (order_no == ''){
+            //     warning_text += '-เลขที่การสั่งซื้อ\n';
+            // }
             if (value == ''){
-                warning_text += '-ยอดเงิน\n';
+                warning_text += '-จำนวนเงิน\n';
             }
             if (modal_type == 1){
                 url = base_url + "order/ajax_create_order";
@@ -305,6 +407,8 @@
         $('#payment_wrap').removeClass('hidden');
         $('#add_modal').modal('show');
     }
+
+    // 
 
     function del(order_id){
         swal({
