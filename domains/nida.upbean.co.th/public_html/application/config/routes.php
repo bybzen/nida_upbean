@@ -52,3 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['pay/(:any)'] = 'Enroll/print_pay_in/$1';
+$route['enroll/bill_payment/(:any)'] = 'Enroll/print_qr/$1';
