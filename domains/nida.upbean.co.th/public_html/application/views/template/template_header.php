@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#ffffff">
       <?php
       $link = array(
-          'href' => PROJECTJSPATH.'assets/images/logo/favicon.png',
+          'href' => PROJECTJSPATH.'assets/images/logo/gspa.png',
           'rel' => 'shortcut icon'
       );
       echo link_tag($link);

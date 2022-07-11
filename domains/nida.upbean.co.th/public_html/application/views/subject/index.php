@@ -3,6 +3,15 @@
         margin: 7px;
     }
 
+    .m-top {
+        margin-top: 10px;
+        margin-left: 11px;
+    }
+
+    .pointer {
+        cursor: pointer;
+    }
+
     .label-margin {
         margin-top: 8px;
     }
@@ -32,7 +41,7 @@
                                     <td class="text-center"><?php echo $index+1 ?></td>
                                     <td class="text-center"><?php echo $value['code'] ?></td>
                                     <td class="text-center">
-                                        <a onclick="enroll(<?php echo $value['id'] ?>)" style="color: blue">
+                                        <a onclick="enroll(<?php echo $value['id'] ?>)" class="pointer" style="color: blue">
                                             <?php echo $value['name'] ?>
                                         </a>
                                     </td>
@@ -73,9 +82,9 @@
                         <div class="g24-col-sm-5">
                             <input type="text" class="form-control" id="code" name="code">
                         </div>
-                        <label class="g24-col-sm-3 text-right label-margin">ค่าลงทะเบียน</label>
+                        <label class="g24-col-sm-3 text-right label-margin m-top">ค่าลงทะเบียน</label>
                         <div class="g24-col-sm-5">
-                            <input type="number" class="form-control" id="cost" name="cost">
+                            <input type="number" class="form-control m-top" id="cost" name="cost">
                         </div>
                     </div>
                 </form>
@@ -99,7 +108,7 @@
         $('#add_btn').click(function (){
             $('#name').val('');
             $('#code').val('');
-            $('#cost').val();
+            $('#cost').val(0);
             $('#modal_type').val(1);
             $('#add_modal').modal('show');
         });
