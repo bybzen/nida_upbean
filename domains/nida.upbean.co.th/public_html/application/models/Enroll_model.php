@@ -33,6 +33,7 @@ class Enroll_model extends CI_Model {
         $data_insert['tel'] = $param['tel'];
         $data_insert['enroll_subject'] = $subject['name'];
         $data_insert['enroll_cost'] = $subject['cost'];
+        $data_insert['payment_status'] = 'รอชำระเงิน';
         $data_insert['created_at'] = $process_time;
         $data_insert['updated_at'] = $process_time;
         $this->db->insert('coop_enroll', $data_insert);
