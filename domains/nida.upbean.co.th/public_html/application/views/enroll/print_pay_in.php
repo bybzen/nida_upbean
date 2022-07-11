@@ -24,7 +24,7 @@
             <p>หรือพิมพ์ใบ Pay-in Slip เพื่อนำไปชำระเงินที่ธนาคารกรุงไทยทุกสาขาทั่วประเทศ</p>
             <button onclick="print_qr(<?php echo $enroll_data[0]['ref_1'] ?>)" class="my-4 btn bg-success text-white border-0">พิมพ์ใบ Pay-in Slip</button>
             <p>หลังจากชำระเงินแล้ว 48 ชั่วโมง สามาถตรวจสอบการชำระเงินของท่าน</p>
-            <p>ได้ที่เมนู ....</p>
+            <p>ได้ที่เมนูตรวจสอบการชำระเงิน</p>
         </div>
         <form method="post" target="_blank" action="" id="print_qr_form" action="">
             <input type="hidden" id="qr_ref_1" name="qr_ref_1">

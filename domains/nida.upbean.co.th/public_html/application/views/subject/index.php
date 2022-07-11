@@ -73,6 +73,7 @@
                 <form id="modal_form">
                     <input type="hidden" id="modal_type">
                     <input type="hidden" id="subject_id" name="subject_id">
+                    <input type="hidden" id="check" name="check">
                     <div class="g24-col-sm-24 margin-10">
                         <label class="g24-col-sm-4 text-right label-margin"> ชื่อหลักสูตร </label>
                         <div class="g24-col-sm-10">
@@ -114,12 +115,14 @@
         });
 
         $('#save_btn').click(function (){
+            checkCodeSubject($('#code').val())
             let modal_type = $('#modal_type').val();
             let url = "";
             let warning_text = "";
             let name = $('#name').val();
             let code = $('#code').val();
-            let tel = $('#cost').val();
+            let cost = $('#cost').val();
+            let check_code = $('#check').val();
             if (name == ''){
                 warning_text += '-ชื่อหลักสูตร\n';
             }
@@ -129,10 +132,10 @@
             if(code != '' && onlyNumber(code)){
                 warning_text += '-รหัสหลักสูตรต้องประกอบด้วยตัวเลขเท่านั้น\n'
             }
-            if (tel == ''){
+            if (cost == ''){
                 warning_text += '-ค่าลงทะเบียน\n';
             }
-            if (!checkCodeSubject(code)){
+            if (check_code != 0 && modal_type == 1){
                 warning_text += '-ตรวจพบรหัสวิชานี้แล้ว\n'
             }
             if (warning_text != ''){
@@ -168,16 +171,15 @@
 
     function checkCodeSubject(code){
         $.ajax({
+            async: false,
             type: 'POST',
             url: base_url + 'subject/ajax_check_code_subject',
             data: {
                 code: code
             },
             success: function(res){
-                data = JSON.parse(res)                
-                if(data.num > 0){
-                    return false;    
-                }
+                data = JSON.parse(res)
+                $('#check').val(data.num);
             }
         });
     }

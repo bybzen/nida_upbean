@@ -51,7 +51,7 @@ class Subject_model extends CI_Model{
     }
 
     function check_code_subject($code = null){
-        $sql = "select count(code) as num from coop_subject where code = ".$code;
+        $sql = "select count(code) as num from coop_subject where is_deleted = 0 and code = ".$code;
         $res = $this->db->query($sql)->result_array();
         return $res[0];
     }

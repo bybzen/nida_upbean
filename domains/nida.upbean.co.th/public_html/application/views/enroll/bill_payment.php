@@ -43,7 +43,7 @@ $pdf->multiCell(50,15,U2T($bill['ref_2']),0,"L");
 $pdf->setXY(169,87);
 $pdf->multiCell(30,10,U2T(number_format($bill['enroll_cost'],2)),0,"R");
 
-$pdf->setXY(110,87);
+$pdf->setXY(100,87);
 $pdf->multiCell(70,10,U2T($this->center_function->convert($bill['enroll_cost'])),0,"C");
 
 // สำหรับผู้ชำระเงิน
@@ -59,7 +59,7 @@ $pdf->multiCell(50,15,U2T($bill['ref_2']),0,"L");
 $pdf->setXY(169,202);
 $pdf->multiCell(30,10,U2T(number_format($bill['enroll_cost'],2)),0,"R");
 
-$pdf->setXY(110,202);
+$pdf->setXY(100,202);
 $pdf->multiCell(70,10,U2T($this->center_function->convert($bill['enroll_cost'])),0,"C");
 
 
