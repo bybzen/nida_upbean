@@ -43,7 +43,7 @@ class Enroll_model extends CI_Model {
 
      // หน้า manage_qr show data
      function get_enroll_data(){
-        $sql = "SELECT * from coop_enroll ";
+        $sql = "SELECT * from coop_enroll ORDER BY created_at";
         return $this->db->query($sql)->result_array();
     }
 
@@ -146,7 +146,8 @@ class Enroll_model extends CI_Model {
             if(is_numeric($filter_search))  
             {
                 $sql = "SELECT * from coop_enroll as t1 
-                WHERE t1.tel = '".$filter_search."'"." OR t1.id_card = '".$filter_search."'";
+                WHERE t1.tel = '".$filter_search."'"." OR t1.id_card = '".$filter_search."'"
+                ." ORDER BY created_at";
             }
             
             // หาชื่อ-นามสกุล
@@ -158,12 +159,13 @@ class Enroll_model extends CI_Model {
                 $lastname = $spilt_name[1];
                 
                 $sql = "SELECT * from coop_enroll as t1 
-                WHERE t1.firstname LIKE '%$firstname%' AND t1.lastname LIKE '%$lastname%'";
+                WHERE t1.firstname LIKE '%$firstname%' AND t1.lastname LIKE '%$lastname%'"
+                ." ORDER BY created_at";
             }
         }
 
         else{
-            $sql = "SELECT * from coop_enroll as t1 ";
+            $sql = "SELECT * from coop_enroll as t1 ORDER BY created_at";
         }
 
         return $this->db->query($sql)->result_array();

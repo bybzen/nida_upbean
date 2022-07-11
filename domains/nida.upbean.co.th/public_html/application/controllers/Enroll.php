@@ -116,8 +116,6 @@ class Enroll extends CI_Controller {
         $arr_data = $this->Enroll->DB_search($_GET['filter_search']);
         echo json_encode($arr_data);
      }
-
-
 }
 
 ?>
