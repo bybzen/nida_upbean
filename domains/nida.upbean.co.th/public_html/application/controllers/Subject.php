@@ -39,6 +39,12 @@ class Subject extends CI_Controller{
         $this->load->view('template/navbar');        
         $this->load->view('enroll/create',$arr_data);
     }
+
+    function ajax_check_code_subject(){
+        $res = $this->Subject->check_code_subject($_POST['code']);
+        echo json_encode($res);
+        exit;
+    }
 }
 
 ?>

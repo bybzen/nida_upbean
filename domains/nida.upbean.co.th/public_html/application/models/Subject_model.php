@@ -49,6 +49,12 @@ class Subject_model extends CI_Model{
         $result = $this->db->query($sql)->result_array();
         return $result[0];
     }
+
+    function check_code_subject($code = null){
+        $sql = "select count(code) as num from coop_subject where code = ".$code;
+        $res = $this->db->query($sql)->result_array();
+        return $res[0];
+    }
 }
 
 ?>

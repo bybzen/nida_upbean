@@ -132,6 +132,9 @@
             if (tel == ''){
                 warning_text += '-ค่าลงทะเบียน\n';
             }
+            if (!checkCodeSubject(code)){
+                warning_text += '-ตรวจพบรหัสวิชานี้แล้ว\n'
+            }
             if (warning_text != ''){
                 swal('กรุณากรอกข้อมูล',warning_text,'warning');
             } 
@@ -161,6 +164,22 @@
         if(!code.match(/^[0-9]+$/)){
             return true;
         }
+    }
+
+    function checkCodeSubject(code){
+        $.ajax({
+            type: 'POST',
+            url: base_url + 'subject/ajax_check_code_subject',
+            data: {
+                code: code
+            },
+            success: function(res){
+                data = JSON.parse(res)                
+                if(data.num > 0){
+                    return false;    
+                }
+            }
+        });
     }
 
     function enroll(id){
