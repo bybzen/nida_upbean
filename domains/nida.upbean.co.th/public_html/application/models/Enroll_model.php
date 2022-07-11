@@ -50,7 +50,7 @@ class Enroll_model extends CI_Model {
     // หน้า report_pay เงื่อนไข select
     function get_subject(){
         
-        $sql = "SELECT t1.name from coop_subject AS t1";
+        $sql = "SELECT t1.name from coop_subject AS t1 WHERE is_deleted = 0";
         return $this->db->query($sql)->result_array();
     }
 
