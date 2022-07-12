@@ -9,7 +9,7 @@
       <?php
       #Bootstrap 3.3.2
       $link = array(
-                'href' => PROJECTJSPATH.'assets/images/logo/favicon.png',
+                'href' => PROJECTJSPATH.'assets/images/logo/gspa.png',
                 'rel' => 'shortcut icon'
       );
       echo link_tag($link);

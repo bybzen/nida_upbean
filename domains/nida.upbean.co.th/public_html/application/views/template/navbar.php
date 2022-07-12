@@ -22,7 +22,7 @@
         <img class="margin-nav" src="<?php echo "/assets/images/nida-navbar.png" ?>">            
         <div class="d-flex flex-row-reverse">
             <a class='px-5'>ตรวจสอบการชำระเงิน</a>
-            <a href='enroll_subject' class='px-5'>ลงทะเบียนหลักสูตร</a>                       
+            <a href="<?php echo base_url(); ?>subject/enroll_subject" class='px-5'>ลงทะเบียนหลักสูตร</a>                       
         </div>
     </nav>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
