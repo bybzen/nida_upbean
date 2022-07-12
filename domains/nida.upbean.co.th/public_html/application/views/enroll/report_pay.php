@@ -80,7 +80,7 @@
                             <label class="g24-col-sm-8">หลักสูตร</label>
                             <div class="g24-col-sm-7">
                                 <select id="subject" name="subject" class="form-control" type="text">
-                                    <option value="" selected>---- เลือกหลักสูตร ----</option>
+                                    <option value="" selected>---- หลักสูตรทั้งหมด ----</option>
 
                                     <?php foreach ($subject as $value){ ?>
                                         <option value="<?php echo $value['name'] ?>"><?php echo $value['name'] ?></option>
@@ -126,9 +126,9 @@
                 warning_text += "กรุณากรอกวันที่\n";
                 
             }
-            else if ($('#subject').val() == ''){
-                warning_text += "กรุณาเลือกหลักสูตร\n"
-            }
+            // else if ($('#subject').val() == ''){
+            //     warning_text += "กรุณาเลือกหลักสูตร\n"
+            // }
 
 
             if (warning_text == ""){
@@ -144,9 +144,9 @@
             if ($('#start_date').val() == "" || $('#end_date').val() == ""){
                 warning_text += "กรุณากรอกวันที่\n";
             }
-            else if ($('#subject').val() == ''){
-                warning_text += "กรุณาเลือกหลักสูตร\n"
-            }
+            // else if ($('#subject').val() == ''){
+            //     warning_text += "กรุณาเลือกหลักสูตร\n"
+            // }
 
             if (warning_text == ""){
                 $('#pdf_excel_form').attr("action",base_url + "enroll/report_pay_excel");

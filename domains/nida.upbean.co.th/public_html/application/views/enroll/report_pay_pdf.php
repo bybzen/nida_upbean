@@ -13,9 +13,9 @@ $col_w_1 = 15;
 $col_x_2 = $col_w_1 + $col_x_1;
 $col_w_2 = 30;
 $col_x_3 = $col_w_2 + $col_x_2;
-$col_w_3 = 65;
+$col_w_3 = 45;
 $col_x_4 = $col_w_3 + $col_x_3;
-$col_w_4 = 30;
+$col_w_4 = 50;
 $col_x_5 = $col_w_4 + $col_x_4 + 5;
 $col_w_5 = 20;
 $col_x_6 = $col_w_5 + $col_x_5 - 5;
@@ -38,9 +38,9 @@ if ($param['subject'] != ''){
     $subject_name = $subject['name'];
     // print_r($subject);
 } 
-// else {
-//     $subject_name = "ทั้งหมด";
-// }
+else {
+    $subject_name = "ทั้งหมด";
+}
 
 
  if ($_GET['paid'] == 'on'){
@@ -117,18 +117,12 @@ if(!empty($datas)){
         $pdf->MultiCell($col_w_1, 10, U2T($count), 0, "C");
 
         $pdf->setXY($col_x_2,$y_point);
-        if (empty($data['order_created'])){
-            $pdf->MultiCell($col_w_2, 10, U2T($this->center_function->ConvertToThaiDate($data['import_created'])), 0, "C");
-        } else {
-            $pdf->MultiCell($col_w_2, 10, U2T($this->center_function->ConvertToThaiDate($data['order_created'])), 0, "C");
-        }
+        $pdf->MultiCell($col_w_2, 10, U2T($this->center_function->ConvertToThaiDate($data['order_created'])), 0, "C");
+        
 
         $pdf->setXY($col_x_3,$y_point);
-        if (!empty($data['ref_1'])){
-            $pdf->MultiCell($col_w_3, 10, U2T($data['ref_1']), 0, "C");
-        } else {
-            $pdf->MultiCell($col_w_3, 10, U2T($data['ref']), 0, "C");
-        }
+        $pdf->MultiCell($col_w_3, 10, U2T($data['ref_1']), 0, "C");
+        
 
         
         $pdf->setXY($col_x_4, $y_point);

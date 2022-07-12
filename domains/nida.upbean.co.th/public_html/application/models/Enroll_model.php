@@ -66,12 +66,11 @@ class Enroll_model extends CI_Model {
         
         $where ="";
 
+        //เลือกหลักสูตร
         if ($param['subject'] != ''){
-            $where .= " t1.enroll_subject = '".$param['subject']."'";
-        }
+            $where .= "t1.enroll_subject = '".$param['subject']."'";
 
-        if (!empty($param['type'])){
-                $type = $param['type'];
+            $type = $param['type'];
                 if ($type == 1){
                     $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 
                             WHERE t1.payment_status = 'ชำระเงินแล้ว' AND ".$where;
@@ -87,8 +86,26 @@ class Enroll_model extends CI_Model {
                             WHERE ".$where;
                    
                 }
+        }
+    
+        // ไม่เลือกหลักสูตร
+        else {
+            $type = $param['type'];
+            if ($type == 1){
+                $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 
+                        WHERE t1.payment_status = 'ชำระเงินแล้ว' ";
+                
+            } 
+            else if ($type == 2){
+                $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 
+                        WHERE t1.payment_status = 'รอชำระเงิน' ";
+                
             }
-
+            else if ($type == 3 ){
+                $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 ";
+                
+            }
+        }
         return $this->db->query($sql)->result_array();
     }
 
