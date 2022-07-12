@@ -40,7 +40,7 @@
                                 <th class="text-center">Ref1</th>
                                 <th class="text-center">วันที่/เวลา</th>
                                 <th class="text-center">ชื่อนามสกุล</th>
-                                <th class="text-center">เบอร์โทร/เลขบัตร ปชช</th>
+                                <th class="text-center">เบอร์โทร</th>
                                 <th class="text-center">หลักสูตร</th>
                                 <th class="text-center">จำนวนเงิน</th>
                                 <th class="text-center">สถานะ</th>
