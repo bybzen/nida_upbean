@@ -2,7 +2,16 @@
     .margin-10 {
         margin: 7px;
     }
-
+    .margin-left-5 {
+        /* margin-left: -2px; */
+        margin-top: 7px;
+        /* margin-right: 7px; */
+        margin-bottom: 7px;
+    }
+    .margin-label-cost{
+        margin-right: -20px;
+        margin-left: -20px;
+    }
     .m-top {
         margin-top: 10px;
         margin-left: 11px;
@@ -69,27 +78,35 @@
                 <button type="button" class="close" data-dismiss="modal">x</button>
                 <h2 class="modal-title" id="type_name">หลักสูตร</h2>
             </div>
-            <div class="modal-body" style="height: 180px">
+            <div class="modal-body" style="height: 210px">
                 <form id="modal_form">
                     <input type="hidden" id="modal_type">
                     <input type="hidden" id="subject_id" name="subject_id">
                     <input type="hidden" id="check" name="check">
+
                     <div class="g24-col-sm-24 margin-10">
-                        <label class="g24-col-sm-4 text-right label-margin"> ชื่อหลักสูตร </label>
-                        <div class="g24-col-sm-10">
-                            <input type="text" class="form-control" id="name" name="name">
-                        </div>
-                        <label class="g24-col-sm-3 text-right label-margin">รหัส</label>
+                        <label class="g24-col-sm-4 text-right label-margin">รหัส</label>
                         <div class="g24-col-sm-5">
                             <input type="text" class="form-control" id="code" name="code">
                         </div>
-                        <label class="g24-col-sm-3 text-right label-margin m-top">ค่าลงทะเบียน</label>
-                        <div class="g24-col-sm-5">
-                            <input type="number" class="form-control m-top" id="cost" name="cost">
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-4 text-right label-margin"> ชื่อหลักสูตร </label>
+                        <div class="g24-col-sm-18">
+                            <input type="text" class="form-control" id="name" name="name">
                         </div>
                     </div>
+
+                    <div class="g24-col-sm-20 margin-10">
+                        <label class="g24-col-sm-5 label-margin">ค่าลงทะเบียน</label>
+                        <div class="g24-col-sm-5">
+                            <input type="number" class="form-control" id="cost" name="cost">
+                        </div>
+                    </div>
+
                 </form>
-                <div class="g24-col-sm-24" style="margin-top: 10px">
+                <div class="g24-col-sm-24" style="margin-top: 5px">
                     <div class="text-center">
                         <button class="btn btn-primary" id="save_btn">บันทึก</button>
                         <button class="btn btn-danger" id="cancle_btn">ยกเลิก</button>

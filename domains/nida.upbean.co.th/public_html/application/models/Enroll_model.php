@@ -20,6 +20,9 @@ class Enroll_model extends CI_Model {
 
     //บันทึกค่าต่างลงใน ตาราง coop_enroll
     function create_enroll($param){
+        if(!$this->FormatID($param['id'])){
+            throw new Exception();
+        }
         $process_time = date("Y-m-d H:i:s");
         $subject = $this->get_subject_data($param['enroll_id']);
         $data_insert = array();
@@ -186,6 +189,24 @@ class Enroll_model extends CI_Model {
         }
 
         return $this->db->query($sql)->result_array();
+    }
+
+    function FormatID($id){
+        $check = 0;
+        $minus = 13;
+        for($i=0; $i<12; $i++){
+            $check += (intval($id[$i]) * $minus);
+            $minus--;
+        }
+        $check = 11 - ($check % 11);
+        $string = strval($check);
+        if($string[strlen($string)-1] != $id[strlen($id)-1]){
+            return false;
+        }
+        else{
+            return true;
+        }
+        // return $string[strlen($string)-1];
     }
 }
 
