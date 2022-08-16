@@ -10,7 +10,7 @@ class Auth extends CI_Controller {
 	public function index()
 	{
 		if(@$_SESSION['USER_ID']!=''){
-			header("location: subject/index");
+			header("location: project/index");
 		}else {
 			if ($this->input->post()) {
 
@@ -48,7 +48,7 @@ class Auth extends CI_Controller {
 					
 					//$this->session->USER_ID = $user_id;
 
-					header("location: " . (empty($_GET["return_url"]) ? "subject/index" : $_GET["return_url"]));
+					header("location: " . (empty($_GET["return_url"]) ? "project/index" : $_GET["return_url"]));
 					exit();
 				}
 

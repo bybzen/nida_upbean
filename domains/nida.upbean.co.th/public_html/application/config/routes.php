@@ -65,3 +65,5 @@ $route['enroll/report_applicant'] = 'enroll/report_applicant';
 $route['enroll/report_receipts'] = 'enroll/report_receipts';
 
 
+
+$route['subject/index/(:any)'] = 'subject/index/$1';

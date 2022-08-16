@@ -12,17 +12,17 @@ class Enroll_model extends CI_Model {
     }
 
     //เอาค่าจากตาราง coop_subject มา เพื่อเอามาใส่ในตาราง coop_enroll
-    function get_subject_data($id){
-        $sql = "SELECT * from coop_subject where id = ".$id;
+    function get_subject_data($code){
+        $sql = "SELECT * from coop_subject where code = ".$code;
         $res = $this->db->query($sql)->result_array();
         return $res[0];
     }
 
     //บันทึกค่าต่างลงใน ตาราง coop_enroll
     function create_enroll($param){
-        if(!$this->FormatID($param['id'])){
-            throw new Exception();
-        }
+        // if(!$this->FormatID($param['id'])){
+        //     throw new Exception();
+        // }
         $process_time = date("Y-m-d H:i:s");
         $subject = $this->get_subject_data($param['enroll_id']);
         $data_insert = array();
@@ -30,20 +30,50 @@ class Enroll_model extends CI_Model {
         $ref_1 = (date("Y")+543).$subject['code'].str_pad($number[0]['number']+1, 5, '0', STR_PAD_LEFT);
         $data_insert['ref_1'] = $ref_1;
         $data_insert['ref_2'] = $param['tel'];
-        $data_insert['id_card'] = $param['id'];
+        $data_insert['enroll_project'] = $param['project_name'];
+        $data_insert['enroll_subject'] = $subject['name'];
+        $data_insert['enroll_province'] = $param['open_province'];
+        $data_insert['name_title'] = $param['name_title'];
         $data_insert['firstname'] = $param['firstname'];
         $data_insert['lastname'] = $param['lastname'];
+        $data_insert['email'] = $param['email'];
+        $data_insert['birthday'] = $param['date'];
+        $data_insert['cop'] = $param['cop'];
+        $data_insert['position'] = $param['position'];
+        $data_insert['address'] = $param['address'];
+        $data_insert['road'] = $param['road'];
+        $data_insert['sub_area'] = $param['district_name'];
+        $data_insert['area'] = $param['amphur_name'];
+        $data_insert['province'] = $param['province_name'];
+        $data_insert['postal_code'] = $param['postal_code'];
+        $data_insert['phone_number'] = $param['phone_number'];
         $data_insert['tel'] = $param['tel'];
-        $data_insert['enroll_subject'] = $subject['name'];
         $data_insert['enroll_cost'] = $subject['cost'];
         $data_insert['payment_status'] = 'รอชำระเงิน';
+        $data_insert['person_to_notify'] = $param['person_to_notify'];
+        $data_insert['tel_person_to_notify'] = $param['tel_person_to_notify'];
+        $data_insert['food_type'] = $param['food_type'];
         $data_insert['enroll_date'] = $process_time;
         $data_insert['created_at'] = $process_time;
         $data_insert['updated_at'] = $process_time;
-        $this->db->insert('coop_enroll', $data_insert);
+        $this->db->insert('coop_enroll', $data_insert);  
+        $this->create_bill($ref_1, $param); 
         return $data_insert;
     }
-
+    
+    function create_bill($ref_1, $param){
+        $data_insert = array();
+        $data_insert['ref_1'] = $ref_1;
+        $data_insert['bill_name'] = $param['bill_name'];
+        $data_insert['bill_cop'] = $param['bill_cop'];
+        $data_insert['bill_house'] = $param['bill_house'];
+        $data_insert['bill_road'] = $param['bill_road'];
+        $data_insert['bill_sub_area'] = $param['bill_sub_area'];
+        $data_insert['bill_area'] = $param['bill_area'];
+        $data_insert['bill_province'] = $param['bill_province'];
+        $data_insert['bill_postal_code'] = $param['bill_postal_code'];
+        $this->db->insert('coop_bill', $data_insert);        
+    }
 
      // หน้า manage_qr show data
      function get_enroll_data(){
@@ -221,7 +251,6 @@ class Enroll_model extends CI_Model {
         else{
             return true;
         }
-        // return $string[strlen($string)-1];
     }
 }
 

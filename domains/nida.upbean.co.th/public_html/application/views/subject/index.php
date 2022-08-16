@@ -41,6 +41,7 @@
                                 <th class="text-center">รหัสหลักสูตร</th>
                                 <th class="text-center">ชื่อหลักสูตร</th>
                                 <th class="text-center">ค่าลงทะเบียน</th>
+                                <th class="text-center">จังหวัดที่เปิด</th>
                                 <th class="text-center"></th>
                             </tr>
                             <tbody id = 'subject_data'>
@@ -49,12 +50,9 @@
                                 <tr>
                                     <td class="text-center"><?php echo $index+1 ?></td>
                                     <td class="text-center"><?php echo $value['code'] ?></td>
-                                    <td class="text-center">
-                                        <a onclick="enroll(<?php echo $value['id'] ?>)" class="pointer" style="color: blue">
-                                            <?php echo $value['name'] ?>
-                                        </a>
-                                    </td>
+                                    <td class="text-center"><?php echo $value['name'] ?></td>
                                     <td class="text-center"><?php echo $value['cost'] ?></td>
+                                    <td class="text-center"><?php echo $value['open_province']?></td>
                                     <td class="text-center">
                                         <a onclick="edit(<?php echo $value['id'] ?>)">แก้ไข</a>
                                         |
@@ -78,10 +76,12 @@
                 <button type="button" class="close" data-dismiss="modal">x</button>
                 <h2 class="modal-title" id="type_name">หลักสูตร</h2>
             </div>
-            <div class="modal-body" style="height: 210px">
+            <div class="modal-body" style="height: 900px">
                 <form id="modal_form">
                     <input type="hidden" id="modal_type">
                     <input type="hidden" id="subject_id" name="subject_id">
+                    <input type="hidden" id="project_id" name="project_id">
+                    <input type="hidden" id="pv" name="pv">
                     <input type="hidden" id="check" name="check">
 
                     <div class="g24-col-sm-24 margin-10">
@@ -98,6 +98,17 @@
                         </div>
                     </div>
 
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-5 text-right label-margin"> เปิดรับสมัครวันที่ </label>
+                        <div class="g24-col-sm-5">
+                            <input type="date" id="start_date" name="start_date">
+                        </div>
+                        <label class="g24-col-sm-2 text-right label-margin"> ถึง </label>
+                        <div class="g24-col-sm-5">
+                            <input type="date" id="end_date" name="end_date">
+                        </div>                        
+                    </div>
+
                     <div class="g24-col-sm-20 margin-10">
                         <label class="g24-col-sm-5 label-margin">ค่าลงทะเบียน</label>
                         <div class="g24-col-sm-5">
@@ -105,6 +116,27 @@
                         </div>
                     </div>
 
+                    <div class="g24-col-sm-20 margin-10">
+                        <label class="g24-col-sm-5 text-right label-margin">ภาค</label>
+                        <div class="g24-col-sm-16">
+                            <select class="form-control" id="geography" name="geography" onchange="show_province($('#geography').val())">
+                                <option value="0" selected></option>
+                                <option value="1">ภาคเหนือ</option>
+                                <option value="2">ภาคกลาง</option>
+                                <option value="3">ภาคตะวันออกเฉียงเหนือ</option>
+                                <option value="4">ภาคตะวันตก</option>
+                                <option value="5">ภาคตะวันออก</option>
+                                <option value="6">ภาคใต้</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="province" class="g24-col-sm-20 margin-10">
+                        <!-- <?php foreach ($province as $index => $value) {?>
+                            <input type="checkbox" name="province_name" id="province_name" value="<?php echo $value['province_name'] ?>">
+                            <label><?php echo $value['province_name']?></label>
+                        <?php } ?> -->
+                    </div>
                 </form>
                 <div class="g24-col-sm-24" style="margin-top: 5px">
                     <div class="text-center">
@@ -112,9 +144,6 @@
                         <button class="btn btn-danger" id="cancle_btn">ยกเลิก</button>
                     </div>
                 </div>
-                <form id="enroll_form" action="" method="post" target="_blank">
-                    <input type="hidden" name="sj_id" id="sj_id">
-                </form>
             </div>
         </div>
     </div>
@@ -124,6 +153,7 @@
     //modal_type 1 = add , 2 = edit
     $(document).ready(function (){
         $('#add_btn').click(function (){
+            $('#project_id').val(<?php echo $project_id ?>)
             $('#name').val('');
             $('#code').val('');
             $('#cost').val(0);
@@ -132,47 +162,66 @@
         });
 
         $('#save_btn').click(function (){
-            checkCodeSubject($('#code').val())
-            let modal_type = $('#modal_type').val();
-            let url = "";
-            let warning_text = "";
-            let name = $('#name').val();
-            let code = $('#code').val();
-            let cost = $('#cost').val();
-            let check_code = $('#check').val();
-            if (name == ''){
-                warning_text += '-ชื่อหลักสูตร\n';
-            }
-            if (code == ''){
-                warning_text += '-รหัสหลักสูตร\n';
-            }
-            if(code != '' && onlyNumber(code)){
-                warning_text += '-รหัสหลักสูตรต้องประกอบด้วยตัวเลขเท่านั้น\n'
-            }
-            if (cost == ''){
-                warning_text += '-ค่าลงทะเบียน\n';
-            }
-            if (check_code != 0 && modal_type == 1){
-                warning_text += '-ตรวจพบรหัสวิชานี้แล้ว\n'
-            }
-            if (warning_text != ''){
-                swal('กรุณากรอกข้อมูล',warning_text,'warning');
-            } 
-            else {
-                if (modal_type == 1){
-                    url = base_url+"subject/ajax_create_subject";
-                } else if (modal_type == 2){
-                    url = base_url+"subject/ajax_edit_subject";
-                }
-                $.ajax({
-                    type:'POST' ,
-                    url: url ,
-                    data: $('#modal_form').serialize(),
-                    success:function(res){
-                        location.reload();
-                    }
-                });
-            }
+            var open = [];
+            $.each($("input:checkbox[name='province_name']:checked"), function () {
+                let str = $(this).val()
+                str = str.replace(/\s/g, '')
+                open.push(str);
+            });
+            $("#pv").val(open.join(","))
+            // console.log($("#pv").val())
+            // console.log($("#geography").val())
+            // let modal_type = $('#modal_type').val();
+            // let url = "";
+            // let warning_text = "";
+            // let name = $('#name').val();
+            // let code = $('#code').val();
+            // let cost = $('#cost').val();
+            // let start_date = $('#start_date').val();
+            // let end_date = $('#end_date').val();
+            // if(code != ''){
+            //     checkCodeSubject($('#code').val())
+            // }
+            // let check_code = $('#check').val();
+            // if (name == ''){
+            //     warning_text += '-ชื่อหลักสูตร\n';
+            // }
+            // if (code == ''){
+            //     warning_text += '-รหัสหลักสูตร\n';
+            // }
+            // if(code != '' && onlyNumber(code)){
+            //     warning_text += '-รหัสหลักสูตรต้องประกอบด้วยตัวเลขเท่านั้น\n'
+            // }
+            // if (cost == 0){
+            //     warning_text += '-ค่าลงทะเบียน\n';
+            // }
+            // if (check_code != 0 && modal_type == 1){
+            //     warning_text += '-ตรวจพบรหัสวิชานี้แล้ว\n'
+            // }
+            // if(start_date == ''){
+            //     warning_text += '-วันที่เปิดรับสมัคร\n'
+            // }
+            // if(end_date == ''){
+            //     warning_text += '-วันที่ปิดรับสมัคร\n'
+            // }
+            // if (warning_text != ''){
+            //     swal('กรุณากรอกข้อมูล',warning_text,'warning');
+            // } 
+            // else {
+            //     if (modal_type == 1){
+            //         url = base_url+"subject/ajax_create_subject";
+            //     } else if (modal_type == 2){
+            //         url = base_url+"subject/ajax_edit_subject";
+            //     }
+            //     $.ajax({
+            //         type:'POST' ,
+            //         url: url ,
+            //         data: $('#modal_form').serialize(),
+            //         success:function(res){
+            //             location.reload();
+            //         }
+            //     });
+            // }
         });
 
         $('#cancle_btn').click(function(){
@@ -201,12 +250,6 @@
         });
     }
 
-    function enroll(id){
-        $('#sj_id').val(id);
-        $('#enroll_form').attr('action', base_url + 'subject/enroll_subject');
-        $('#enroll_form').submit();
-    }
-
     function edit(subject_id){
         let sj_id = subject_id;
         $('#subject_id').val(sj_id);
@@ -222,9 +265,10 @@
                 $('#name').val(data.name);
                 $('#code').val(data.code);
                 $('#cost').val(data.cost);
+                $('#start_date').val(data.start_date);
+                $('#end_date').val(data.end_date);
                 $('#add_modal').modal('show');
             }
-
         });
     }
 
@@ -252,6 +296,40 @@
                         location.reload();
                     }
                 });
+            }
+        });
+    }
+
+    function show_province(id){
+        $("#province").empty()
+        $.ajax({
+            type:'POST',
+            url:base_url+'province/ajax_get_province',
+            data: {
+                id : id
+            },
+            success: function(res){
+                data = JSON.parse(res)
+                console.log(data.length)
+                for(let i=0;i<data.length;i++){
+                    // var input = document.createElement("input")
+                    // input.type = "checkbox"
+                    // input.className = "css-class-name"
+                    // province.appendChild(input)
+                    const newLabel = document.createElement("label")
+                    newLabel.setAttribute("for", 'checkbox')
+                    newLabel.setAttribute("style", 'padding-right: 50px')
+                    newLabel.innerHTML = data[i].province_name
+
+                    const newCheckbox = document.createElement("input")
+                    newCheckbox.setAttribute("type", 'checkbox')
+                    newCheckbox.setAttribute("name", 'province_name')
+                    newCheckbox.setAttribute("id", 'province_name')
+                    newCheckbox.setAttribute("value", data[i].province_name)
+
+                    province.appendChild(newCheckbox)
+                    province.appendChild(newLabel)                 
+                }
             }
         });
     }

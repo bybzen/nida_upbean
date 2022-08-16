@@ -120,7 +120,7 @@
                     <div class="g24-col-sm-24 margin-10">
                         <label class="g24-col-sm-6 text-right label-margin"> วันเกิด </label>
                         <div class="g24-col-sm-14">
-                            <input type="text" class="form-control" id="birthday" name="birthday" placeholder="ex.0888888xxx">
+                            <input type="text" class="form-control" id="birthday" name="birthday">
                         </div>
                     </div>
 
@@ -130,11 +130,95 @@
                             <input type="text" class="form-control" id="tel" name="tel" placeholder="ex.0888888xxx">
                         </div>
                     </div>
+                    
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> Email </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="email" name="email">
+                        </div>
+                    </div>
 
                     <div class="g24-col-sm-24 margin-10">
-                        <label class="g24-col-sm-6 text-right label-margin"> เลขบัตรประชาชน </label>
+                        <label class="g24-col-sm-6 text-right label-margin"> ชื่อหน่วยงาน </label>
                         <div class="g24-col-sm-14">
-                            <input type="text" class="form-control" id="id_card" name="id_card">
+                            <input type="text" class="form-control" id="cop" name="cop">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> ตำแหน่ง </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="position" name="position">
+                        </div>
+                    </div>
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> ที่อยู่ที่ทำงาน </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="address" name="address">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> ถนน </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="road" name="road">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> เขต/อำเภอ </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="sub_area" name="sub_area">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> แขวง/ตำบล </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="area" name="area">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> จังหวัด </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="province" name="province">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> รหัสไปรษณีย์ </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="postal_code" name="postal_code">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-7 text-left label-margin"> บุคคลที่ติดต่อได้ในกรณีฉุกเฉิน </label>
+                        <div class="g24-col-sm-13">
+                            <input type="text" class="form-control" id="person_to_notify" name="person_to_notify">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-7 text-left label-margin"> หมายเลขบุคคลที่ติดต่อได้ในกรณีฉุกเฉิน </label>
+                        <div class="g24-col-sm-13">
+                            <input type="text" class="form-control" id="tel_person_to_notify" name="tel_person_to_notify">
+                        </div>
+                    </div>
+
+                    <label class="g24-col-sm-10  label-margin"> ที่อยู่ที่ต้องการออกใบเสร็จ </label>
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> ชื่อบุคคลที่ติดต่อได้ในกรณีฉุกเฉิน </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="person_to_notify" name="person_to_notify">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> ชื่อบุคคลที่ติดต่อได้ในกรณีฉุกเฉิน </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="person_to_notify" name="person_to_notify">
                         </div>
                     </div>
 
@@ -347,9 +431,9 @@ $(document).ready(function(){
                 $('#ref_1').val(data.ref_1);
                 $('#created_at').val(toSplitDate(data.created_at));
                 $('#name').val(firstname.concat("  ", lastname));
-                $('#birthday').val(toSplitDate(data.birthday));
+                $('#birthday').val(data.birthday);
                 $('#tel').val(data.tel);
-                $('#id_card').val(data.id_card);
+                $('#email').val(data.email);
                 $('#subject').val(data.enroll_subject);
                 $('#cost').val(data.enroll_cost);
                 $('.payment_status[value=' + data.payment_status + ']').prop('checked', true);

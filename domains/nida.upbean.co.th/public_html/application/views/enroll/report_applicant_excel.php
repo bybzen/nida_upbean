@@ -151,7 +151,7 @@ date_default_timezone_set('Asia/Bangkok');
                     <tr>
                         <td class="table_body" colspan="1" style="text-align: center;"><?php echo $count;?></td>
                         <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['bill_name']?></td>
-                        <td class="table_body" colspan="2" style="text-align: center;"><?php echo $this->center_function->ConvertToThaiDate($data['birthday']); ?></td>
+                        <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['birthday']?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['tel']?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['email']?></td>
                         <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['person_to_notify']?></td>

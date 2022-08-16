@@ -7,10 +7,13 @@ class Subject extends CI_Controller{
         $this->load->model("Subject_model", "Subject");
     }
 
-    function index(){
+    function index($id = null){
         $arr_data = array();
-        $result = $this->Subject->get_subject();
-        $arr_data['subject'] = $result;
+        $arr_province = array();
+        $result = $this->Subject->get_subject($id);
+        $arr_data['subject'] = $result['subject'];
+        // $arr_data['province'] = $result['province'];
+        $arr_data['project_id'] = $id;
         $this->libraries->template('subject/index',$arr_data);
     }
 
@@ -42,6 +45,18 @@ class Subject extends CI_Controller{
 
     function ajax_check_code_subject(){
         $res = $this->Subject->check_code_subject($_POST['code']);
+        echo json_encode($res);
+        exit;
+    }
+
+    function ajax_get_open_province(){
+        $res = $this->Subject->get_open_province($_POST['subject_code']);
+        echo json_encode($res);
+        exit;
+    }
+
+    function get_subject_in_geo(){
+        $res = $this->Subject->subject_in_geo($_POST['geo_id'],$_POST['project_id']);
         echo json_encode($res);
         exit;
     }
