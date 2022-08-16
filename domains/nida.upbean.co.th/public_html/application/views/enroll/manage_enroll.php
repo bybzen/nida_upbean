@@ -118,6 +118,13 @@
                     </div>
 
                     <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> วันเกิด </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="birthday" name="birthday" placeholder="ex.0888888xxx">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
                         <label class="g24-col-sm-6 text-right label-margin"> เบอร์โทร </label>
                         <div class="g24-col-sm-14">
                             <input type="text" class="form-control" id="tel" name="tel" placeholder="ex.0888888xxx">
@@ -287,8 +294,11 @@ $(document).ready(function(){
 
         // console.log(numOfDay, month, year, time)
 
+        if(day != null && time != null)
             return numOfDay + " " + month + " " + year + " " + time + " น.";
-      
+        
+        else if(day != null && time == null)
+            return numOfDay + " " + month + " " + year;
     }
 
     function toSplitDate(date) {
@@ -328,7 +338,6 @@ $(document).ready(function(){
                 data = JSON.parse(result);
                 let firstname = data.firstname;
                 let lastname = data.lastname;
-
                 // $('#firstname').val(data.firstname);
                 // $('#lastname').val(data.lastname);
                 // console.log("---Before---")
@@ -338,6 +347,7 @@ $(document).ready(function(){
                 $('#ref_1').val(data.ref_1);
                 $('#created_at').val(toSplitDate(data.created_at));
                 $('#name').val(firstname.concat("  ", lastname));
+                $('#birthday').val(toSplitDate(data.birthday));
                 $('#tel').val(data.tel);
                 $('#id_card').val(data.id_card);
                 $('#subject').val(data.enroll_subject);

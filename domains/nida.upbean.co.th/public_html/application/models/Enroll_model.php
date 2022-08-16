@@ -37,6 +37,7 @@ class Enroll_model extends CI_Model {
         $data_insert['enroll_subject'] = $subject['name'];
         $data_insert['enroll_cost'] = $subject['cost'];
         $data_insert['payment_status'] = 'รอชำระเงิน';
+        $data_insert['enroll_date'] = $process_time;
         $data_insert['created_at'] = $process_time;
         $data_insert['updated_at'] = $process_time;
         $this->db->insert('coop_enroll', $data_insert);
@@ -57,6 +58,12 @@ class Enroll_model extends CI_Model {
         return $this->db->query($sql)->result_array();
     }
 
+    function get_province(){
+        
+        $sql = "SELECT t1.province_name from data_province AS t1 ";
+        return $this->db->query($sql)->result_array();
+    }
+
      // เอาชื่อ subject จากที่ select
      function get_header_subject($subject){
         $sql = "SELECT * FROM coop_subject where name = '".$subject."'";
@@ -64,53 +71,61 @@ class Enroll_model extends CI_Model {
         return $result[0];
     }
 
-    // print data pdf-excel
-    function get_report_data($param ){
-        
-        $where ="";
+    function get_header_province($province){
+        $sql = "SELECT * FROM data_province where province_name = '".$province."'";
+        $result = $this->db->query($sql)->result_array();
+        return $result[0];
+    }
 
+    // print data pdf-excel
+    function get_report_data($param){
+        
+        $subject ="";
+        $province = "";
+        $start_date_sql = $this->center_function->ConvertToSQLDate($param['start_date']);
+        $end_date_sql = $this->center_function->ConvertToSQLDate($param['end_date']);
+
+        //เลือกจังหวัด
+        if($param['province'] != ''){
+            $province .= " AND t1.province = '".$param['province']."'";
+        }
+        
         //เลือกหลักสูตร
         if ($param['subject'] != ''){
-            $where .= "t1.enroll_subject = '".$param['subject']."'";
-
-            $type = $param['type'];
-                if ($type == 1){
-                    $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 
-                            WHERE t1.payment_status = 'ชำระเงินแล้ว' AND ".$where;
-                    
-                } 
-                else if ($type == 2){
-                    $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 
-                            WHERE t1.payment_status = 'รอชำระเงิน' AND ".$where;
-                   
-                }
-                else if ($type == 3){
-                    $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 
-                            WHERE ".$where;
-                   
-                }
+            $subject .= " AND t1.enroll_subject = '".$param['subject']."'";
         }
-    
-        // ไม่เลือกหลักสูตร
-        else {
-            $type = $param['type'];
+
+        $type = $param['type'];
             if ($type == 1){
-                $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 
-                        WHERE t1.payment_status = 'ชำระเงินแล้ว' ";
+                $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 INNER JOIN coop_bill AS t2 ON t1.ref_1 = t2.ref_1
+                        WHERE enroll_date BETWEEN "."'".$start_date_sql."'"." AND "."'".$end_date_sql."'"
+                        ." AND t1.payment_status = 'ชำระเงินแล้ว'".$subject.$province;
                 
             } 
             else if ($type == 2){
-                $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 
-                        WHERE t1.payment_status = 'รอชำระเงิน' ";
+                $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 INNER JOIN coop_bill AS t2 ON t1.ref_1 = t2.ref_1
+                        WHERE enroll_date BETWEEN "."'".$start_date_sql."'"." AND "."'".$end_date_sql."'"
+                        ." AND t1.payment_status = 'รอชำระเงิน'".$subject.$province;
                 
             }
-            else if ($type == 3 ){
-                $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 ";
+            else if ($type == 3){
+                $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 INNER JOIN coop_bill AS t2 ON t1.ref_1 = t2.ref_1
+                        WHERE enroll_date BETWEEN "."'".$start_date_sql."'"." AND "."'".$end_date_sql."'"
+                        ." AND (t1.payment_status = 'ชำระเงินแล้ว' OR t1.payment_status = 'รอชำระเงิน')".$subject.$province;
                 
             }
-        }
         return $this->db->query($sql)->result_array();
     }
+
+    // function get_data_bill(){
+        
+    //     $sql = "SELECT * FROM coop_bill";
+        
+    //     return $this->db->query($sql)->result_array();
+    // }
+
+    
+
 
     //โชว์ข้อมูลหน้าแก้ไข enroll
     function show_page_edit_enroll($search=null){

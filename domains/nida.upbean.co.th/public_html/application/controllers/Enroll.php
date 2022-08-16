@@ -56,6 +56,26 @@ class Enroll extends CI_Controller {
         $this->libraries->template('enroll/report_pay',$arr_data);
     }
 
+    function report_applicant(){
+        $arr_data = array();
+        $result = $this->Enroll->get_subject();
+        $arr_data['subject'] = $result;
+
+        $result = $this->Enroll->get_province();
+        $arr_data['province'] = $result;
+        $this->libraries->template('enroll/report_applicant',$arr_data);
+    }
+
+    function report_receipts(){
+        $arr_data = array();
+        $result = $this->Enroll->get_subject();
+        $arr_data['subject'] = $result;
+
+        $result = $this->Enroll->get_province();
+        $arr_data['province'] = $result;
+        $this->libraries->template('enroll/report_receipts',$arr_data);
+    }
+
     function report_pay_pdf(){
         $arr_data = array();
         if ($_GET['paid'] == 'on'){
@@ -95,6 +115,55 @@ class Enroll extends CI_Controller {
             $arr_data['subject'] = $this->Enroll->get_header_subject($_GET['subject']);
         }
         $this->load->view('enroll/report_pay_excel',$arr_data);
+    }
+
+    function report_applicant_excel(){
+        $arr_data = array();
+        if ($_GET['paid'] == 'on'){
+            $_GET['type'] = 1;
+        } 
+        else if ($_GET['unpaid'] == 'on'){
+            $_GET['type'] = 2;
+        }
+        else if ($_GET['paid_all'] == 'on'){
+            $_GET['type'] = 3;
+        }
+        
+        // เรียก function ใน Model
+        $arr_data['datas'] = $this->Enroll->get_report_data($_GET);
+        // $arr_data['data_bill'] = $this->Enroll->get_data_bill();
+        $arr_data['param'] = $_GET;
+        if ($_GET['subject'] != ''){
+            $arr_data['subject'] = $this->Enroll->get_header_subject($_GET['subject']);
+        }
+        if ($_GET['province'] != ''){
+            $arr_data['province'] = $this->Enroll->get_header_province($_GET['province']);
+        }
+        $this->load->view('enroll/report_applicant_excel',$arr_data);
+    }
+
+    function report_receipts_excel(){
+        $arr_data = array();
+        if ($_GET['paid'] == 'on'){
+            $_GET['type'] = 1;
+        } 
+        else if ($_GET['unpaid'] == 'on'){
+            $_GET['type'] = 2;
+        }
+        else if ($_GET['paid_all'] == 'on'){
+            $_GET['type'] = 3;
+        }
+        
+        // เรียก function ใน Model
+        $arr_data['datas'] = $this->Enroll->get_report_data($_GET);
+        $arr_data['param'] = $_GET;
+        if ($_GET['subject'] != ''){
+            $arr_data['subject'] = $this->Enroll->get_header_subject($_GET['subject']);
+        }
+        if ($_GET['province'] != ''){
+            $arr_data['province'] = $this->Enroll->get_header_province($_GET['province']);
+        }
+        $this->load->view('enroll/report_receipts_excel',$arr_data);
     }
 
     function ajax_show_page_edit_enroll(){
