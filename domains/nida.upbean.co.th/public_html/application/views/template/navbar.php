@@ -13,12 +13,11 @@
         }
         a {
             font-size: calc(60% + 0.8vmin);
-            /* text-decoration: none; */
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-light border-bottom shadow-sm rounded">                
+    <nav class="navbar navbar-light border-bottom shadow-sm rounded" style="background-color: #FFFFFF">                
         <img src="<?php echo "/assets/images/nida-navbar.png" ?>"> 
         <div class="d-flex flex-row-reverse">
             <a href="" class='px-3' style="text-decoration: none; color: black;">ตรวจสอบการชำระเงิน</a>

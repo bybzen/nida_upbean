@@ -6,17 +6,41 @@ class Subject_model extends CI_Model{
         parent::__construct();
     }
 
-    function get_subject(){
-        $sql = "SELECT * from coop_subject where is_deleted = 0";
-        return $this->db->query($sql)->result_array();
+    function get_subject($id = null){
+        // $sql = "SELECT * from coop_subject where is_deleted = 0 and project_id = ".$id;
+        $sql = "SELECT t1.id, t1.project_id, t1.name, t1.code, t1.cost, t1.start_date, t1.end_date, 
+                t1.geography, t1.is_deleted, GROUP_CONCAT(t2.open_province SEPARATOR ',') as open_province from coop_subject as t1 
+                INNER JOIN subject_open_province as t2 ON ( t1.is_deleted = 0 and t1.project_id = ".$id." and t1.code = t2.subject_code) 
+                GROUP BY t1.code";
+        $array['subject'] = $this->db->query($sql)->result_array();
+        // $sql = "SELECT * FROM data_province";
+        // $array['province'] = $this->db->query($sql)->result_array();
+        return $array;
     }
 
     function create_subject($param){
         $data_insert = array();
+        $data_insert['project_id'] = $param['project_id'];
         $data_insert['name'] = $param['name'];
         $data_insert['code'] = $param['code'];
         $data_insert['cost'] = $param['cost'];
+        $data_insert['start_date'] = $param['start_date'];
+        $data_insert['end_date'] = $param['end_date'];
+        $data_insert['geography'] = $param['geography'];
+        $this->build_open_province($param);
         $this->db->insert('coop_subject', $data_insert);
+    }
+
+    function build_open_province($param){
+        $data_insert = array();
+        $str = $param['pv'];
+        $arr = array();
+        $arr = explode(",",$str);
+        for($i = 0; $i < count($arr); $i++){
+            $data_insert['subject_code'] = $param['code'];
+            $data_insert['open_province'] = $arr[$i];
+            $this->db->insert('subject_open_province',$data_insert);
+        }
     }
 
     function edit_subject($param){
@@ -24,6 +48,8 @@ class Subject_model extends CI_Model{
         $data_insert['name'] = $param['name'];
         $data_insert['code'] = $param['code'];
         $data_insert['cost'] = $param['cost'];
+        $data_insert['start_date'] = $param['start_date'];
+        $data_insert['end_date'] = $param['end_date'];
         $this->db->where('id', $param['subject_id']);
         $this->db->update('coop_subject', $data_insert);
     }
@@ -54,6 +80,21 @@ class Subject_model extends CI_Model{
         $sql = "select count(code) as num from coop_subject where is_deleted = 0 and code = ".$code;
         $res = $this->db->query($sql)->result_array();
         return $res[0];
+    }
+
+    function get_open_province($subject_code = null){
+        //ที่ comment คือ เอาชื่อวิชามาด้วย แต่ยังไม่ได้พิจารณา subject ที่มีอยู่ใน project 
+        // SELECT t1.subject_code, t1.open_province, t2.name from subject_open_province as t1 
+        // INNER JOIN coop_subject as t2 ON (t1.subject_code = 002 and t2.code = 002)
+        $sql = "SELECT * FROM subject_open_province where subject_code = ".$subject_code;
+        $res = $this->db->query($sql)->result_array();
+        return $res;
+    }
+
+    function subject_in_geo($geo_id = null, $project_id = null){
+        $sql = "SELECT * FROM coop_subject where geography = ".$geo_id." and project_id = ".$project_id;
+        return $this->db->query($sql)->result_array();
+        // return $sql;
     }
 }
 

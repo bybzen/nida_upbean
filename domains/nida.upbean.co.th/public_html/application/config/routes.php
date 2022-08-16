@@ -61,3 +61,5 @@ $route['enroll/report_pay'] = 'enroll/report_pay';
 $route['enroll/report_pay_pdf'] = 'enroll/report_pay_pdf';
 
 
+
+$route['subject/index/(:any)'] = 'subject/index/$1';
