@@ -111,7 +111,7 @@
                     <div class="g24-col-sm-24 margin-10">
                         <label class="g24-col-sm-6 text-right label-margin"> วันที่ลงทะเบียน</label>
                         <div class="g24-col-sm-14">
-                            <input type="text" class="form-control" id="created_at" name="created_at" >
+                            <input type="text" class="form-control" id="created_at" name="created_at" readonly >
                         </div>
                     </div>
 
@@ -348,7 +348,7 @@
                     <div class="g24-col-sm-24 margin-10">
                         <label class="g24-col-sm-6 text-right label-margin">จำนวนเงิน</label>
                         <div class="g24-col-sm-14">
-                            <input type="text" class="form-control" id="cost" name="cost">
+                            <input type="text" class="form-control" id="cost" name="cost" readonly>
                         </div>
                     </div>
                     
