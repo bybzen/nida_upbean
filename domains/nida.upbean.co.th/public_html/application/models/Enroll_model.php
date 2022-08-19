@@ -160,7 +160,7 @@ class Enroll_model extends CI_Model {
     //โชว์ข้อมูลหน้าแก้ไข enroll
     function show_page_edit_enroll($search=null){
 
-        $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 
+        $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 INNER JOIN coop_bill AS t2 ON t1.ref_1 = t2.ref_1
                 WHERE  t1.ref_1 = '".$search."'";
         $rs = $this->db->query($sql)->result_array();
 
@@ -179,12 +179,26 @@ class Enroll_model extends CI_Model {
     function edit_data_enroll($param){
        
         $data_insert = array();
+        $bill_insert = array();
         $process_time = date("Y-m-d H:i:s");
         
         $data_insert['firstname'] = $param['firstname'];
         $data_insert['lastname'] = $param['lastname'];
+        $data_insert['birthday'] = $param['birthday'];
         $data_insert['tel'] = $param['tel'];
-        $data_insert['id_card'] = $param['id_card'];
+        $data_insert['email'] = $param['email'];
+        $data_insert['cop'] = $param['cop'];
+        $data_insert['position'] = $param['position'];
+        $data_insert['address'] = $param['address'];
+        $data_insert['road'] = $param['road'];
+        $data_insert['sub_area'] = $param['sub_area'];
+        $data_insert['area'] = $param['area'];
+        $data_insert['province'] = $param['province'];
+        $data_insert['postal_code'] = $param['postal_code'];
+        $data_insert['person_to_notify'] = $param['person_to_notify'];
+        $data_insert['tel_person_to_notify'] = $param['tel_person_to_notify'];
+        $data_insert['food_type'] = $param['food_type'];
+        
         $data_insert['enroll_cost'] = $param['cost'];
         $data_insert['payment_status'] = $param['payment_status'];
         // $data_insert['payment_amt'] = (double)$param['payment_amt'];
@@ -192,14 +206,31 @@ class Enroll_model extends CI_Model {
         $data_insert['updated_at'] = $process_time;
         $this->db->where('ref_1',$param['ref_1']);
         $this->db->update('coop_enroll',$data_insert);
+        
+
+        $bill_insert['bill_name'] = $param['bill_name'];
+        $bill_insert['bill_house'] = $param['bill_house'];
+        $bill_insert['bill_road'] = $param['bill_road'];
+        $bill_insert['bill_sub_area'] = $param['bill_sub_area'];
+        $bill_insert['bill_area'] = $param['bill_area'];
+        $bill_insert['bill_province'] = $param['bill_province'];
+        $bill_insert['bill_postal_code'] = $param['bill_postal_code'];
+        $this->db->where('ref_1',$param['ref_1']);
+        $this->db->update('coop_bill',$bill_insert);
 
         
     }
 
     function delete_enroll($ref_1){
+        
+        //ลบ foreign key ก่อน
+        $this->db->where('ref_1',$ref_1);
+        $this->db->delete('coop_bill', ['ref_1' => $ref_1]);
 
+        //ลบ primary key
         $this->db->where('ref_1',$ref_1);
         $this->db->delete('coop_enroll', ['ref_1' => $ref_1]);
+
     }
 
     function DB_search($filter_search){
@@ -210,9 +241,8 @@ class Enroll_model extends CI_Model {
             // หา เบอร์โทร or เลขบปชช
             if(is_numeric($filter_search))  
             {
-                $sql = "SELECT * from coop_enroll as t1 
-                WHERE t1.tel = '".$filter_search."'"." OR t1.id_card = '".$filter_search."'"
-                ." ORDER BY created_at";
+                $sql = "SELECT * from coop_enroll as t1 INNER JOIN coop_bill AS t2 ON t1.ref_1 = t2.ref_1
+                WHERE t1.tel = '".$filter_search."'"." ORDER BY created_at";
             }
             
             // หาชื่อ-นามสกุล
@@ -223,14 +253,14 @@ class Enroll_model extends CI_Model {
                 $firstname = $spilt_name[0];
                 $lastname = $spilt_name[1];
                 
-                $sql = "SELECT * from coop_enroll as t1 
+                $sql = "SELECT * from coop_enroll as t1 INNER JOIN coop_bill AS t2 ON t1.ref_1 = t2.ref_1
                 WHERE t1.firstname LIKE '%$firstname%' AND t1.lastname LIKE '%$lastname%'"
                 ." ORDER BY created_at";
             }
         }
 
         else{
-            $sql = "SELECT * from coop_enroll as t1 ORDER BY created_at";
+            $sql = "SELECT * from coop_enroll as t1 INNER JOIN coop_bill AS t2 ON t1.ref_1 = t2.ref_1 ORDER BY created_at";
         }
 
         return $this->db->query($sql)->result_array();

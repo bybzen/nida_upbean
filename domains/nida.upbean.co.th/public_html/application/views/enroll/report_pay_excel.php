@@ -28,7 +28,7 @@ else {
 ?>
 <?php
 header("Content-type: application/vnd.ms-excel;charset=utf-8;");
-header("Content-Disposition: attachment; filename=รายงานการชำระเงิน".$date.".xls");
+header("Content-Disposition: attachment; filename=รายงานการชำระเงิน ".$date.".xls");
 date_default_timezone_set('Asia/Bangkok');
 ?>
 <pre>

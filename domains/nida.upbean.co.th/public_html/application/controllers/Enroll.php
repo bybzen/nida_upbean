@@ -177,6 +177,7 @@ class Enroll extends CI_Controller {
     }
     
     function ajax_delete_enroll(){
+        
         $this->Enroll->delete_enroll($_POST['ref_1']);
     }
 

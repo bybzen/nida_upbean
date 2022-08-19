@@ -26,7 +26,7 @@ $total_size = 31;
 ?>
 <?php
 header("Content-type: application/vnd.ms-excel;charset=utf-8;");
-header("Content-Disposition: attachment; filename=รายงานการชำระเงิน".$date.".xls");
+header("Content-Disposition: attachment; filename=รายงานผู้สมัครตามจังหวัดและหลักสูตร ".$date.".xls");
 date_default_timezone_set('Asia/Bangkok');
 ?>
 <pre>
@@ -150,7 +150,7 @@ date_default_timezone_set('Asia/Bangkok');
                     ?>
                     <tr>
                         <td class="table_body" colspan="1" style="text-align: center;"><?php echo $count;?></td>
-                        <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['bill_name']?></td>
+                        <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['firstname']."   ".$data['lastname']?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['birthday']?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['tel']?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['email']?></td>
@@ -162,7 +162,7 @@ date_default_timezone_set('Asia/Bangkok');
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['bill_area']?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['bill_province']?></td>
                         <td class="table_body" colspan="1" style="text-align: center;"><?php echo $data['bill_postal_code']?></td>
-                        <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['payment_status'] ?></td>
+                        <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['food_type'] ?></td>
                         <td class="table_body" colspan="2" style="text-align: right;"><?php echo number_format($data['enroll_cost'],2) ?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['payment_status'] ?></td>
                     </tr>

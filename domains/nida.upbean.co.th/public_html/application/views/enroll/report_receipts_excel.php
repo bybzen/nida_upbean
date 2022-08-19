@@ -26,7 +26,7 @@ $total_size = 23;
 ?>
 <?php
 header("Content-type: application/vnd.ms-excel;charset=utf-8;");
-header("Content-Disposition: attachment; filename=รายงานการชำระเงิน".$date.".xls");
+header("Content-Disposition: attachment; filename=รายงานข้อมูลออกใบเสร็จรับเงิน ".$date.".xls");
 date_default_timezone_set('Asia/Bangkok');
 ?>
 <pre>
@@ -131,7 +131,7 @@ date_default_timezone_set('Asia/Bangkok');
                         <th class="table_header_top" colspan="2" style="vertical-align: middle;">จังหวัด</th>
                         <th class="table_header_top" colspan="1" style="vertical-align: middle;">รหัสไปรษณีย์</th>
                         <th class="table_header_top" colspan="3" style="vertical-align: middle;">หลักสูตร</th>
-                        <th class="table_header_top" colspan="2" style="vertical-align: middle;">จังหวัด</th>
+                        <th class="table_header_top" colspan="2" style="vertical-align: middle;">จังหวัดที่หลักสูตรเปิด</th>
                         <th class="table_header_top" colspan="2"  style="vertical-align: middle;">จำนวนเงิน</th>
                         <th class="table_header_top" colspan="2"  style="vertical-align: middle;">สถานะ</th>
 					</tr>
