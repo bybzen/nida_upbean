@@ -24,6 +24,7 @@ class Enroll_model extends CI_Model {
         //     throw new Exception();
         // }
         $process_time = date("Y-m-d H:i:s");
+        $enroll_date = date("Y-m-d");
         $subject = $this->get_subject_data($param['enroll_id']);
         $data_insert = array();
         $number = $this->count_subject_enroll($subject['code']);
@@ -53,6 +54,7 @@ class Enroll_model extends CI_Model {
         $data_insert['person_to_notify'] = $param['person_to_notify'];
         $data_insert['tel_person_to_notify'] = $param['tel_person_to_notify'];
         $data_insert['food_type'] = $param['food_type'];
+        $data_insert['enroll_date'] = $enroll_date;
         $data_insert['created_at'] = $process_time;
         $data_insert['updated_at'] = $process_time;
         $this->db->insert('coop_enroll', $data_insert);  

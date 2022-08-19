@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Kanit:400,300&subset=thai,latin' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Enroll Subject</title>
     <style>
         body{
@@ -15,12 +16,6 @@
         label{
             font-size: calc(60% + 0.6vmin);
         }
-        select option{
-            font-size: calc(60% + 0.8vmin);
-        }
-        .tab {
-            display: none;
-        }
         .btn.btn-primary{
             background-color: #097969;
             border-color: #097969;
@@ -29,16 +24,28 @@
             background-color: #50C878;
             border-color: #50C878;
         }
-        .btn.btn-prev{
-            background-color: #AEAEAE;
-            border-color: #AEAEAE;
-        }
-        .btn.btn-prev:hover{
-            background-color: #C5C5C5;
-            border-color: #C5C5C5;
-        }
         .font-size-p{
             font-size: calc(60% + 0.2vmin);
+        }
+        .btn-select{
+            position: relative;
+            padding: 0.3rem;
+            color: #fff;
+            background-color: #50C878;
+            border: 0;
+            transition: 0.2s;
+            overflow: hidden;
+        }
+        .btn-select input[type = "file"]{
+            cursor: pointer;
+            position: absolute;
+            left: 0%;
+            top: 0%;
+            transform: scale(3);
+            opacity: 0;
+        }
+        .btn-select:hover{
+            color: black;
         }
     </style>
 </head>
@@ -217,30 +224,36 @@
                             </div>
                             <div class="row my-3">
                                 <div class="col">
-                                    <label for="bill_sub_area" class='form-label'>แขวง/ตำบล</label>
-                                    <input id='bill_sub_area' name='bill_sub_area' type="text" class="form-control">
-                                    <!-- <label for="bill_province" class='form-label'>จังหวัด</label> -->
-                                    <!-- <select class="form-control" id="bill_province" name="bill_province" onchange="showAmphure(2)">
+                                    <!-- <label for="bill_sub_area" class='form-label'>แขวง/ตำบล</label>
+                                    <input id='bill_sub_area' name='bill_sub_area' type="text" class="form-control"> -->
+                                    <label for="bill_province" class='form-label'>จังหวัด</label>
+                                    <input id='bill_province' name='bill_province' type="text" class="form-control" style="display: none;">
+                                    <select class="form-control" id="bill_province_select" name="bill_province_select" onchange="showAmphure(2)" >
                                         <option selected></option>  
                                         <?php foreach($province as $index => $value) { ?>
                                                 <option value="<?php echo $value['province_id'] ?>">
                                                     <?php echo $value['province_name'] ?>
                                                 </option>
                                         <?php } ?>
-                                    </select> -->
+                                    </select>
                                 </div>
                                 <div class="col">
                                     <label for="bill_area" class='form-label'>เขต/อำเภอ</label>
-                                    <input id='bill_area' name='bill_area' type="text" class="form-control">
-                                    <!-- <select class="form-control" id="bill_area" name="bill_area" onchange="showDistrict(2)">
+                                    <input id='bill_area' name='bill_area' type="text" class="form-control" style="display:none">
+                                    <select class="form-control" id="bill_area_select" name="bill_area_select" onchange="showDistrict(2)">
                                         <option selected></option>                         
-                                    </select> -->
+                                    </select>
                                 </div>
                             </div>
                             <div class="row my-3">
                                 <div class="col">
-                                    <label for="bill_province" class='form-label'>จังหวัด</label>
-                                    <input id='bill_province' name='bill_province' type="text" class="form-control">
+                                    <!-- <label for="bill_province" class='form-label'>จังหวัด</label>
+                                    <input id='bill_province' name='bill_province' type="text" class="form-control"> -->
+                                    <label for="bill_sub_area" class='form-label'>แขวง/ตำบล</label>
+                                    <input id='bill_sub_area' name='bill_sub_area' type="text" class="form-control" style="display: none">
+                                    <select name="bill_sub_area_select" id="bill_sub_area_select" class="form-control" onchange="showZipcode(2)">
+                                        <option selected></option>
+                                    </select>
                                 </div>
                                 <div class="col">
                                     <label for="bill_postal_code" class='form-label'>รหัสไปรษณีย์</label>
@@ -251,12 +264,18 @@
                         <div id="st-5">
                             <p class="pt-3">เอกสารประกอบการสมัคร</p>
                             <div class="m-3">
-                                <label for="form-label">1. รูปถ่ายสี</label>
-                                <input type="file" name="image" id="image">
+                                <label for="form-label">1. รูปถ่ายสี</label><br>
+                                <button type = "button" class = "btn-select mt-2">
+                                    <i class = "fa fa-upload"></i> กรุณาเลือกไฟล์
+                                    <input type="file" id="image" name="image">
+                                </button>
                             </div>
                             <div class="mx-3 my-3">
                                 <label for="form-label">2. สำเนาบัตรราชการหรือสำเนาบัตรประจำตัวผู้สมัคร พร้อมรับรองสำเนาถูกต้อง</label>
-                                <input type="file" name="image02" id="image02">
+                                <button type = "button" class = "btn-select mt-2">
+                                    <i class = "fa fa-upload"></i> กรุณาเลือกไฟล์
+                                    <input type="file" id="image02" name="image02">
+                                </button>
                             </div>                            
                         </div>
                         <div>
@@ -320,9 +339,7 @@
                         <input type="hidden" name="district_name" id="district_name">
                     </form>
                     <div class="d-flex justify-content-center mb-3 px-2">
-                        <!-- <button id="prev_btn" class="btn btn-prev tab mx-2" onclick="prev_step()">ก่อนหน้า</button>
-                        <button id="next_btn" class="btn btn-primary" onclick="next_step()">ถัดไป</button> -->
-                        <button id="save_btn" class="btn btn-primary" disabled>ลงทะเบียน</button>                      
+                        <button id="save_btn" class="btn btn-primary" disabled>ลงทะเบียน</button>
                     </div>
                 </div>
             </div>
@@ -338,36 +355,132 @@
             $('#save_btn').click(function (){
                 event.preventDefault()
                 let url = window.location.origin + "/Enroll/ajax_create_enroll"
-                let date = $('#year').val() + '-' + $('#month').val() + '-' + $('#day').val()
+                let date = $('#day').val() + ' ' + $('#month').val() + ' ' + $('#year').val()
                 $('#date').val(date)
-                $.ajax({
-                    type:'POST',
-                    url: url,
-                    data: $('#modal_form').serialize(),           
-                    success:function(res){
-                        data = JSON.parse(res)
-                        let url = window.location.origin + "/Enroll/upload"
-                        let form_data = new FormData()
-                        let img = $("#image")[0].files
-                        let img02 = $('#image02')[0].files
-                        form_data.append('my_image', img[0])
-                        form_data.append('my_image02',img02[0])
-                        form_data.append('ref_1', data.ref_1)
-                        $.ajax({
-                            url: url,
-                            type: 'post',
-                            data: form_data,
-                            contentType: false,
-                            processData: false,
-                            success: function(res){
-                                document.location.href = window.location.origin + '/pay/' + data.ref_1; 
-                            }
-                        });                           
-                    },
-                    // error: function(xhr, ajaxOptions, thrownError){
-                    //     swal("ผิดพลาด", "เลขบัตรประชาชนไม่ถูกต้อง", "error");
-                    // }
-                });            
+
+                let waring_text = fileValidation()
+                if($("#work_province").val() == ''){
+                    swal('ผิดพลาด','กรุณาเลือกจังหวัดที่ท่านทำงาน','warning')
+                }
+                else if($("#subject_name").val() == ''){
+                    swal('ผิดพลาด','กรุณาเลือกวิชาที่ต้องการลงทะเบียน','warning')
+                }
+                else if($("#open_province").val() == ''){
+                    swal('ผิดพลาด','กรุณาเลือกจังหวัดที่ต้องการลงทะเบียนเรียน','warning')
+                }
+                else if($("#subject_name").val() == ''){
+                    swal('ผิดพลาด','กรุณาเลือกจังหวัดที่ท่านทำงาน','warning')
+                }
+                else if($("#email").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกอีเมล','warning')
+                }
+                else if($("#name_title").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกคำนำหน้าชื่อ','warning')
+                }
+                else if($("#firstname").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกชื่อจริง','warning')
+                }
+                else if($("#lastname").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกนามสกุล','warning')
+                }
+                else if($("#day").val() == '' || $("#month").val() == '' || $("#year").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกวัน/เดือน/ปี เกิดให้ครบ','warning')
+                }
+                else if($("#phone_number").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกเบอร์โทรศัพท์','warning')
+                }
+                else if($("#tel").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกเบอร์มือถือ','warning')
+                }
+                else if($("#person_to_notify").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกชื่อบุคคลที่สามารถติดต่อได้ในกรณีฉุกเฉิน','warning')
+                }
+                else if($("#tel_person_to_notify").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกหมายเลขโทรศัพท์มือถือบุคคลที่ติดต่อได้ในกรณีฉุกเฉิน','warning')
+                }
+                else if($("#cop").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกชื่อหน่วยงาน','warning')
+                }
+                else if($("#position").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกตำแหน่งงานที่ท่านทำอยู่','warning')
+                }
+                else if($("#address").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกที่อยู่ที่ทำงาน','warning')
+                }
+                else if($("#road").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกชื่อถนน','warning')
+                }
+                else if($("#province").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกชื่อจังหวัด','warning')
+                }
+                else if($("#area").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกชื่อเขต/อำเภอ','warning')
+                }
+                else if($("#sub_area").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกชื่อแขวง/ตำบล','warning')
+                }
+                else if($("#postal_code").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกรหัสไปรษณีย์','warning')
+                }
+                else if($("#bill_name").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกชื่อที่ต้องการใช้ในใบเสร็จ','warning')
+                }
+                else if($("#bill_cop").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกชื่อหน่วยงาน','warning')
+                }
+                else if($("#bill_house").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกที่อยู่ที่ต้องการออกใบเสร็จ','warning')
+                }
+                else if($("#bill_road").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกชื่อถนนที่ต้องการออกใบเสร็จ','warning')
+                }
+                else if($("#bill_province").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกชื่อจังหวัดที่ต้องการออกใบเสร็จ','warning')
+                }
+                else if($("#bill_area").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกชื่อเขต/อำเภอที่ต้องการออกใบเสร็จ','warning')
+                }
+                else if($("#bill_sub_area").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกชื่อแขวง/ตำบลที่ต้องการออกใบเสร็จ','warning')
+                }
+                else if($("#bill_postal_code").val() == ''){
+                    swal('ผิดพลาด','กรุณากรอกรหัสไปษณีย์ที่ต้องการออกใบเสร็จ','warning')
+                }
+                else if(waring_text !== ''){
+                    //check upload file
+                    swal('ผิดพลาด',waring_text,'warning')
+                }
+                else if($("#food_type").val() == ''){
+                    swal('ผิดพลาด','กรุณาเลือกประเภทอาหารที่รับประทาน','warning')
+                }
+                else{
+                    $.ajax({
+                        type:'POST',
+                        url: url,
+                        data: $('#modal_form').serialize(),           
+                        success:function(res){
+                            console.log('upload photo in process')
+                            data = JSON.parse(res)
+                            let url = window.location.origin + "/Enroll/upload"
+                            let form_data = new FormData()
+                            let img = $("#image")[0].files
+                            let img02 = $('#image02')[0].files
+                            form_data.append('my_image', img[0])
+                            form_data.append('my_image02',img02[0])
+                            form_data.append('ref_1', data.ref_1)
+                            $.ajax({
+                                url: url,
+                                type: 'post',
+                                data: form_data,
+                                contentType: false,
+                                processData: false,
+                                success: function(res){
+                                    document.location.href = window.location.origin + '/pay/' + data.ref_1; 
+                                }
+                            });                           
+                        }
+                    });   
+                }         
             });      
         });
 
@@ -392,7 +505,7 @@
 
         function show_open_province(){
             //เลือกวิชาเสร็จ แสดงจังหวัดที่เปิดสอน
-            var x = document.getElementById("subject_name").value;
+            var x = $("#subject_name").val()
             $("#enroll_id").val(x)
             $("#open_province").empty()
             $.ajax({
@@ -411,8 +524,13 @@
         function showAmphure(type){
             let province_id = ''
             if(type === 2){
-                province_id = $("#bill_province").val()
-                console.log(province_id)
+                province_id = $("#bill_province_select").val()
+                var x = document.getElementById('bill_province_select')
+                $("#bill_province").val(x.options[x.selectedIndex].text)
+                // reset value in select tag and input id postal_code
+                $('#bill_area_select').empty()
+                $("#bill_sub_area_select").empty()
+                $("#bill_postal_code").val('')
             }
             else{
                 province_id = $("#province").val()
@@ -421,7 +539,7 @@
                 // reset value in select tag and input id postal_code
                 $('#area').empty()
                 $("#sub_area").empty()
-                document.getElementById("postal_code").defaultValue = ""
+                $("#postal_code").val('')
             }            
             $.ajax({
                 type: 'POST',
@@ -432,39 +550,43 @@
                 success: function(res){
                     data = JSON.parse(res)
                     if(type == 2){
-                        createOptionTag(data, 'bill_area', 'amphur_id', 'amphur_name')
+                        createOptionTag(data, 'bill_area_select', 'amphur_id', 'amphur_name')
                     }
                     else{
                         createOptionTag(data, 'area', 'amphur_id', 'amphur_name')
-                    }
-                    
+                    }                    
                 }
             })
         }
 
         function showDistrict(type){
-            let amphure = ""
+            let amphure_id = ""
             if(type === 2){
-
+                amphure_id = $("#bill_area_select").val()
+                var x = document.getElementById('bill_area_select')
+                $("#bill_area").val(x.options[x.selectedIndex].text)             
+                // reset value in select tag id sub_area and input id postal_code
+                $('#bill_sub_area_select').empty()
+                $("#bill_postal_code").val('')
             }
             else{
-                amphure = $("#area").val()
+                amphure_id = $("#area").val()
                 var x = document.getElementById('area')
                 $("#amphur_name").val(x.options[x.selectedIndex].text)                
                 // reset value in select tag id sub_area and input id postal_code
                 $('#sub_area').empty()
-                document.getElementById("postal_code").defaultValue = ""
+                $("#postal_code").val('')
             }            
             $.ajax({
                 type: 'POST',
                 url: window.location.origin + '/province/ajax_get_district',
                 data: {
-                    amphure_id: amphure
+                    amphure_id: amphure_id
                 },
                 success: function(res){
                     data = JSON.parse(res)
                     if(type === 2){
-
+                        createOptionTag(data, 'bill_sub_area_select', 'district_code', 'district_name')
                     }else{
                         createOptionTag(data, 'sub_area', 'district_code', 'district_name')
                     }                    
@@ -472,13 +594,22 @@
             })
         }
 
-        function showZipcode(){
-            let district_code = $("#sub_area").val()
-            var x = document.getElementById('sub_area')
-            $("#district_name").val(x.options[x.selectedIndex].text)
-
-            //reset value in postal_code when district name change
-            document.getElementById("postal_code").defaultValue = ''
+        function showZipcode(type){
+            let district_code = ''
+            if(type === 2){
+                district_code = $("#bill_sub_area_select").val()
+                var x = document.getElementById('bill_sub_area_select')
+                $("#bill_sub_area").val(x.options[x.selectedIndex].text)
+                //reset value in postal_code when district name change
+                document.getElementById("bill_postal_code").defaultValue = ''
+            }
+            else{
+                district_code = $("#sub_area").val()
+                var x = document.getElementById('sub_area')
+                $("#district_name").val(x.options[x.selectedIndex].text)
+                //reset value in postal_code when district name change
+                document.getElementById("postal_code").defaultValue = ''
+            }            
             $.ajax({
                 type: 'POST',
                 url: window.location.origin + '/province/ajax_get_zipcode',
@@ -487,7 +618,11 @@
                 },
                 success: function(res){
                     data = JSON.parse(res)
-                    document.getElementById("postal_code").defaultValue = data.zipcode
+                    if(type === 2){
+                        $("#bill_postal_code").val(data.zipcode)
+                    }else{
+                        $("#postal_code").val(data.zipcode)
+                    }                    
                 }
             })
         }
@@ -517,26 +652,40 @@
             var cop = $("#cop").val()
             var address = $("#address").val()
             var road = $("#road").val()
-            var sub_area = $("#sub_area").val()
-            var area = $("#area").val()
-            var province = $("#province").val()
             var postal_code = $("#postal_code").val()
             if (checkBox.checked == true){
-                document.getElementById("bill_cop").defaultValue = cop
-                document.getElementById("bill_house").defaultValue = address
-                document.getElementById("bill_road").defaultValue = road
-                document.getElementById("bill_sub_area").defaultValue = $("#district_name").val()
-                document.getElementById("bill_area").defaultValue = $("#amphur_name").val()
-                document.getElementById("bill_province").defaultValue = $("#province_name").val()
-                document.getElementById("bill_postal_code").defaultValue = postal_code
-            } else {
-                document.getElementById("bill_cop").defaultValue = ''
-                document.getElementById("bill_house").defaultValue = ''
-                document.getElementById("bill_road").defaultValue = ''
-                document.getElementById("bill_sub_area").defaultValue = ''
-                document.getElementById("bill_area").defaultValue = ''
-                document.getElementById("bill_province").defaultValue = ''
-                document.getElementById("bill_postal_code").defaultValue = ''
+                $("#bill_province_select").removeAttr("style").hide();
+                $("#bill_sub_area_select").removeAttr("style").hide();
+                $("#bill_area_select").removeAttr("style").hide();
+
+                $("#bill_province").show();
+                $("#bill_sub_area").show();
+                $("#bill_area").show();
+
+                $("#bill_cop").val(cop)
+                $("#bill_house").val(address)
+                $("#bill_road").val(road)
+                $("#bill_sub_area").val($("#district_name").val())
+                $("#bill_area").val($("#amphur_name").val())
+                $("#bill_province").val($("#province_name").val())
+                $("#bill_postal_code").val(postal_code)
+            } 
+            else {
+                $("#bill_province_select").show();
+                $("#bill_sub_area_select").show();
+                $("#bill_area_select").show();
+
+                $("#bill_province").removeAttr("style").hide();
+                $("#bill_sub_area").removeAttr("style").hide();
+                $("#bill_area").removeAttr("style").hide();
+
+                $("#bill_cop").val('')
+                $("#bill_house").val('')
+                $("#bill_road").val('')
+                $("#bill_sub_area").val('')
+                $("#bill_area").val('')
+                $("#bill_province").val('')
+                $("#bill_postal_code").val('')
             }
         }
 
@@ -553,13 +702,28 @@
             var checkBox_1 = document.getElementById("check_01");
             var checkBox_2 = document.getElementById("check_02");
             var checkBox_3 = document.getElementById("check_03");
-            console.log(checkBox_1.checked,checkBox_2.checked,checkBox_3.checked)
             if(checkBox_1.checked == true && checkBox_2.checked == true && checkBox_3.checked == true){
                 document.querySelector('#save_btn').disabled = false;
             }
             else{
                 document.querySelector('#save_btn').disabled = true;
             }
+        }
+
+        function fileValidation(){
+            let waring_text = ''
+            var fileInput = document.getElementById('image')             
+            var filePath = fileInput.value;
+            var fileInput_2 = document.getElementById('image02')             
+            var filePath_2 = fileInput_2.value;
+            if(filePath === ''){
+                waring_text += '-กรุณาอัพโหลดรูปถ่าย\n'
+            }
+            if(filePath_2 === ''){
+                waring_text += '-กรุณาอัพโหลดสำเนาบัตรราชการหรือสำเนาบัตรประจำตัวผู้สมัคร'
+            }
+            console.log(waring_text)
+            return waring_text
         }
 
         (function() {
@@ -588,7 +752,6 @@
                 df_year = document.createDocumentFragment()
             var year = new Date()
             var i = year.getFullYear() + 543
-            console.log(i)
             for(var j = i; j >= i-100;j--){
                 var option_year = document.createElement('option')
                 option_year.value = j

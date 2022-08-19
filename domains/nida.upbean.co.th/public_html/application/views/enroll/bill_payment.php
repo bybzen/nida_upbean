@@ -15,7 +15,7 @@ function get_code_text($code, $fullLength) {
 	return $code;
 }
 
-$filename = $_SERVER["DOCUMENT_ROOT"] . PROJECTPATH . "/assets/document/Pay-in-Slip.pdf";
+$filename = $_SERVER["DOCUMENT_ROOT"] . PROJECTPATH . "/assets/document/Pay-in-Slip-new.pdf";
 if (sizeof($bill_payment) == 1){
     $bill = $bill_payment[0];
 }
@@ -75,7 +75,7 @@ $pdf->Image(base_url('enroll/gen_qr?data='.$code),7.5,212,	20,	20,'PNG');
 // $full_code = "| ".$tax_id." ".$suffix." ".get_code_text($order['ref_1'],18)." ".get_code_text($order['ref_2'],18)." ".get_code_text(str_replace(",", "", str_replace(".", "", number_format($order['value'], 2))),10);
 
 $code = "|".$bill['tax']."\r".$bill['ref_1']."\r".$bill['ref_2']."\r".str_replace(",", "", str_replace(".", "", number_format($bill['enroll_cost'], 2)));
-$full_code = "| ".'0135560020655'." ".'22'." ".get_code_text($bill['ref_1'],18)." ".get_code_text($bill['ref_2'],18)." ".get_code_text(str_replace(",", "", str_replace(".", "", number_format($bill['enroll_cost'], 2))),10);
+$full_code = "| ".'0994000159692'." ".'11'." ".get_code_text($bill['ref_1'],18)." ".get_code_text($bill['ref_2'],18)." ".get_code_text(str_replace(",", "", str_replace(".", "", number_format($bill['enroll_cost'], 2))),10);
 
 $barcodebase64 = base64_encode($generatorPNG->getBarcode($code, $generatorPNG::TYPE_CODE_128));
 $pic = 'data:image/png;base64,' . $barcodebase64;

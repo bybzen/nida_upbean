@@ -119,7 +119,6 @@ class Enroll extends CI_Controller {
 
     function upload() {
         if (isset($_FILES['my_image']) && isset($_FILES['my_image02'])) {
-            // include "db_conn.php";
             $sname = "localhost";
             $uname = "root";
             $password = "";
@@ -137,46 +136,25 @@ class Enroll extends CI_Controller {
             $error_02    = $_FILES['my_image02']['error'];
 
             $ref_1 = $_POST['ref_1'];
+                
+            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+            $img_ex_lc = strtolower($img_ex);
 
-            if ($error === 0) {
-                if ($img_size > 1000000) {
-                    $em = "Sorry, your file is too large.";
-                    $error = array('error' => 1, 'em'=> $em);
-                    echo json_encode($error);
-                    exit();
-                }else {
-                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-                    $img_ex_lc = strtolower($img_ex);
+            $img_ex_02 = pathinfo($img_name_02, PATHINFO_EXTENSION);                    
+            $img_ex_lc_02 = strtolower($img_ex_02);
 
-                    $img_ex_02 = pathinfo($img_name_02, PATHINFO_EXTENSION);                    
-                    $img_ex_lc_02 = strtolower($img_ex_02);
-                    $allowed_exs = array("jpg", "jpeg", "png");
-                    if (in_array($img_ex_lc, $allowed_exs) && in_array($img_ex_lc_02, $allowed_exs)) {
-                        $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;                      
-                        $img_upload_path = "uploads/".$new_img_name;
-                        move_uploaded_file($tmp_name, $img_upload_path);
-                        
-                        $new_img_name_02 = uniqid("IMG-", true).'.'.$img_ex_lc_02;
-                        $img_upload_path_02 = "uploads/".$new_img_name_02;
-                        move_uploaded_file($tmp_name_02, $img_upload_path_02);
+            $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;                      
+            $img_upload_path = "uploads/".$new_img_name;
+            move_uploaded_file($tmp_name, $img_upload_path);
+            
+            $new_img_name_02 = uniqid("IMG-", true).'.'.$img_ex_lc_02;
+            $img_upload_path_02 = "uploads/".$new_img_name_02;
+            move_uploaded_file($tmp_name_02, $img_upload_path_02);
 
-                        $sql = "UPDATE coop_enroll set img_path = '$new_img_name', img_path_02 = '$new_img_name_02' where ref_1 = '$ref_1'";
-                        mysqli_query($conn, $sql);
-                        $res = array('error' => 0, 'src'=> $new_img_name);
-                        echo json_encode($sql);
-                    }else {
-                        $em = "You can't upload files of this type";
-                        $error = array('error' => 1, 'em'=> $em);
-                        echo json_encode($error);
-                        exit();
-                    }
-                }
-            }else {
-                $em = "unknown error occurred!";
-                $error = array('error' => 1, 'em'=> $em);
-                echo json_encode($error);
-                exit();
-            }
+            $sql = "UPDATE coop_enroll set img_path = '$new_img_name', img_path_02 = '$new_img_name_02' where ref_1 = '$ref_1'";
+            mysqli_query($conn, $sql);
+            $res = array('error' => 0, 'src'=> $new_img_name);
+            echo json_encode($sql);
         }
     }
 }
