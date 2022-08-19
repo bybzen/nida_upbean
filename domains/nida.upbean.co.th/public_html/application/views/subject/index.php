@@ -130,15 +130,8 @@
                             </select>
                         </div>
                     </div>
-
                     <div id="province" class="g24-col-sm-24 margin-10">
-                        <!-- <?php foreach ($province as $index => $value) {?>
-                            <input type="checkbox" name="province_name" id="province_name" value="<?php echo $value['province_name'] ?>">
-                            <label><?php echo $value['province_name']?></label>
-                        <?php } ?> -->
-                        <!-- <div id="row_1" class="g24-col-sm-6">
 
-                        </div> -->
                     </div>
                 </form>
                 <div class="g24-col-sm-24" style="margin-top: 5px">
@@ -321,14 +314,15 @@
                 for(let i=0;i<data.length;i++){
                     const newLabel = document.createElement("label")
                     newLabel.setAttribute("for", 'checkbox')
-                    // newLabel.setAttribute("style", 'padding-right: 50px')
                     newLabel.innerHTML = data[i].province_name
+                    
 
                     const newCheckbox = document.createElement("input")
                     newCheckbox.setAttribute("type", 'checkbox')
                     newCheckbox.setAttribute("name", 'province_name')
                     newCheckbox.setAttribute("id", 'province_name')
                     newCheckbox.setAttribute("value", data[i].province_name)
+                    
 
                     const el = document.createElement('div')
                     el.setAttribute('id', 'my-id')

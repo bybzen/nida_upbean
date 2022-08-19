@@ -23,7 +23,7 @@
                         <form method="GET" id="search_form">
                             <div class="" style="margin-bottom: 20px">
                                 <label><h2>ค้นหา</h2></label>
-                                <input  id="filter_search" class="" name="filter_search" type="text" style="width:350px;  height : 35px; margin-left : 10px;"  placeholder="ชื่อนามสกุล/เบอร์โทร/เลขบัตรประชาชน">
+                                <input  id="filter_search" class="" name="filter_search" type="text" style="width:350px;  height : 35px; margin-left : 10px;"  placeholder="ชื่อนามสกุล/เบอร์โทร">
                             </div>  
                         </form>
                         
@@ -95,7 +95,12 @@
                 <form id="modal_form" method="POST">
                     <input type="hidden" id="firstname" name="firstname">
                     <input type="hidden" id="lastname" name="lastname">
-
+                    <input type="hidden" id="birthday" name="birthday">
+                    
+                    <div class="g24-col-sm-24 margin-10" style="margin-top: -10px";>
+                        <h3><b><u> ข้อมูลส่วนตัวผู้สมัคร </u></b></h3>
+                    </div>                    
+                    
                     <div class="g24-col-sm-24 margin-10">
                         <label class="g24-col-sm-6 text-right label-margin">Ref1</label>
                         <div class="g24-col-sm-14">
@@ -117,21 +122,209 @@
                         </div>
                     </div>
 
+                    <!-- <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> วันเกิด </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="birthday" name="birthday">
+                        </div>
+                    </div> -->
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label for="birthday" class="g24-col-sm-6 text-right label-margin">วัน/เดือน/ปี เกิด</label>
+                            <div class="g24-col-sm-4">
+                                    <select class="form-control" id="day" name="day">
+                                        <option selected></option>
+                                    </select>
+                            </div>     
+
+                            <div class="g24-col-sm-6">  
+                                    <select class="form-control" id="month" name="month">
+                                        <option selected></option>
+                                    </select>
+                            </div>    
+
+                            <div class="g24-col-sm-4">           
+                                    <select class="form-control" id="year" name="year">
+                                        <option selected></option>
+                                    </select>
+                            </div>
+                    </div> 
+
                     <div class="g24-col-sm-24 margin-10">
                         <label class="g24-col-sm-6 text-right label-margin"> เบอร์โทร </label>
                         <div class="g24-col-sm-14">
                             <input type="text" class="form-control" id="tel" name="tel" placeholder="ex.0888888xxx">
                         </div>
                     </div>
-
+                    
                     <div class="g24-col-sm-24 margin-10">
-                        <label class="g24-col-sm-6 text-right label-margin"> เลขบัตรประชาชน </label>
+                        <label class="g24-col-sm-6 text-right label-margin"> Email </label>
                         <div class="g24-col-sm-14">
-                            <input type="text" class="form-control" id="id_card" name="id_card">
+                            <input type="text" class="form-control" id="email" name="email">
                         </div>
                     </div>
 
                     <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> ชื่อหน่วยงาน </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="cop" name="cop">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> ตำแหน่ง </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="position" name="position">
+                        </div>
+                    </div>
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> ที่อยู่ที่ทำงาน </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="address" name="address">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> ถนน </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="road" name="road">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> เขต/อำเภอ </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="sub_area" name="sub_area">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> แขวง/ตำบล </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="area" name="area">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> จังหวัด </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="province" name="province">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> รหัสไปรษณีย์ </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="postal_code" name="postal_code">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-7 text-left label-margin"> บุคคลที่ติดต่อได้ในกรณีฉุกเฉิน </label>
+                        <div class="g24-col-sm-13">
+                            <input type="text" class="form-control" id="person_to_notify" name="person_to_notify">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10" >
+                        <label class="g24-col-sm-7 text-left label-margin"> หมายเลขบุคคลที่ติดต่อได้ในกรณีฉุกเฉิน </label>
+                        <div class="g24-col-sm-13">
+                            <input type="text" class="form-control" id="tel_person_to_notify" name="tel_person_to_notify">
+                        </div>
+                    </div>
+                    
+                    <div class="g24-col-sm-24 margin-10 " style=" margin-top: 10px">
+                        <h3><b><u> ที่อยู่ที่ต้องการออกใบเสร็จ </u></b></h3>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> ชื่อที่ใช้ออกใบเสร็จ </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="bill_name" name="bill_name">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> ที่อยู่เลขที่ </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="bill_house" name="bill_house">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> ถนน </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="bill_road" name="bill_road">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> เขต/อำเภอ </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="bill_sub_area" name="bill_sub_area">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> แขวง/ตำบล </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="bill_area" name="bill_area">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> จังหวัด </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="bill_province" name="bill_province">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> รหัสไปรษณีย์ </label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="bill_postal_code" name="bill_postal_code">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10 " style=" margin-top: 10px">
+                        <h3><b><u> เอกสารประกอบการสมัคร  </u></b></h3>
+                    </div>
+                    
+                    <div class="g24-col-sm-24 margin-10">
+                        <label for="form-label" class="g24-col-sm-24 text-left label-margin" >1. รูปถ่ายสี</label>
+                            <!-- <input type="file" name="image" id="image"> -->
+                        <div class="preview">
+                            <img src="" id="show_photo1" width="100" height="100">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10 ">
+                        <label for="form-label" class="g24-col-sm-24 text-left label-margin" >
+                            2. สำเนาบัตรราชการหรือสำเนาบัตรประจำตัวผู้สมัคร พร้อมรับรองสำเนาถูกต้อง</label>
+                        <!-- <input type="file" name="image02" id="image02"> -->
+                        <div class="preview">
+                            <img src="" id="show_photo2" width="100" height="100">
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10 " style=" margin-top: 10px">
+                        <h3><b><u>รับประทานอาหาร</u></b></h3>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
+                            <!-- <label class="g24-col-sm-6 text-right label-margin">อาหาร</label> -->
+                            <div class="g24-col-sm-14">
+                                <label><input type="radio" name="food_type" value="มังสวิรัติ" class="food_type" > มังสวิรัติ </label> 
+                                &nbsp; &nbsp;
+                                
+                                <label><input type="radio" name="food_type" value="ฮาลาล" class="food_type" > ฮาลาล </label>
+                                &nbsp; &nbsp;
+
+                                <label> <input type="radio" name="food_type" value="ปกติ" class="food_type"> ปกติ </label>
+                            </div>
+                    </div>
+                    
+                    <div class="g24-col-sm-24 margin-10" style=" margin-top: 20px">
                         <label class="g24-col-sm-6 text-right label-margin">หลักสูตร</label>
                         <div class="g24-col-sm-14">
                             <input type="text" class="form-control" id="subject" name="subject" readonly>
@@ -167,7 +360,7 @@
                             <div class="g24-col-sm-14">
                                 <label>
                                     <input type="radio" name="payment_status" value="ชำระเงินแล้ว" class="payment_status"> ชำระเงินแล้ว 
-                                </label> &nbsp;
+                                </label> &nbsp; &nbsp;
                                 <label>
                                     <input type="radio" name="payment_status" value="รอชำระเงิน" class="payment_status"> รอชำระเงิน 
                                 </label>
@@ -235,14 +428,20 @@ $(document).ready(function(){
         $('#save_btn').click(function(){
 
             let name = $('#name').val(); //เอาค่าจาก id = name
-            let firstname = $('#firstname').val();
-            let lastname = $('#lastname').val();
+            // let firstname = $('#firstname').val();
+            // let lastname = $('#lastname').val();
+
+            let day = $('#day').val();
+            let month = $('#month').val();
+            let year = $('#year').val();
+
 
             let warning_text = "";
 
             if (warning_text == ''){
 
-                toSplitName(name) 
+                toSplitName(name)
+                birthdayToDB(day, month, year)
 
                 $.ajax({
                    type:'POST',
@@ -287,8 +486,11 @@ $(document).ready(function(){
 
         // console.log(numOfDay, month, year, time)
 
+        if(day != null && time != null)
             return numOfDay + " " + month + " " + year + " " + time + " น.";
-      
+        
+        else if(day != null && time == null)
+            return numOfDay + " " + month + " " + year;
     }
 
     function toSplitDate(date) {
@@ -305,30 +507,60 @@ $(document).ready(function(){
 
     function toSplitName(name) {
 
-    let name_trim = name.trim()
-    let name_split = name_trim.split(/\s+/);
-    let firstname = name_split[0];
-    let lastname = name_split[1];
+        let name_trim = name.trim()
+        let name_split = name_trim.split(/\s+/);
+        let firstname = name_split[0];
+        let lastname = name_split[1];
 
-    $('#firstname').val(firstname);
-    $('#lastname').val(lastname);
+        $('#firstname').val(firstname);
+        $('#lastname').val(lastname);
+
+    }
+
+    //จัดรูปแบบวันที่ลง DB
+    function birthdayToDB(d, m, y){
+        // let birthday = d.concat(m, y);
+        let birthday = d + "/" + m + "/" + y;
+        
+        $('#birthday').val(birthday);
+        // console.log(birthday);
+    }
+
+    //โชว์หน้าข้อมูลสมัคร
+    function toSplitBirthday(bd) {
+
+        let birthday_trim = bd.trim();
+        let birthday_split = birthday_trim.split('/');
+        let day = birthday_split[0];
+        let month = birthday_split[1];
+        let year = birthday_split[2];
+
+        $('#day').val(day);
+        $('#month').val(month);
+        $('#year').val(year);
+
+        // console.log("d = ", day)
+        // console.log("m = ", month)
+        // console.log("y = ", year)
 
     }
 
 
     function edit(ref_1){
         $('#ref_1').attr('onchange');
+        
+        // var action = "fetch";
         $.ajax({
             type:'POST',
             url:base_url+'enroll/ajax_show_page_edit_enroll',
             data: {
                 ref_1 : ref_1,
+                // action : action
             } ,
             success : function(result){
                 data = JSON.parse(result);
                 let firstname = data.firstname;
                 let lastname = data.lastname;
-
                 // $('#firstname').val(data.firstname);
                 // $('#lastname').val(data.lastname);
                 // console.log("---Before---")
@@ -338,14 +570,42 @@ $(document).ready(function(){
                 $('#ref_1').val(data.ref_1);
                 $('#created_at').val(toSplitDate(data.created_at));
                 $('#name').val(firstname.concat("  ", lastname));
+
+                toSplitBirthday(data.birthday);
+                
                 $('#tel').val(data.tel);
-                $('#id_card').val(data.id_card);
+                $('#email').val(data.email);
+                $('#cop').val(data.cop);
+                $('#position').val(data.position);
+                $('#address').val(data.address);
+                $('#road').val(data.road);
+                $('#sub_area').val(data.sub_area);
+                $('#area').val(data.area);
+                $('#province').val(data.province);
+                $('#postal_code').val(data.postal_code);
+                $('#person_to_notify').val(data.person_to_notify);
+                $('#tel_person_to_notify').val(data.tel_person_to_notify);
+                $('.food_type[value=' + data.food_type + ']').prop('checked', true);
+                
+                $('#show_photo1').attr('src', "/uploads/" + data.img_path);
+                $('#show_photo2').attr('src', "/uploads/" + data.img_path_02);
+                $('.preview img').show();
+
+                $('#bill_name').val(data.bill_name);
+                $('#bill_house').val(data.bill_house);
+                $('#bill_road').val(data.bill_road);
+                $('#bill_sub_area').val(data.bill_sub_area);
+                $('#bill_area').val(data.bill_area);
+                $('#bill_province').val(data.bill_province);
+                $('#bill_postal_code').val(data.bill_postal_code);
+
                 $('#subject').val(data.enroll_subject);
                 $('#cost').val(data.enroll_cost);
                 $('.payment_status[value=' + data.payment_status + ']').prop('checked', true);
                 $('#payment_date_d').val(data.payment_date_d);
                 $('#payment_date_h').val(data.payment_date_h);
                 $('#payment_date_m').val(data.payment_date_m);
+                
             }
         });
         // $('#ref_1').val(ref_1);
@@ -368,6 +628,7 @@ $(document).ready(function(){
             },
             function (isConfirm){
                 if (isConfirm){
+                    // console.log(ref_1)
                     $.ajax({
                         type:'POST',
                         url: base_url+"enroll/ajax_delete_enroll",
@@ -401,7 +662,7 @@ $(document).ready(function(){
                     if(result.length != 2)
                 {
                     data = JSON.parse(result)
-                    console.log("มีค่า", data)
+                    // console.log("มีค่า", data)
                     var table_data ="";
                     var count_row = 1;
 
@@ -425,8 +686,8 @@ $(document).ready(function(){
                         // แสดงค่าลงในตาราง
                         if(value.payment_status == "ชำระเงินแล้ว")
                         {
-                            table_data += ` 
-                            <tr>
+                            table_data += 
+                            `<tr>
                                 <td class="text-center">${count_row}</td>
                                 <td class="text-center">${value.ref_1}</td>
                                 <td class="text-center">${toSplitDate(value.created_at)}</td>
@@ -488,5 +749,41 @@ $(document).ready(function(){
                 }
             })
         });
+
+        (function() {
+            var elm_day = document.getElementById('day'),
+                df_day = document.createDocumentFragment()
+            for (var i = 1; i <= 31; i++) {
+                var option_day = document.createElement('option')
+                option_day.value = i
+                option_day.appendChild(document.createTextNode(i))
+                df_day.appendChild(option_day)
+            }
+            elm_day.appendChild(df_day)
+
+            var arr_month = ["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"]
+            var elm_month = document.getElementById('month'),
+                df_month = document.createDocumentFragment()
+            for(var i = 0; i <= 11;i++){
+                var option_month = document.createElement('option')
+                option_month.value = arr_month[i]
+                option_month.appendChild(document.createTextNode(arr_month[i]))
+                df_month.appendChild(option_month)
+            }
+            elm_month.appendChild(df_month)
+
+            var elm_year = document.getElementById('year'),
+                df_year = document.createDocumentFragment()
+            var year = new Date()
+            var i = year.getFullYear() + 543
+            console.log(i)
+            for(var j = i; j >= i-100;j--){
+                var option_year = document.createElement('option')
+                option_year.value = j
+                option_year.appendChild(document.createTextNode(j))
+                df_year.appendChild(option_year)
+            }
+            elm_year.appendChild(df_year)
+        }())
 
 </script>

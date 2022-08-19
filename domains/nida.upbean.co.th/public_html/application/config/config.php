@@ -25,6 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 // $config['base_url'] = 'https://cholada.upbean.co.th/';
 $config['base_url'] = 'http://nida.localhost';
+// $config['base_url'] = 'https://gspa.upbean.co.th/';
 
 /*
 |--------------------------------------------------------------------------
