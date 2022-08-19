@@ -54,7 +54,7 @@
                                     <td class="text-center"><?php echo $value['cost'] ?></td>
                                     <td class="text-center"><?php echo $value['open_province']?></td>
                                     <td class="text-center">
-                                        <a onclick="edit(<?php echo $value['id'] ?>)">แก้ไข</a>
+                                        <a onclick="edit('<?php echo $value['code'] ?>')">แก้ไข</a>
                                         |
                                         <a onclick="del(<?php echo $value['id'] ?>)" style="color: red">ลบ</a>
                                     </td>
@@ -76,7 +76,7 @@
                 <button type="button" class="close" data-dismiss="modal">x</button>
                 <h2 class="modal-title" id="type_name">หลักสูตร</h2>
             </div>
-            <div class="modal-body" style="height: 900px">
+            <div class="modal-body" style="height: 480px">
                 <form id="modal_form">
                     <input type="hidden" id="modal_type">
                     <input type="hidden" id="subject_id" name="subject_id">
@@ -100,12 +100,12 @@
 
                     <div class="g24-col-sm-24 margin-10">
                         <label class="g24-col-sm-5 text-right label-margin"> เปิดรับสมัครวันที่ </label>
-                        <div class="g24-col-sm-5">
-                            <input type="date" id="start_date" name="start_date">
+                        <div class="g24-col-sm-6">
+                            <input type="date" class="form-control" id="start_date" name="start_date">
                         </div>
                         <label class="g24-col-sm-2 text-right label-margin"> ถึง </label>
-                        <div class="g24-col-sm-5">
-                            <input type="date" id="end_date" name="end_date">
+                        <div class="g24-col-sm-6">
+                            <input type="date" class="form-control" id="end_date" name="end_date">
                         </div>                        
                     </div>
 
@@ -130,13 +130,9 @@
                             </select>
                         </div>
                     </div>
-                    
-                    <div id="province" class="g24-col-sm-24"></div>
-                        
-                        <!-- <?php foreach ($province as $index => $value) {?>
-                            <input  type="checkbox" name="province_name" id="province_name" value="<?php echo $value['province_name'] ?>">
-                            <label><?php echo $value['province_name']?></label>
-                        <?php } ?>  -->
+                    <div id="province" class="g24-col-sm-24 margin-10">
+
+                    </div>
                 </form>
                 <div class="g24-col-sm-24" style="margin-top: 5px">
                     <div class="text-center">
@@ -157,6 +153,8 @@
             $('#name').val('');
             $('#code').val('');
             $('#cost').val(0);
+            $("#geography").val('');
+            $('#province').empty()
             $('#modal_type').val(1);
             $('#add_modal').modal('show');
         });
@@ -169,8 +167,7 @@
                 open.push(str);
             });
             $("#pv").val(open.join(","))
-            // console.log($("#pv").val())
-            // console.log($("#geography").val())
+            console.log($("#pv").val())
             // let modal_type = $('#modal_type').val();
             // let url = "";
             // let warning_text = "";
@@ -203,6 +200,9 @@
             // }
             // if(end_date == ''){
             //     warning_text += '-วันที่ปิดรับสมัคร\n'
+            // }
+            // if($("#pv").val() == ''){
+            //     warning_text += '-กรุณาเลือกจังหวัดที่เปิดรับสมัคร\n'
             // }
             // if (warning_text != ''){
             //     swal('กรุณากรอกข้อมูล',warning_text,'warning');
@@ -267,6 +267,7 @@
                 $('#cost').val(data.cost);
                 $('#start_date').val(data.start_date);
                 $('#end_date').val(data.end_date);
+                $("#geography").val(data.geography).change();
                 $('#add_modal').modal('show');
             }
         });
@@ -310,27 +311,25 @@
             },
             success: function(res){
                 data = JSON.parse(res)
-                console.log(data.length)
                 for(let i=0;i<data.length;i++){
-                    // var input = document.createElement("input")
-                    // input.type = "checkbox"
-                    // input.className = "css-class-name"
-                    // province.appendChild(input)
                     const newLabel = document.createElement("label")
                     newLabel.setAttribute("for", 'checkbox')
                     newLabel.innerHTML = data[i].province_name
-                    // newLabel.setAttribute("style", 'padding-right: 40px')
 
                     const newCheckbox = document.createElement("input")
                     newCheckbox.setAttribute("type", 'checkbox')
                     newCheckbox.setAttribute("name", 'province_name')
                     newCheckbox.setAttribute("id", 'province_name')
                     newCheckbox.setAttribute("value", data[i].province_name)
-                    newLabel.setAttribute("style", 'padding-right: 15px')
                     
 
-                    province.appendChild(newCheckbox)
-                    province.appendChild(newLabel)                 
+                    const el = document.createElement('div')
+                    el.setAttribute('id', 'my-id')
+                    el.setAttribute('class', 'g24-col-sm-6')
+                    el.appendChild(newCheckbox)
+                    el.appendChild(newLabel)
+
+                    province.appendChild(el)          
                 }
             }
         });

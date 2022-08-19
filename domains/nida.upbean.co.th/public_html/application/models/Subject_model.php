@@ -50,17 +50,23 @@ class Subject_model extends CI_Model{
         $data_insert['cost'] = $param['cost'];
         $data_insert['start_date'] = $param['start_date'];
         $data_insert['end_date'] = $param['end_date'];
-        $this->db->where('id', $param['subject_id']);
+        if($param['pv'] != ''){
+            $this->db->where('subject_code',$param['subject_id']);
+            $this->db->delete('subject_open_province', ['subject_code' => $param['subject_id']]);
+            $this->build_open_province($param);
+        }
+        $this->db->where('code', $param['subject_id']);
         $this->db->update('coop_subject', $data_insert);
     }
 
     function get_subject_data($id=null){
         if(!empty($id)){
-            $where = "where id = ".$id;
+            $where = "where code = ".$id;
         }
         $sql = "SELECT * FROM coop_subject ".$where;
         $result = $this->db->query($sql)->result_array();
         return $result[0];
+        // return $sql;
     }
 
     function delete_subject($id){
