@@ -167,61 +167,60 @@
                 open.push(str);
             });
             $("#pv").val(open.join(","))
-            console.log($("#pv").val())
-            // let modal_type = $('#modal_type').val();
-            // let url = "";
-            // let warning_text = "";
-            // let name = $('#name').val();
-            // let code = $('#code').val();
-            // let cost = $('#cost').val();
-            // let start_date = $('#start_date').val();
-            // let end_date = $('#end_date').val();
-            // if(code != ''){
-            //     checkCodeSubject($('#code').val())
-            // }
-            // let check_code = $('#check').val();
-            // if (name == ''){
-            //     warning_text += '-ชื่อหลักสูตร\n';
-            // }
-            // if (code == ''){
-            //     warning_text += '-รหัสหลักสูตร\n';
-            // }
-            // if(code != '' && onlyNumber(code)){
-            //     warning_text += '-รหัสหลักสูตรต้องประกอบด้วยตัวเลขเท่านั้น\n'
-            // }
-            // if (cost == 0){
-            //     warning_text += '-ค่าลงทะเบียน\n';
-            // }
-            // if (check_code != 0 && modal_type == 1){
-            //     warning_text += '-ตรวจพบรหัสวิชานี้แล้ว\n'
-            // }
-            // if(start_date == ''){
-            //     warning_text += '-วันที่เปิดรับสมัคร\n'
-            // }
-            // if(end_date == ''){
-            //     warning_text += '-วันที่ปิดรับสมัคร\n'
-            // }
-            // if($("#pv").val() == ''){
-            //     warning_text += '-กรุณาเลือกจังหวัดที่เปิดรับสมัคร\n'
-            // }
-            // if (warning_text != ''){
-            //     swal('กรุณากรอกข้อมูล',warning_text,'warning');
-            // } 
-            // else {
-            //     if (modal_type == 1){
-            //         url = base_url+"subject/ajax_create_subject";
-            //     } else if (modal_type == 2){
-            //         url = base_url+"subject/ajax_edit_subject";
-            //     }
-            //     $.ajax({
-            //         type:'POST' ,
-            //         url: url ,
-            //         data: $('#modal_form').serialize(),
-            //         success:function(res){
-            //             location.reload();
-            //         }
-            //     });
-            // }
+            let modal_type = $('#modal_type').val();
+            let url = "";
+            let warning_text = "";
+            let name = $('#name').val();
+            let code = $('#code').val();
+            let cost = $('#cost').val();
+            let start_date = $('#start_date').val();
+            let end_date = $('#end_date').val();
+            if(code != ''){
+                checkCodeSubject($('#code').val())
+            }
+            let check_code = $('#check').val();
+            if (name == ''){
+                warning_text += '-ชื่อหลักสูตร\n';
+            }
+            if (code == ''){
+                warning_text += '-รหัสหลักสูตร\n';
+            }
+            if(code != '' && onlyNumber(code)){
+                warning_text += '-รหัสหลักสูตรต้องประกอบด้วยตัวเลขเท่านั้น\n'
+            }
+            if (cost == 0){
+                warning_text += '-ค่าลงทะเบียน\n';
+            }
+            if (check_code != 0 && modal_type == 1){
+                warning_text += '-ตรวจพบรหัสวิชานี้แล้ว\n'
+            }
+            if(start_date == ''){
+                warning_text += '-วันที่เปิดรับสมัคร\n'
+            }
+            if(end_date == ''){
+                warning_text += '-วันที่ปิดรับสมัคร\n'
+            }
+            if($("#pv").val() == ''){
+                warning_text += '-กรุณาเลือกจังหวัดที่เปิดรับสมัคร\n'
+            }
+            if (warning_text != ''){
+                swal('กรุณากรอกข้อมูล',warning_text,'warning');
+            } 
+            else {
+                if (modal_type == 1){
+                    url = base_url+"subject/ajax_create_subject";
+                } else if (modal_type == 2){
+                    url = base_url+"subject/ajax_edit_subject";
+                }
+                $.ajax({
+                    type:'POST' ,
+                    url: url ,
+                    data: $('#modal_form').serialize(),
+                    success:function(res){
+                        location.reload();
+                    }
+                });
+            }
         });
 
         $('#cancle_btn').click(function(){
