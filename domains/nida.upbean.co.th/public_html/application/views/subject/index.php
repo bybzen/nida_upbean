@@ -320,7 +320,6 @@
                     newLabel.setAttribute("for", 'checkbox')
                     newLabel.innerHTML = data[i].province_name
                     // newLabel.setAttribute("style", 'padding-right: 40px')
-                    
 
                     const newCheckbox = document.createElement("input")
                     newCheckbox.setAttribute("type", 'checkbox')
