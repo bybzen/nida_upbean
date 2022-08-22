@@ -13,7 +13,7 @@ class Subject_model extends CI_Model{
                 INNER JOIN subject_open_province as t2 ON ( t1.is_deleted = 0 and t1.project_id = ".$id." and t1.code = t2.subject_code) 
                 GROUP BY t1.code";
         $array['subject'] = $this->db->query($sql)->result_array();
-        $sql = "SELECT * FROM data_province";
+        $sql = "SELECT * FROM data_province order by province_name";
         $array['province'] = $this->db->query($sql)->result_array();
         return $array;
     }
