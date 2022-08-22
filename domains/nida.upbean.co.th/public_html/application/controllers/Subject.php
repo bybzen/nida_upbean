@@ -12,7 +12,7 @@ class Subject extends CI_Controller{
         $arr_province = array();
         $result = $this->Subject->get_subject($id);
         $arr_data['subject'] = $result['subject'];
-        // $arr_data['province'] = $result['province'];
+        $arr_data['province'] = $result['province'];
         $arr_data['project_id'] = $id;
         $this->libraries->template('subject/index',$arr_data);
     }
@@ -50,7 +50,7 @@ class Subject extends CI_Controller{
     }
 
     function ajax_get_open_province(){
-        $res = $this->Subject->get_open_province($_POST['subject_code']);
+        $res = $this->Subject->get_open_province($_POST['geo_id'],$_POST['subject_code']);
         echo json_encode($res);
         exit;
     }

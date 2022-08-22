@@ -188,12 +188,7 @@ class Enroll extends CI_Controller {
      }
 
     function upload() {
-        if (isset($_FILES['my_image']) && isset($_FILES['my_image02'])) {
-            $sname = "localhost";
-            $uname = "root";
-            $password = "";
-            $db_name = "nida_com";
-            $conn = mysqli_connect($sname, $uname, $password, $db_name);           
+        if (isset($_FILES['my_image']) && isset($_FILES['my_image02'])) {    
 
             $img_name = $_FILES['my_image']['name'];
             $img_size = $_FILES['my_image']['size'];
@@ -222,7 +217,7 @@ class Enroll extends CI_Controller {
             move_uploaded_file($tmp_name_02, $img_upload_path_02);
 
             $sql = "UPDATE coop_enroll set img_path = '$new_img_name', img_path_02 = '$new_img_name_02' where ref_1 = '$ref_1'";
-            mysqli_query($conn, $sql);
+            $this->db->query($sql);            
             $res = array('error' => 0, 'src'=> $new_img_name);
             echo json_encode($sql);
         }

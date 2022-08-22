@@ -166,8 +166,21 @@
 
     function enroll(id){
         $("#pj_id").val(id)
-        $('#enroll_form').attr('action', base_url + 'project/enroll_subject');
-        $('#enroll_form').submit();
+        // $('#enroll_form').attr('action', base_url + 'project/enroll_subject/' + id);
+        // $('#enroll_form').submit();
+        $.ajax({
+            // type: 'POST',
+            // url: base_url + 'project/enroll_subject',
+            // data: {
+            //     id: $("#pj_id").val()
+            // },
+            success: function(){
+                // data = JSON.parse(res)
+                // console.log(data.id)
+                // document.location.href = window.location.origin + '/project/enroll_subject/' + id
+                window.open(window.location.origin + '/project/enroll_subject/' + id); 
+            }
+        })
     }
 
     function edit(id){

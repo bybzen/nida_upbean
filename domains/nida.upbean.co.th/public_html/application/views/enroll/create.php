@@ -55,7 +55,7 @@
             <div class="col-10 offset-1 col-sm-4 offset-sm-4 mt-4">
                 <div class="card border-0" >
                     <h3 class="text-center mt-3">ลงทะเบียน</h3>
-                    <h5 class="text-center mt-3"><?php echo $project[0]['project_name'] ?></h5>
+                    <h5 class="text-center mt-3"><?php echo $project['project_name'] ?></h5>
 
                     <form id="modal_form" method="post" enctype="multipart/form-data" class="px-2">
 
@@ -349,8 +349,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function(){
-            $("#project_id").val(<?php echo $project[0]['id'] ?>)
-            $("#project_name").val('<?php echo $project[0]['project_name'] ?>')
+            $("#project_id").val(<?php echo $project['id'] ?>)
+            $("#project_name").val('<?php echo $project['project_name'] ?>')
             
             $('#save_btn').click(function (){
                 event.preventDefault()
@@ -487,6 +487,9 @@
         function show_subject(){
             // เลือก จังหวัดที่ท่านทำงานอยู่ จากนั้นแสดงวิชาที่เปิด
             let x = $("#work_province").val()
+            if(x == 4){
+                x = 2
+            }
             let project_id = $('#project_id').val()
             $('#subject_name').empty()
             $.ajax({
@@ -498,6 +501,7 @@
                 },
                 success: function(res){
                     data = JSON.parse(res)
+                    // console.log(data)
                     createOptionTag(data, 'subject_name', 'code', 'name')
                 }
             })
@@ -505,6 +509,10 @@
 
         function show_open_province(){
             //เลือกวิชาเสร็จ แสดงจังหวัดที่เปิดสอน
+            var geo_id = $("#work_province").val()
+            if(geo_id == 4){
+                geo_id = 2
+            }
             var x = $("#subject_name").val()
             $("#enroll_id").val(x)
             $("#open_province").empty()
@@ -512,10 +520,12 @@
                 type:'POST',
                 url: window.location.origin + '/subject/ajax_get_open_province',
                 data: {
+                    geo_id: geo_id,
                     subject_code : x
                 },
                 success: function(res){
                     data = JSON.parse(res)
+                    // console.log(data)
                     createOptionTag(data, 'open_province', 'open_province', 'open_province')
                 }
             });

@@ -76,12 +76,13 @@
                 <button type="button" class="close" data-dismiss="modal">x</button>
                 <h2 class="modal-title" id="type_name">หลักสูตร</h2>
             </div>
-            <div class="modal-body" style="height: 480px">
+            <div class="modal-body" style="height: 95rem">
                 <form id="modal_form">
                     <input type="hidden" id="modal_type">
                     <input type="hidden" id="subject_id" name="subject_id">
                     <input type="hidden" id="project_id" name="project_id">
                     <input type="hidden" id="pv" name="pv">
+                    <input type="hidden" id="open_geo" name="open_geo">
                     <input type="hidden" id="check" name="check">
 
                     <div class="g24-col-sm-24 margin-10">
@@ -117,9 +118,9 @@
                     </div>
 
                     <div class="g24-col-sm-20 margin-10">
-                        <label class="g24-col-sm-5 text-right label-margin">ภาค</label>
-                        <div class="g24-col-sm-16">
-                            <select class="form-control" id="geography" name="geography" onchange="show_province($('#geography').val())">
+                        <label class="g24-col-sm-4 text-right label-margin">ภาค</label>
+                        <div class="g24-col-sm-18">
+                            <!-- <select class="form-control" id="geography" name="geography" onchange="show_province($('#geography').val())">
                                 <option value="0" selected></option>
                                 <option value="1">ภาคเหนือ</option>
                                 <option value="2">ภาคกลาง</option>
@@ -127,12 +128,33 @@
                                 <option value="4">ภาคตะวันตก</option>
                                 <option value="5">ภาคตะวันออก</option>
                                 <option value="6">ภาคใต้</option>
-                            </select>
+                            </select> -->
+                            <input type="checkbox" name="geography" id="geography" value="1">
+                            <label for="geography">ภาคเหนือ</label>
+                            <input type="checkbox" name="geography" id="geography" value="2">
+                            <label for="geography">ภาคกลางและภาคตะวันตก</label>
+                        </div>
+                        <div class="g24-col-sm-18">
+                            <input type="checkbox" name="geography" id="geography" value="3">
+                            <label for="geography">ภาคตะวันออกเฉียงเหนือ</label>
+                            <input type="checkbox" name="geography" id="geography" value="5">
+                            <label for="geography">ภาคตะวันออก</label>
+                            <input type="checkbox" name="geography" id="geography" value="6">
+                            <label for="geography">ภาคใต้</label>
                         </div>
                     </div>
-                    <div id="province" class="g24-col-sm-24 margin-10">
-
+                    <div class="g24-col-sm-24 margin-10"><br>
+                        <?php foreach ($province as $index => $value) {?>
+                            <div class="g24-col-sm-6">
+                                <input type="checkbox" name="province_name" id="province_name" 
+                                    value="<?php echo $value['province_name'] ?>">
+                                <label for="province_name"><?php echo $value['province_name'] ?></label>   
+                            </div>                                 
+                        <?php } ?>
                     </div>
+                    <!-- <div id="province" class="g24-col-sm-24 margin-10">
+
+                    </div> -->
                 </form>
                 <div class="g24-col-sm-24" style="margin-top: 5px">
                     <div class="text-center">
@@ -153,20 +175,27 @@
             $('#name').val('');
             $('#code').val('');
             $('#cost').val(0);
-            $("#geography").val('');
+            // $("#geography").val('');
             $('#province').empty()
             $('#modal_type').val(1);
             $('#add_modal').modal('show');
         });
 
         $('#save_btn').click(function (){
-            var open = [];
+            var open_province = []
+            var open_geography = []
             $.each($("input:checkbox[name='province_name']:checked"), function () {
                 let str = $(this).val()
                 str = str.replace(/\s/g, '')
-                open.push(str);
+                open_province.push(str)
             });
-            $("#pv").val(open.join(","))
+            $.each($("input:checkbox[name='geography']:checked"), function () {
+                let str = $(this).val()
+                str = str.replace(/\s/g, '')
+                open_geography.push(str)
+            });
+            $("#pv").val(open_province.join(","))
+            $("#open_geo").val(open_geography.join(","))
             let modal_type = $('#modal_type').val();
             let url = "";
             let warning_text = "";
@@ -199,6 +228,9 @@
             }
             if(end_date == ''){
                 warning_text += '-วันที่ปิดรับสมัคร\n'
+            }
+            if($("#open_geo").val() == ''){
+                warning_text += '-กรุณาเลือกภาค\n'
             }
             if($("#pv").val() == ''){
                 warning_text += '-กรุณาเลือกจังหวัดที่เปิดรับสมัคร\n'

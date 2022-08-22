@@ -32,10 +32,10 @@ class Project extends CI_Controller{
         $this->Project->delete_project($_POST['id']);
     }
 
-    function enroll_subject(){
+    function enroll_subject($id = null){
         $arr_data = array();
         //second param is query with subject in project
-        $res = $this->Project->get_project_data($_POST['pj_id'],1);
+        $res = $this->Project->get_project_data($id);
         $arr_data['project'] = $res;
         $res = $this->Project->get_province();
         $arr_data['province'] = $res;
