@@ -76,7 +76,7 @@
                 <button type="button" class="close" data-dismiss="modal">x</button>
                 <h2 class="modal-title" id="type_name">หลักสูตร</h2>
             </div>
-            <div class="modal-body" style="height: 95rem">
+            <div class="modal-body" style="height: 150rem">
                 <form id="modal_form">
                     <input type="hidden" id="modal_type">
                     <input type="hidden" id="subject_id" name="subject_id">
@@ -117,46 +117,124 @@
                         </div>
                     </div>
 
-                    <div class="g24-col-sm-20 margin-10">
-                        <label class="g24-col-sm-4 text-right label-margin">ภาค</label>
-                        <div class="g24-col-sm-18">
-                            <!-- <select class="form-control" id="geography" name="geography" onchange="show_province($('#geography').val())">
-                                <option value="0" selected></option>
-                                <option value="1">ภาคเหนือ</option>
-                                <option value="2">ภาคกลาง</option>
-                                <option value="3">ภาคตะวันออกเฉียงเหนือ</option>
-                                <option value="4">ภาคตะวันตก</option>
-                                <option value="5">ภาคตะวันออก</option>
-                                <option value="6">ภาคใต้</option>
-                            </select> -->
+                    <!-- <div class="g24-col-sm-24 margin-10 " style=" margin-top: 10px">
+                            <h3><b><u> ภาคเหนือ </u></b></h3>
+                    </div> -->
+
+                    <!-- <div class="g24-col-sm-20 margin-10"> -->
+                        
+                        <!-- <div class="g24-col-sm-18">
                             <input type="checkbox" name="geography" id="geography" value="1">
-                            <label for="geography">ภาคเหนือ</label>
+                            <label for="geography"><h3><b> <u> ภาคเหนือ </u></b></h3></label>
+                        </div> -->
+
+                        <!-- <div class="g24-col-sm-18">
                             <input type="checkbox" name="geography" id="geography" value="2">
-                            <label for="geography">ภาคกลางและภาคตะวันตก</label>
+                            <label for="geography"><h3><b> <u>ภาคกลางและภาคตะวันตก </u></b></h3></label>
+                        </div> -->
+
+                        <!-- <div class="g24-col-sm-18">
+                            <input type="checkbox" name="geography" id="geography" value="3">
+                            <label for="geography"><h3><b><u>ภาคตะวันออกเฉียงเหนือ </u></b></h3></label>
+                        </div> -->
+
+                        <!-- <div class="g24-col-sm-18">
+                            <input type="checkbox" name="geography" id="geography" value="5">
+                            <label for="geography"><h3><b><u> ภาคตะวันออก </u></b></h3></label>
                         </div>
                         <div class="g24-col-sm-18">
-                            <input type="checkbox" name="geography" id="geography" value="3">
-                            <label for="geography">ภาคตะวันออกเฉียงเหนือ</label>
-                            <input type="checkbox" name="geography" id="geography" value="5">
-                            <label for="geography">ภาคตะวันออก</label>
                             <input type="checkbox" name="geography" id="geography" value="6">
-                            <label for="geography">ภาคใต้</label>
-                        </div>
+                            <label for="geography"><h3><b><u> ภาคใต้ </u></b></h3></label>
+                        </div> -->
+                   
+                    <!-- </div> -->
+
+                    <div class="g24-col-sm-24 margin-10" style="margin-top: -10px;"><br>
+                        <input type="checkbox" name="geography" id="geography" value="1">
+                        <label for="geography"><h3><b><u> ภาคเหนือ </u></b></h3></label>
                     </div>
-                    <div class="g24-col-sm-24 margin-10"><br>
+                    <div class="g24-col-sm-24 margin-10" style="margin-top: -20px;"><br>
                         <?php foreach ($province as $index => $value) {?>
-                            <div class="g24-col-sm-6">
+                            <?php if($value['geo_id'] == 1) {?>
+                            <div class="g24-col-sm-6" style="margin-top: 10px;">
                                 <input type="checkbox" name="province_name" id="province_name" 
                                     value="<?php echo $value['province_name'] ?>">
                                 <label for="province_name"><?php echo $value['province_name'] ?></label>   
                             </div>                                 
+                                <?php }?>
                         <?php } ?>
                     </div>
+
+                    <div class="g24-col-sm-24 margin-10" style="margin-top: -10px;"><br>
+                        <input type="checkbox" name="geography" id="geography" value="2">
+                        <label for="geography"><h3><b><u>ภาคกลางและภาคตะวันตก </u></b></h3></label>
+                    </div>
+                    <div class="g24-col-sm-24 margin-10" style="margin-top: -20px;"><br>
+                        <?php foreach ($province as $index => $value) {?>
+                            <?php if($value['geo_id'] == 2) {?>
+                            <div class="g24-col-sm-6" style="margin-top: 10px;">
+                                <input type="checkbox" name="province_name" id="province_name" 
+                                    value="<?php echo $value['province_name'] ?>">
+                                <label for="province_name"><?php echo $value['province_name'] ?></label>   
+                            </div>                                 
+                                <?php }?>
+                        <?php } ?>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10" style="margin-top: -10px;"><br>
+                        <input type="checkbox" name="geography" id="geography" value="3">
+                        <label for="geography"><h3><b><u>ภาคตะวันออกเฉียงเหนือ </u></b></h3></label>
+                    </div>
+                    <div class="g24-col-sm-24 margin-10" style="margin-top: -20px;"><br>
+                        <?php foreach ($province as $index => $value) {?>
+                            <?php if($value['geo_id'] == 3) {?>
+                            <div class="g24-col-sm-6" style="margin-top: 10px;">
+                                <input type="checkbox" name="province_name" id="province_name" 
+                                    value="<?php echo $value['province_name'] ?>">
+                                <label for="province_name"><?php echo $value['province_name'] ?></label>   
+                            </div>                                 
+                                <?php }?>
+                        <?php } ?>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10" style="margin-top: -10px;"><br>
+                        <input type="checkbox" name="geography" id="geography" value="5">
+                        <label for="geography"><h3><b><u>ภาคตะวันออก </u></b></h3></label>
+                    </div>
+                    <div class="g24-col-sm-24 margin-10" style="margin-top: -20px;"><br>
+                        <?php foreach ($province as $index => $value) {?>
+                            <?php if($value['geo_id'] == 5) {?>
+                            <div class="g24-col-sm-6" style="margin-top: 10px;">
+                                <input type="checkbox" name="province_name" id="province_name" 
+                                    value="<?php echo $value['province_name'] ?>">
+                                <label for="province_name"><?php echo $value['province_name'] ?></label>   
+                            </div>                                 
+                                <?php }?>
+                        <?php } ?>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10" style="margin-top: -10px;"><br>
+                        <input type="checkbox" name="geography" id="geography" value="6">
+                        <label for="geography"><h3><b><u>ภาคใต้ </u></b></h3></label>
+                    </div>
+                    <div class="g24-col-sm-24 margin-10" style="margin-top: -20px;"><br>
+                        <?php foreach ($province as $index => $value) {?>
+                            <?php if($value['geo_id'] == 6) {?>
+                            <div class="g24-col-sm-6" style="margin-top: 10px;">
+                                <input type="checkbox" name="province_name" id="province_name" 
+                                    value="<?php echo $value['province_name'] ?>">
+                                <label for="province_name"><?php echo $value['province_name'] ?></label>   
+                            </div>                                 
+                                <?php }?>
+                        <?php } ?>
+                    </div>
+
+
                     <!-- <div id="province" class="g24-col-sm-24 margin-10">
 
                     </div> -->
                 </form>
-                <div class="g24-col-sm-24" style="margin-top: 5px">
+                <div class="g24-col-sm-24" style="margin-top: 30px">
                     <div class="text-center">
                         <button class="btn btn-primary" id="save_btn">บันทึก</button>
                         <button class="btn btn-danger" id="cancle_btn">ยกเลิก</button>
