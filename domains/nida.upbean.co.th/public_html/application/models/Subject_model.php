@@ -56,6 +56,8 @@ class Subject_model extends CI_Model{
             $this->build_open_province($param);
         }
         if($param['open_geo'] != ''){
+            $this->db->where('geography',$param['subject_id']);
+            $this->db->delete('coop_subject', ['geography' => $param['subject_id']]);
             $data_insert['geography'] = $param['open_geo'];
         }
         $this->db->where('code', $param['subject_id']);
@@ -96,12 +98,17 @@ class Subject_model extends CI_Model{
         // SELECT t1.subject_code, t1.open_province, t2.name from subject_open_province as t1 
         // INNER JOIN coop_subject as t2 ON (t1.subject_code = 002 and t2.code = 002)
         // $sql = "SELECT * FROM subject_open_province where subject_code = ".$subject_code;
-        $sql = "SELECT t1.id, t1.subject_code, t1.open_province FROM subject_open_province as t1 
+        if(!empty($geo_id) && !empty($subject_code)){
+            $sql = "SELECT t1.id, t1.subject_code, t1.open_province FROM subject_open_province as t1 
                 JOIN (SELECT province_name from data_province WHERE geo_id = ".$geo_id.") data_province 
                 ON data_province.province_name = t1.open_province AND t1.subject_code = ".$subject_code;
+        }
+        else{
+            $sql = "SELECT * FROM subject_open_province where subject_code = ".$geo_id;
+            // return $sql;
+        }
         $res = $this->db->query($sql)->result_array();
         return $res;
-        // return $sql;
     }
 
     function subject_in_geo($geo_id = null, $project_id = null){

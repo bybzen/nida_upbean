@@ -283,22 +283,32 @@
 
     function edit(subject_id){
         let sj_id = subject_id;
+        console.log(sj_id)
         $('#subject_id').val(sj_id);
         $('#modal_type').val(2);
         $.ajax({
             type:'POST',
-            url:base_url+'subject/ajax_get_subject_data',
+            url:base_url+'subject/edit_subject_get_data',
             data: {
                 id :  sj_id
             },
             success: function(res){
                 data = JSON.parse(res);
-                $('#name').val(data.name);
-                $('#code').val(data.code);
-                $('#cost').val(data.cost);
-                $('#start_date').val(data.start_date);
-                $('#end_date').val(data.end_date);
-                $("#geography").val(data.geography).change();
+                $('#name').val(data['subject'].name);
+                $('#code').val(data['subject'].code);
+                $('#cost').val(data['subject'].cost);
+                $('#start_date').val(data['subject'].start_date);
+                $('#end_date').val(data['subject'].end_date);
+                // $("#geography").val(data.geography).change();
+                let arr = data['subject'].geography.split(',')
+                $('input:checkbox').removeAttr('checked');
+                $.each(arr, function (index, value) {
+                    $('input[name="geography"][value="' + value.toString() + '"]').prop("checked", true)
+                });
+                $.each(data['province'], function (index, value) {
+                    console.log(value.open_province)
+                    $('input[name="province_name"][value="' + value.open_province.toString() + '   "]').prop("checked", true)
+                });
                 $('#add_modal').modal('show');
             }
         });

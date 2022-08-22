@@ -60,6 +60,13 @@ class Subject extends CI_Controller{
         echo json_encode($res);
         exit;
     }
+
+    function edit_subject_get_data(){
+        $result['subject'] = $this->Subject->get_subject_data($_POST['id']);
+        $result['province'] = $this->Subject->get_open_province($_POST['id']);
+        echo json_encode($result);
+        exit;
+    }
 }
 
 ?>
