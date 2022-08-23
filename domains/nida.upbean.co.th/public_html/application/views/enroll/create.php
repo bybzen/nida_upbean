@@ -98,7 +98,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="firstname" class="form-label">ชื่อจริง</label>
+                                <label for="firstname" class="form-label">ชื่อ</label>
                                 <input id="firstname" name="firstname" type="text" class="form-control">   
                             </div> 
                             <div class="mb-3">
@@ -405,9 +405,9 @@
                 else if($("#day").val() == '' || $("#month").val() == '' || $("#year").val() == ''){
                     swal('ผิดพลาด','กรุณากรอกวัน/เดือน/ปี เกิดให้ครบ','warning')
                 }
-                else if($("#phone_number").val() == ''){
-                    swal('ผิดพลาด','กรุณากรอกเบอร์โทรศัพท์','warning')
-                }
+                // else if($("#phone_number").val() == ''){
+                //     swal('ผิดพลาด','กรุณากรอกเบอร์โทรศัพท์','warning')
+                // }
                 else if($("#tel").val() == ''){
                     swal('ผิดพลาด','กรุณากรอกเบอร์มือถือ','warning')
                 }
@@ -426,9 +426,9 @@
                 else if($("#address").val() == ''){
                     swal('ผิดพลาด','กรุณากรอกที่อยู่ที่ทำงาน','warning')
                 }
-                else if($("#road").val() == ''){
-                    swal('ผิดพลาด','กรุณากรอกชื่อถนน','warning')
-                }
+                // else if($("#road").val() == ''){
+                //     swal('ผิดพลาด','กรุณากรอกชื่อถนน','warning')
+                // }
                 else if($("#province").val() == ''){
                     swal('ผิดพลาด','กรุณากรอกชื่อจังหวัด','warning')
                 }
@@ -450,9 +450,9 @@
                 else if($("#bill_house").val() == ''){
                     swal('ผิดพลาด','กรุณากรอกที่อยู่ที่ต้องการออกใบเสร็จ','warning')
                 }
-                else if($("#bill_road").val() == ''){
-                    swal('ผิดพลาด','กรุณากรอกชื่อถนนที่ต้องการออกใบเสร็จ','warning')
-                }
+                // else if($("#bill_road").val() == ''){
+                //     swal('ผิดพลาด','กรุณากรอกชื่อถนนที่ต้องการออกใบเสร็จ','warning')
+                // }
                 else if($("#bill_province").val() == ''){
                     swal('ผิดพลาด','กรุณากรอกชื่อจังหวัดที่ต้องการออกใบเสร็จ','warning')
                 }

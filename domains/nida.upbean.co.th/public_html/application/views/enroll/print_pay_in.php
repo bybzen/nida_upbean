@@ -21,7 +21,7 @@
             <p><?php echo $enroll_data[0]['enroll_subject'] ?></p>
             <p>เรียบร้อยแล้ว</p>
             <p>ท่านสามาถสแกน QRCODE เพื่อชำระเงิน</p>
-            <p>หรือพิมพ์ใบ Pay-in Slip เพื่อนำไปชำระเงินที่ธนาคารกรุงไทยทุกสาขาทั่วประเทศ</p>
+            <p>หรือพิมพ์ใบ Pay-in Slip เพื่อนำไปชำระเงินที่ธนาคารได้ทั่วประเทศ</p>
             <button onclick="print_qr(<?php echo $enroll_data[0]['ref_1'] ?>)" class="my-4 btn bg-success text-white border-0">พิมพ์ใบ Pay-in Slip</button>
             <p>หลังจากชำระเงินแล้ว 48 ชั่วโมง สามาถตรวจสอบการชำระเงินของท่าน</p>
             <p>ได้ที่เมนูตรวจสอบการชำระเงิน</p>
