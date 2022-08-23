@@ -122,7 +122,7 @@
                         <input type="checkbox" name="geography" id="geography" value="1">
                         <label for="geography"><h3><b><u> ภาคเหนือ </u></b></h3></label>
                     </div>
-                    <div class="g24-col-sm-24 margin-10" style="margin-top: -20px;"><br>
+                    <div id='north' class="g24-col-sm-24 margin-10" style="margin-top: -20px;" onchange="autocheck_geo('#north','1')"><br>
                         <?php foreach ($province as $index => $value) {?>
                             <?php if($value['geo_id'] == 1) {?>
                             <div class="g24-col-sm-6" style="margin-top: 10px;">
@@ -138,7 +138,7 @@
                         <input type="checkbox" name="geography" id="geography" value="2">
                         <label for="geography"><h3><b><u>ภาคกลางและภาคตะวันตก </u></b></h3></label>
                     </div>
-                    <div class="g24-col-sm-24 margin-10" style="margin-top: -20px;"><br>
+                    <div id="central" class="g24-col-sm-24 margin-10" style="margin-top: -20px;" onchange="autocheck_geo('#central','2')"><br>
                         <?php foreach ($province as $index => $value) {?>
                             <?php if($value['geo_id'] == 2) {?>
                             <div class="g24-col-sm-6" style="margin-top: 10px;">
@@ -154,7 +154,7 @@
                         <input type="checkbox" name="geography" id="geography" value="3">
                         <label for="geography"><h3><b><u>ภาคตะวันออกเฉียงเหนือ </u></b></h3></label>
                     </div>
-                    <div class="g24-col-sm-24 margin-10" style="margin-top: -20px;"><br>
+                    <div id="north_eastern" class="g24-col-sm-24 margin-10" style="margin-top: -20px;" onchange="autocheck_geo('#north_eastern','3')"><br>
                         <?php foreach ($province as $index => $value) {?>
                             <?php if($value['geo_id'] == 3) {?>
                             <div class="g24-col-sm-6" style="margin-top: 10px;">
@@ -170,7 +170,7 @@
                         <input type="checkbox" name="geography" id="geography" value="5">
                         <label for="geography"><h3><b><u>ภาคตะวันออก </u></b></h3></label>
                     </div>
-                    <div class="g24-col-sm-24 margin-10" style="margin-top: -20px;"><br>
+                    <div id="eastern" class="g24-col-sm-24 margin-10" style="margin-top: -20px;" onchange="autocheck_geo('#eastern','5')"><br>
                         <?php foreach ($province as $index => $value) {?>
                             <?php if($value['geo_id'] == 5) {?>
                             <div class="g24-col-sm-6" style="margin-top: 10px;">
@@ -186,7 +186,7 @@
                         <input type="checkbox" name="geography" id="geography" value="6">
                         <label for="geography"><h3><b><u>ภาคใต้ </u></b></h3></label>
                     </div>
-                    <div class="g24-col-sm-24 margin-10" style="margin-top: -20px;"><br>
+                    <div id="south" class="g24-col-sm-24 margin-10" style="margin-top: -20px;" onchange="autocheck_geo('#south','6')"><br>
                         <?php foreach ($province as $index => $value) {?>
                             <?php if($value['geo_id'] == 6) {?>
                             <div class="g24-col-sm-6" style="margin-top: 10px;">
@@ -305,7 +305,33 @@
         $('#cancle_btn').click(function(){
             $('#add_modal').modal('hide');
         });
+
+        // $("#north").change(function(){
+        //     let i = 0
+        //     $('input[name="geography"][value="1"]').prop("checked", true)
+        //     var checked = $('#north').find('input[name="province_name"]:checked');
+        //     checked.each(function(){
+        //         i++
+        //     });
+        //     if(i == 0){
+        //         $('input[name="geography"][value="1"]').prop("checked", false)
+        //     }
+        // })
     });
+
+    function autocheck_geo(geography,value){
+        console.log(geography, value)
+        let i = 0
+        $('input[name="geography"][value="'+value+'"]').prop("checked", true)
+        var checked = $(geography).find('input[name="province_name"]:checked');
+        checked.each(function(){
+            i++
+        })
+        console.log(i)
+        if(i == 0){
+            $('input[name="geography"][value="'+value+'"]').prop("checked", false)
+        }
+    }
 
     function onlyNumber(code){
         if(!code.match(/^[0-9]+$/)){
