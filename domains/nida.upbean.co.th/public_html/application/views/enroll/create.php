@@ -348,16 +348,35 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        let bill_postal_code_show = ''
+        let bill_province = ''
+        let bill_sub_area = ''
+        let bill_area = ''
+        let bill_name = ''
+        let bill_cop = ''
+        let bill_house = ''
+        let bill_road = ''
         $(document).ready(function(){
             $("#project_id").val(<?php echo $project['id'] ?>)
             $("#project_name").val('<?php echo $project['project_name'] ?>')
+            $('input[name=bill_name]').change(function() {
+                bill_name = $("#bill_name").val()
+            });
+            $('input[name=bill_cop]').change(function() {
+                bill_cop = $("#bill_cop").val()
+            });
+            $('input[name=bill_house]').change(function() {
+                bill_house = $("#bill_house").val()
+            });
+            $('input[name=bill_road]').change(function() {
+                bill_road = $("#bill_road").val()
+            });
             
             $('#save_btn').click(function (){
                 event.preventDefault()
                 let url = window.location.origin + "/Enroll/ajax_create_enroll"
                 let date = $('#day').val() + ' ' + $('#month').val() + ' ' + $('#year').val()
                 $('#date').val(date)
-
                 let waring_text = fileValidation()
                 if($("#work_province").val() == ''){
                     swal('ผิดพลาด','กรุณาเลือกจังหวัดที่ท่านทำงาน','warning')
@@ -477,11 +496,11 @@
                                 success: function(res){
                                     document.location.href = window.location.origin + '/pay/' + data.ref_1; 
                                 }
-                            });                           
+                            });
                         }
-                    });   
-                }         
-            });      
+                    });
+                }
+            });
         });
 
         function show_subject(){
@@ -537,6 +556,7 @@
                 province_id = $("#bill_province_select").val()
                 var x = document.getElementById('bill_province_select')
                 $("#bill_province").val(x.options[x.selectedIndex].text)
+                bill_province = x.options[x.selectedIndex].text
                 // reset value in select tag and input id postal_code
                 $('#bill_area_select').empty()
                 $("#bill_sub_area_select").empty()
@@ -574,7 +594,8 @@
             if(type === 2){
                 amphure_id = $("#bill_area_select").val()
                 var x = document.getElementById('bill_area_select')
-                $("#bill_area").val(x.options[x.selectedIndex].text)             
+                $("#bill_area").val(x.options[x.selectedIndex].text)
+                bill_area = x.options[x.selectedIndex].text             
                 // reset value in select tag id sub_area and input id postal_code
                 $('#bill_sub_area_select').empty()
                 $("#bill_postal_code").val('')
@@ -610,6 +631,7 @@
                 district_code = $("#bill_sub_area_select").val()
                 var x = document.getElementById('bill_sub_area_select')
                 $("#bill_sub_area").val(x.options[x.selectedIndex].text)
+                bill_sub_area = x.options[x.selectedIndex].text
                 //reset value in postal_code when district name change
                 document.getElementById("bill_postal_code").defaultValue = ''
             }
@@ -630,6 +652,7 @@
                     data = JSON.parse(res)
                     if(type === 2){
                         $("#bill_postal_code").val(data.zipcode)
+                        bill_postal_code_show = data.zipcode
                     }else{
                         $("#postal_code").val(data.zipcode)
                     }                    
@@ -663,6 +686,7 @@
             var address = $("#address").val()
             var road = $("#road").val()
             var postal_code = $("#postal_code").val()
+            var bill_name_same = $("#firstname").val() + ' ' + $("#lastname").val()
             if (checkBox.checked == true){
                 $("#bill_province_select").removeAttr("style").hide();
                 $("#bill_sub_area_select").removeAttr("style").hide();
@@ -672,6 +696,7 @@
                 $("#bill_sub_area").show();
                 $("#bill_area").show();
 
+                $("#bill_name").val(bill_name_same)
                 $("#bill_cop").val(cop)
                 $("#bill_house").val(address)
                 $("#bill_road").val(road)
@@ -689,13 +714,14 @@
                 $("#bill_sub_area").removeAttr("style").hide();
                 $("#bill_area").removeAttr("style").hide();
 
-                $("#bill_cop").val('')
-                $("#bill_house").val('')
-                $("#bill_road").val('')
-                $("#bill_sub_area").val('')
-                $("#bill_area").val('')
-                $("#bill_province").val('')
-                $("#bill_postal_code").val('')
+                $("#bill_name").val(bill_name)
+                $("#bill_cop").val(bill_cop)
+                $("#bill_house").val(bill_house)
+                $("#bill_road").val(bill_road)
+                $("#bill_sub_area").val(bill_sub_area)
+                $("#bill_area").val(bill_area)
+                $("#bill_province").val(bill_province)
+                $("#bill_postal_code").val(bill_postal_code_show)
             }
         }
 
