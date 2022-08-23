@@ -520,7 +520,7 @@ $(document).ready(function(){
     //จัดรูปแบบวันที่ลง DB
     function birthdayToDB(d, m, y){
         // let birthday = d.concat(m, y);
-        let birthday = d + "/" + m + "/" + y;
+        let birthday = d + " " + m + " " + y;
         
         $('#birthday').val(birthday);
         // console.log(birthday);
@@ -530,7 +530,7 @@ $(document).ready(function(){
     function toSplitBirthday(bd) {
 
         let birthday_trim = bd.trim();
-        let birthday_split = birthday_trim.split('/');
+        let birthday_split = birthday_trim.split(' ');
         let day = birthday_split[0];
         let month = birthday_split[1];
         let year = birthday_split[2];

@@ -117,37 +117,6 @@
                         </div>
                     </div>
 
-                    <!-- <div class="g24-col-sm-24 margin-10 " style=" margin-top: 10px">
-                            <h3><b><u> ภาคเหนือ </u></b></h3>
-                    </div> -->
-
-                    <!-- <div class="g24-col-sm-20 margin-10"> -->
-                        
-                        <!-- <div class="g24-col-sm-18">
-                            <input type="checkbox" name="geography" id="geography" value="1">
-                            <label for="geography"><h3><b> <u> ภาคเหนือ </u></b></h3></label>
-                        </div> -->
-
-                        <!-- <div class="g24-col-sm-18">
-                            <input type="checkbox" name="geography" id="geography" value="2">
-                            <label for="geography"><h3><b> <u>ภาคกลางและภาคตะวันตก </u></b></h3></label>
-                        </div> -->
-
-                        <!-- <div class="g24-col-sm-18">
-                            <input type="checkbox" name="geography" id="geography" value="3">
-                            <label for="geography"><h3><b><u>ภาคตะวันออกเฉียงเหนือ </u></b></h3></label>
-                        </div> -->
-
-                        <!-- <div class="g24-col-sm-18">
-                            <input type="checkbox" name="geography" id="geography" value="5">
-                            <label for="geography"><h3><b><u> ภาคตะวันออก </u></b></h3></label>
-                        </div>
-                        <div class="g24-col-sm-18">
-                            <input type="checkbox" name="geography" id="geography" value="6">
-                            <label for="geography"><h3><b><u> ภาคใต้ </u></b></h3></label>
-                        </div> -->
-                   
-                    <!-- </div> -->
 
                     <div class="g24-col-sm-24 margin-10" style="margin-top: -10px;"><br>
                         <input type="checkbox" name="geography" id="geography" value="1">

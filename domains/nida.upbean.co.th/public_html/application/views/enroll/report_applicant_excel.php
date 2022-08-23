@@ -152,7 +152,7 @@ date_default_timezone_set('Asia/Bangkok');
                         <td class="table_body" colspan="1" style="text-align: center;"><?php echo $count;?></td>
                         <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['firstname']."   ".$data['lastname']?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['birthday']?></td>
-                        <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['tel']?></td>
+                        <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['tel'] ?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['email']?></td>
                         <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['person_to_notify']?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['tel_person_to_notify']?></td>
