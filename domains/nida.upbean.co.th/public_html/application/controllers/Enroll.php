@@ -48,16 +48,25 @@ class Enroll extends CI_Controller {
         // print_r($arr_data);
         $this->libraries->template('enroll/manage_enroll', $arr_data);
     }
-
+// --------------------------------------- รายการ select  ---------------------------------------
     function report_pay(){
         $arr_data = array();
+
         $result = $this->Enroll->get_subject();
         $arr_data['subject'] = $result;
+
+        $result = $this->Enroll->get_project();
+        $arr_data['project'] = $result;
+        
         $this->libraries->template('enroll/report_pay',$arr_data);
     }
 
     function report_applicant(){
         $arr_data = array();
+
+        $result = $this->Enroll->get_project();
+        $arr_data['project'] = $result;
+
         $result = $this->Enroll->get_subject();
         $arr_data['subject'] = $result;
 
@@ -68,6 +77,10 @@ class Enroll extends CI_Controller {
 
     function report_receipts(){
         $arr_data = array();
+
+        $result = $this->Enroll->get_project();
+        $arr_data['project'] = $result;
+
         $result = $this->Enroll->get_subject();
         $arr_data['subject'] = $result;
 
@@ -75,7 +88,9 @@ class Enroll extends CI_Controller {
         $arr_data['province'] = $result;
         $this->libraries->template('enroll/report_receipts',$arr_data);
     }
+// --------------------------------------- รายการ select  ---------------------------------------
 
+// --------------------------------------- header and data report---------------------------------------
     function report_pay_pdf(){
         $arr_data = array();
         if ($_GET['paid'] == 'on'){
@@ -90,6 +105,11 @@ class Enroll extends CI_Controller {
 
         $arr_data['datas'] = $this->Enroll->get_report_data($_GET);
         $arr_data['param'] = $_GET;
+
+        if ($_GET['project'] != ''){
+            $arr_data['project'] = $this->Enroll->get_header_project($_GET['project']);
+        }
+
         if ($_GET['subject'] != ''){
             $arr_data['subject'] = $this->Enroll->get_header_subject($_GET['subject']);
         }
@@ -111,6 +131,11 @@ class Enroll extends CI_Controller {
         // เรียก function ใน Model
         $arr_data['datas'] = $this->Enroll->get_report_data($_GET);
         $arr_data['param'] = $_GET;
+
+        if ($_GET['project'] != ''){
+            $arr_data['project'] = $this->Enroll->get_header_project($_GET['project']);
+        }
+
         if ($_GET['subject'] != ''){
             $arr_data['subject'] = $this->Enroll->get_header_subject($_GET['subject']);
         }
@@ -133,6 +158,11 @@ class Enroll extends CI_Controller {
         $arr_data['datas'] = $this->Enroll->get_report_data($_GET);
         // $arr_data['data_bill'] = $this->Enroll->get_data_bill();
         $arr_data['param'] = $_GET;
+
+        if ($_GET['project'] != ''){
+            $arr_data['project'] = $this->Enroll->get_header_project($_GET['project']);
+        }
+
         if ($_GET['subject'] != ''){
             $arr_data['subject'] = $this->Enroll->get_header_subject($_GET['subject']);
         }
@@ -157,6 +187,11 @@ class Enroll extends CI_Controller {
         // เรียก function ใน Model
         $arr_data['datas'] = $this->Enroll->get_report_data($_GET);
         $arr_data['param'] = $_GET;
+
+        if ($_GET['project'] != ''){
+            $arr_data['project'] = $this->Enroll->get_header_project($_GET['project']);
+        }
+
         if ($_GET['subject'] != ''){
             $arr_data['subject'] = $this->Enroll->get_header_subject($_GET['subject']);
         }
@@ -165,6 +200,7 @@ class Enroll extends CI_Controller {
         }
         $this->load->view('enroll/report_receipts_excel',$arr_data);
     }
+// --------------------------------------- header and data report---------------------------------------
 
     function ajax_show_page_edit_enroll(){
         $result = $this->Enroll->show_page_edit_enroll($_POST['ref_1']);

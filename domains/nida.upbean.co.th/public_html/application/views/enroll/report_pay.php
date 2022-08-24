@@ -77,6 +77,19 @@
                         </div>
 
                         <div class="g24-col-sm-24 mar-10" id="div-branch">
+                            <label class="g24-col-sm-8">โครงการ</label>
+                            <div class="g24-col-sm-7">
+                                <select id="project" name="project" class="form-control" type="text">
+                                    <option value="" selected>---- โครงการทั้งหมด ----</option>
+
+                                    <?php foreach ($project as $value){ ?>
+                                        <option value="<?php echo $value['project_name'] ?>"><?php echo $value['project_name'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="g24-col-sm-24 mar-10" id="div-branch">
                             <label class="g24-col-sm-8">หลักสูตร</label>
                             <div class="g24-col-sm-7">
                                 <select id="subject" name="subject" class="form-control" type="text">

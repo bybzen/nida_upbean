@@ -34,9 +34,17 @@ $end_date_sql = $this->center_function->ConvertToSQLDate($param['end_date']);
 $date = "วันที่ ".$this->center_function->ConvertToThaiDate($start_date_sql,1,0)
        ." ถึงวันที่ ".$this->center_function->ConvertToThaiDate($end_date_sql,1,0);
 
+//เลือกโครงการ
+if ($param['project'] != ''){
+    $project_name = $project['project_name'];
+    // print_r();
+}
+else {
+    $project_name = "ทั้งหมด";
+}
+//เลือกหลักสูตร
 if ($param['subject'] != ''){
     $subject_name = $subject['name'];
-    // print_r($subject);
 } 
 else {
     $subject_name = "ทั้งหมด";
@@ -44,17 +52,17 @@ else {
 
 
  if ($_GET['paid'] == 'on'){
-    $type_and_subject = "สถานะ   ชำระเงินแล้ว   หลักสูตร   ".$subject_name;
+    $type_and_subject = "สถานะ: ชำระเงินแล้ว   โครงการ: ".$project_name."   หลักสูตร: ".$subject_name;
 
 
 } 
 else if ($_GET['unpaid'] == 'on'){
-    $type_and_subject = "สถานะ   รอชำระเงิน   หลักสูตร   ".$subject_name;
+    $type_and_subject = "สถานะ: รอชำระเงิน   โครงการ: ".$project_name."   หลักสูตร: ".$subject_name;
     
 }
 
 else{
-    $type_and_subject = "สถานะ   ทั้งหมด   หลักสูตร   ".$subject_name;
+    $type_and_subject = "สถานะ: ทั้งหมด   โครงการ: ".$project_name."   หลักสูตร: ".$subject_name;
 }
 
 

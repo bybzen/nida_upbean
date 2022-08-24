@@ -1,8 +1,16 @@
 <?php
 $start_date_sql = $this->center_function->ConvertToSQLDate($param['start_date']);
 $end_date_sql = $this->center_function->ConvertToSQLDate($param['end_date']);
-$date = "วันที่ ".$this->center_function->ConvertToThaiDate($start_date_sql,1,0)
-    ." ถึงวันที่ ".$this->center_function->ConvertToThaiDate($end_date_sql,1,0);
+$date = $this->center_function->ConvertToThaiDate($start_date_sql,1,0)
+    ." ถึง ".$this->center_function->ConvertToThaiDate($end_date_sql,1,0);
+
+if ($param['project'] != ''){
+    $project_name = $project['project_name'];
+    // print_r($subject);
+}
+else {
+    $project_name = "ทั้งหมด";
+}
 
 if ($param['subject'] != ''){
 $subject_name = $subject['name'];
@@ -20,13 +28,13 @@ if ($param['province'] != ''){
         $province_name = "ทั้งหมด";
     }
 
-$subject_and_province = "หลักสูตร   ".$subject_name."   "."จังหวัด   ".$province_name;
+$subject_and_province ="โครงการ: ".$project_name."   หลักสูตร: ".$subject_name."   จังหวัด: ".$province_name;
 $total_size = 23;
 
 ?>
 <?php
 header("Content-type: application/vnd.ms-excel;charset=utf-8;");
-header("Content-Disposition: attachment; filename=รายงานข้อมูลออกใบเสร็จรับเงิน ".$date.".xls");
+header("Content-Disposition: attachment; filename=".$date.".xls");
 date_default_timezone_set('Asia/Bangkok');
 ?>
 <pre>
