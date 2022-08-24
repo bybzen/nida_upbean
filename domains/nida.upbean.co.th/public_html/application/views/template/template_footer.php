@@ -109,7 +109,7 @@
     <div class="layout-footer" style="z-index:-1 !important;">
         <div class="layout-footer-body">
             <small class="version">Version 1.0.0</small>
-            <small class="copyright">GSPA NIDA by <a href="http://upbean.co.th/">Upbean Co.,Ltd</a></small>
+            <small class="copyright">MBMNIDA by <a href="http://upbean.co.th/">Upbean Co.,Ltd</a></small>
         </div>
     </div>
 </div>
