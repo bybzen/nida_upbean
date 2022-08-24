@@ -93,7 +93,7 @@ class Enroll_model extends CI_Model {
 
 
         $sql = "SELECT t1.name from coop_subject AS t1 INNER JOIN coop_project AS t2 ON t1.project_id = t2.id
-        WHERE t1.is_deleted = 0 ";
+        WHERE t1.is_deleted = 0";
         return $this->db->query($sql)->result_array();
     }
 
