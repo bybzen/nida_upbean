@@ -1,38 +1,7 @@
 <?php
-$start_date_sql = $this->center_function->ConvertToSQLDate($param['start_date']);
-$end_date_sql = $this->center_function->ConvertToSQLDate($param['end_date']);
-$date = $this->center_function->ConvertToThaiDate($start_date_sql,1,0)
-    ." ถึง ".$this->center_function->ConvertToThaiDate($end_date_sql,1,0);
+$date = "รายการชำระเงิน วันที่ ".$this->center_function->toSplitDate($datas[0]['pay_date']);
+$total_size = 17;
 
-
-if ($param['project'] != ''){
-    $project_name = $project['project_name'];
-    // print_r($subject);
-}
-else {
-    $project_name = "ทั้งหมด";
-}
-
-if ($param['subject'] != ''){
-    $subject_name = $subject['name'];
-    // print_r($subject);
-} 
-else {
-    $subject_name = "ทั้งหมด";
-}
-
-if ($_GET['paid'] == 'on'){
-    $type_and_subject = "สถานะ: ชำระเงินแล้ว   โครงการ: ".$project_name."   หลักสูตร: ".$subject_name;
-    $total_size = 14;
-} 
-else if ($_GET['unpaid'] == 'on'){
-    $type_and_subject = "สถานะ: รอชำระเงิน   โครงการ: ".$project_name."   หลักสูตร: ".$subject_name;
-    $total_size = 14;
-} 
-else {
-    $type_and_subject = "สถานะ: ทั้งหมด   โครงการ: ".$project_name."   หลักสูตร: ".$subject_name;
-    $total_size = 14;
-} 
 
 ?>
 <?php
@@ -118,14 +87,14 @@ date_default_timezone_set('Asia/Bangkok');
 		<body>
 			<table class="table table-bordered">
 				<tr>
-					<tr>
-						<th class="table_title" colspan="<?php echo $total_size ?>">รายงานการชำระเงิน</th>
-					</tr>
+					<!-- <tr>
+						<th class="table_title" colspan="<?php echo $total_size ?>">รายการนำเข้า</th>
+					</tr> -->
 					<tr>
 						<th class="table_title" colspan="<?php echo $total_size ?>"><?php echo $date ?></th>
 					</tr>
                     <tr>
-                        <th class="table_title" colspan="<?php echo $total_size ?>" rowspan="2"><?php echo $type_and_subject ?></th>
+                        <!-- <th class="table_title" colspan="<?php echo $total_size ?>" rowspan="2"><?php echo $type_and_subject ?></th> -->
 					</tr>
                 </tr>
 			</table>
@@ -134,9 +103,10 @@ date_default_timezone_set('Asia/Bangkok');
 				<thead>
 					<tr>
 						<th class="table_header_top" colspan="2" style="vertical-align: middle;">ลำดับ</th>
-						<th class="table_header_top" colspan="3" style="vertical-align: middle;">วันที่ลงทะเบียน</th>
+						<th class="table_header_top" colspan="3" style="vertical-align: middle;">วันที่ชำระเงิน</th>
 						<th class="table_header_top" colspan="2" style="vertical-align: middle;">Ref1</th>
                         <th class="table_header_top" colspan="3" style="vertical-align: middle;">ชื่อนามสกุล</th>
+                        <th class="table_header_top" colspan="3" style="vertical-align: middle;">หลักสูตร</th>
                         <th class="table_header_top" colspan="2" style="vertical-align: middle;">สถานะ</th>
                         <th class="table_header_top" colspan="2"  style="vertical-align: middle;">จำนวนเงิน</th>
 					</tr>
@@ -151,14 +121,15 @@ date_default_timezone_set('Asia/Bangkok');
                     ?>
                     <tr>
 								<td class="table_body" colspan="2" style="text-align: center;"><?php echo $count;?></td>
-                                <td class="table_body" colspan="3" style="text-align: center;"><?php echo $this->center_function->ConvertToThaiDate($data['order_created']); ?></td>
+                                <td class="table_body" colspan="3" style="text-align: center;"><?php echo $this->center_function->toSplitDate($data['pay_date'])." ".$data['pay_time']  ?></td>
                                 <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['ref_1']?></td>
-                                <td class="table_body" colspan="3" style="text-align: left;"><?php echo $data['firstname']."   ".$data['lastname'] ?></td>
-                                <td class="table_body" colspan="2" style="text-align: left;"><?php echo $data['payment_status'] ?></td>
-								<td class="table_body" colspan="2" style="text-align: right;"><?php echo number_format($data['enroll_cost'],2) ?></td>
+                                <td class="table_body" colspan="3" style="text-align: left;"><?php echo $data['enroll_name'] ?></td>
+                                <td class="table_body" colspan="3" style="text-align: left;"><?php echo $data['enroll_subject'] ?></td>
+                                <td class="table_body" colspan="2" style="text-align: left;"><?php echo $data['status'] ?></td>
+								<td class="table_body" colspan="2" style="text-align: right;"><?php echo number_format($data['amount'],2) ?></td>
 						  </tr>
                     <?php
-                        $total += $data['enroll_cost'];
+                        $total += $data['amount'];
                     }
                 ?>
                             <tr>

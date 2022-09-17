@@ -82,6 +82,25 @@ class Center_function
 		return $return;
 	}
 
+	function toSplitDate($date) {
+
+        $date_str = $date;
+        $day = explode("-",$date_str);
+
+		$monthNames = [
+            "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.",
+            "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.",
+            "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."
+        ];
+
+        $year = $day[0] + 543;
+        $month = $monthNames[ltrim($day[1], "0")-1];
+        $numOfDay = ltrim($day[2], "0");
+
+		return $numOfDay . " " . $month . " " . $year ;
+		
+    }
+
 	function ConvertToThaiDate($value,$short='1',$need_time='1',$need_time_second='0') {
 		$date_arr = explode(' ', $value);
 		$date = $date_arr[0];

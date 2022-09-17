@@ -48,16 +48,25 @@ class Enroll extends CI_Controller {
         // print_r($arr_data);
         $this->libraries->template('enroll/manage_enroll', $arr_data);
     }
-
+// --------------------------------------- รายการ select  ---------------------------------------
     function report_pay(){
         $arr_data = array();
+
         $result = $this->Enroll->get_subject();
         $arr_data['subject'] = $result;
+
+        $result = $this->Enroll->get_project();
+        $arr_data['project'] = $result;
+        
         $this->libraries->template('enroll/report_pay',$arr_data);
     }
 
     function report_applicant(){
         $arr_data = array();
+
+        $result = $this->Enroll->get_project();
+        $arr_data['project'] = $result;
+
         $result = $this->Enroll->get_subject();
         $arr_data['subject'] = $result;
 
@@ -68,6 +77,10 @@ class Enroll extends CI_Controller {
 
     function report_receipts(){
         $arr_data = array();
+
+        $result = $this->Enroll->get_project();
+        $arr_data['project'] = $result;
+
         $result = $this->Enroll->get_subject();
         $arr_data['subject'] = $result;
 
@@ -75,7 +88,10 @@ class Enroll extends CI_Controller {
         $arr_data['province'] = $result;
         $this->libraries->template('enroll/report_receipts',$arr_data);
     }
+// --------------------------------------- รายการ select  ---------------------------------------
 
+
+// --------------------------------------- header and data report---------------------------------------
     function report_pay_pdf(){
         $arr_data = array();
         if ($_GET['paid'] == 'on'){
@@ -90,6 +106,11 @@ class Enroll extends CI_Controller {
 
         $arr_data['datas'] = $this->Enroll->get_report_data($_GET);
         $arr_data['param'] = $_GET;
+
+        if ($_GET['project'] != ''){
+            $arr_data['project'] = $this->Enroll->get_header_project($_GET['project']);
+        }
+
         if ($_GET['subject'] != ''){
             $arr_data['subject'] = $this->Enroll->get_header_subject($_GET['subject']);
         }
@@ -111,6 +132,11 @@ class Enroll extends CI_Controller {
         // เรียก function ใน Model
         $arr_data['datas'] = $this->Enroll->get_report_data($_GET);
         $arr_data['param'] = $_GET;
+
+        if ($_GET['project'] != ''){
+            $arr_data['project'] = $this->Enroll->get_header_project($_GET['project']);
+        }
+
         if ($_GET['subject'] != ''){
             $arr_data['subject'] = $this->Enroll->get_header_subject($_GET['subject']);
         }
@@ -133,6 +159,11 @@ class Enroll extends CI_Controller {
         $arr_data['datas'] = $this->Enroll->get_report_data($_GET);
         // $arr_data['data_bill'] = $this->Enroll->get_data_bill();
         $arr_data['param'] = $_GET;
+
+        if ($_GET['project'] != ''){
+            $arr_data['project'] = $this->Enroll->get_header_project($_GET['project']);
+        }
+
         if ($_GET['subject'] != ''){
             $arr_data['subject'] = $this->Enroll->get_header_subject($_GET['subject']);
         }
@@ -157,6 +188,11 @@ class Enroll extends CI_Controller {
         // เรียก function ใน Model
         $arr_data['datas'] = $this->Enroll->get_report_data($_GET);
         $arr_data['param'] = $_GET;
+
+        if ($_GET['project'] != ''){
+            $arr_data['project'] = $this->Enroll->get_header_project($_GET['project']);
+        }
+
         if ($_GET['subject'] != ''){
             $arr_data['subject'] = $this->Enroll->get_header_subject($_GET['subject']);
         }
@@ -165,6 +201,7 @@ class Enroll extends CI_Controller {
         }
         $this->load->view('enroll/report_receipts_excel',$arr_data);
     }
+// --------------------------------------- header and data report---------------------------------------
 
     function ajax_show_page_edit_enroll(){
         $result = $this->Enroll->show_page_edit_enroll($_POST['ref_1']);
@@ -222,6 +259,148 @@ class Enroll extends CI_Controller {
             echo json_encode($sql);
         }
     }
+
+    // --------------------------------------- import file bank---------------------------------------
+
+    function import_file_bank(){
+        
+        $arr_data = array();
+        $arr_data['datas'] = $this->Enroll->show_import_page();
+
+        $this->libraries->template('enroll/import_file_bank',$arr_data);
+    }
+    
+    // หน้ารายละเอียดวันที่ชำระเงิน
+    function import_show_report($pay_date){
+        
+        $arr_data['report_pay'] = $this->Enroll->get_import_data($pay_date);
+        $this->libraries->template('enroll/import_show_report',$arr_data); 
+        
+        // $test = $this->Enroll->get_import_data($pay_date);
+        // echo $test;
+    }
+
+    // เอาข้อมูล excel ลง DB
+    function import_file_kt(){
+        $file = $_FILES['file'];
+        $objPHPExcel = new PHPExcel();
+
+        if (!empty($file)) {
+            $objPHPExcel = PHPExcel_IOFactory::load($file['tmp_name']);
+            $sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+            $arr_data['datas'] = $sheetData;
+            
+        }
+        if (!empty($sheetData)){
+            $process_time = date("Y-m-d H:i:s");
+            $sql = "INSERT INTO coop_import (created_at , status)
+                    VALUES ('".$process_time."' , 1);";
+            $this->db->query($sql);
+
+            $sql = "SELECT * from coop_import order by created_at DESC";
+            $result = $this->db->query($sql)->result_array();
+            $id = $result[0]['id'];
+
+            $data_insert = array();
+            $data_insert['ref_import'] = $id;
+
+            $row = 8;
+            $i = 0;
+            while(true){
+                
+                if($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $row+$i)->getValue() == null 
+                    || $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $row+$i)->getValue() == "SUMMARY DETAIL")
+                {
+                    break;
+                }
+
+                else{
+                    $ref_1 =  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $row+$i)->getValue();  //(col A = 0, row เริ่ม 1)
+                    $enroll_name = $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $row+$i)->getValue();
+                    
+                    // ------------------------- จัด format วันที่ -------------------------
+                    $temp = '';
+                    $pay_date = str_replace("/", "-", $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $row+$i)->getValue());
+                    $date_split = explode("-",$pay_date);
+                    $temp = $date_split[0];
+                    $date_split[0] = $date_split[2];
+                    $date_split[2] = $temp;
+                    $day = $date_split[0]."-".$date_split[1]."-".$date_split[2];
+                    // ------------------------- จัด format วันที่ -------------------------
+                    
+                    $time = $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $row+$i)->getValue();
+                    $amount = $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $row+$i)->getValue();
+                    if($ref_1 != null ){
+                        
+                        $status = "ชำระเงินแล้ว";
+                    }
+                    else{
+                        $status = "รออนุมัติ";
+                    }
+                    $data_insert['ref_1'] = $ref_1;
+                    $data_insert['enroll_name'] = $enroll_name;
+                    $data_insert['pay_date'] = $day;
+                    $data_insert['pay_time'] = $time;
+                    $data_insert['amount'] = $amount;
+                    $data_insert['status'] = $status;
+
+                    $data_payment= array();
+                    $target = "SELECT t1.pay_date from coop_payment as t1 WHERE t1.pay_date = '$day'";
+                    $target_date = $this->db->query($target)->result_array();
+                    $date_db = $target_date[0]['pay_date'];
+
+                // --------------- มีวันที่ชำระเงินแล้วใน DB ---------------
+                    if($date_db != null || $date_db == $day){
+                        $target = "SELECT t1.total_amount from coop_payment as t1 INNER JOIN coop_import_detail as t2 ON t1.pay_date = t2.pay_date
+                        INNER JOIN coop_enroll as t3 ON t2.ref_1 = t3.ref_1
+                        WHERE t1.pay_date = '$day' ";
+                        $target_amount = $this->db->query($target)->result_array();
+                        $amount_db = $target_amount[0]['total_amount'];
+
+                        $data_payment['total_amount'] = $amount_db+$amount;
+                        $this->db->where('pay_date',$day);
+                        $this->db->update('coop_payment',$data_payment);
+
+                    }
+                // --------------- ยังไม่มีวันที่ชำระใน DB ---------------
+                    else{
+                        $data_payment['pay_date'] = $day;
+                        $data_payment['total_amount'] = $amount;
+                        $this->db->insert('coop_payment',$data_payment);
+                        
+                    }
+                    $this->db->insert('coop_import_detail',$data_insert);
+                    $i++;
+
+                }
+            }
+        }
+        echo"<script> document.location.href='".PROJECTPATH."/enroll/import_file_bank' </script>";
+    }
+
+
+    // function import_report_pdf(){
+        // $import_id = $_POST['import_id'];
+        // $arr_data = array();
+        // $arr_data['datas'] = $this->Order->get_import_detail($import_id);
+        // $import_data =  $this->Order->get_import_data($import_id);
+        // $arr_data['import_data'] = $import_data[0];
+        // $this->load->view('enroll/report_import_pdf',$arr_data);
+    // }
+
+    function import_report_excel(){
+        
+        // เรียก function ใน Model
+        $arr_data['datas'] = $this->Enroll->get_import_detail($_GET['target_date']);
+        $arr_data['param'] = $_GET;
+        $this->load->view('enroll/import_report_excel',$arr_data);
+    }
+
+    // function ajax_delete_import(){
+    //     $this->Order->delete_import($_POST['date']);
+    // }
+
+    // --------------------------------------- import file bank---------------------------------------
 }
 
 ?>

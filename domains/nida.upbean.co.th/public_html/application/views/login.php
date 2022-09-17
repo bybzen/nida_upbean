@@ -31,7 +31,7 @@ date_default_timezone_set('Asia/Bangkok');
         <div class="row">
             <div class="col-md-5" style="padding-right: 0;">
                 <div class="login-wrap">
-                    <h3 style="color: #000;">GSPA NIDA</h3>
+                    <h3 style="color: #000;">MBMNIDA</h3>
                     <h4>ยินดีต้อนรับระบบแอดมิน</h4>
                     <h3 style="margin-top: 0; color: #000;">เข้าสู่ระบบ</h3>
                     <div class="login-form">

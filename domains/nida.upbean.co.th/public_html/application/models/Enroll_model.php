@@ -79,14 +79,38 @@ class Enroll_model extends CI_Model {
 
      // หน้า manage_qr show data
      function get_enroll_data(){
-        $sql = "SELECT * from coop_enroll ORDER BY created_at";
+        $data_insert = array();
+        $up_sql = "SELECT *, t2.ref_1 as t2_ref_1 from coop_enroll as t1 INNER JOIN coop_import_detail as t2 ON t1.ref_1 = t2.ref_1 ORDER BY created_at";
+        $rs = $this->db->query($up_sql)->result_array();
+        
+        foreach($rs as $row) {
+            $t2_ref_1 = $rs[0]['ref_1'];
+            if(  $row['ref_1'] == $t2_ref_1 && $row['status'] == 'ชำระเงินแล้ว' && $row['payment_status'] == 'รอชำระเงิน'){
+                
+                $data_insert['payment_date'] = $row['pay_date']." ".$row['pay_time'];
+                $data_insert['payment_status'] = 'ชำระเงินแล้ว';
+
+            $this->db->where('ref_1',$t2_ref_1);
+            $this->db->update('coop_enroll',$data_insert);
+        }
+    }
+        
+        $sql = "SELECT * from coop_enroll ORDER BY created_at DESC";
         return $this->db->query($sql)->result_array();
     }
 
-    // หน้า report_pay เงื่อนไข select
+// --------------------------------------- รายการ select  ---------------------------------------
+    function get_project(){
+        $sql = "SELECT t1.project_name from coop_project AS t1 WHERE is_deleted = 0";
+        return $this->db->query($sql)->result_array();
+    }
+
+    // หน้า report_pay เงื่อนไขหลักสูตร select
     function get_subject(){
-        
-        $sql = "SELECT t1.name from coop_subject AS t1 WHERE is_deleted = 0";
+
+
+        $sql = "SELECT t1.name from coop_subject AS t1 INNER JOIN coop_project AS t2 ON t1.project_id = t2.id
+        WHERE t1.is_deleted = 0";
         return $this->db->query($sql)->result_array();
     }
 
@@ -95,7 +119,15 @@ class Enroll_model extends CI_Model {
         $sql = "SELECT t1.province_name from data_province AS t1 ";
         return $this->db->query($sql)->result_array();
     }
+// --------------------------------------- รายการ select  ---------------------------------------
 
+
+     // เอาชื่อ project จากที่ select
+     function get_header_project($project){
+        $sql = "SELECT * FROM coop_project where project_name = '".$project."'";
+        $result = $this->db->query($sql)->result_array();
+        return $result[0];
+    }
      // เอาชื่อ subject จากที่ select
      function get_header_subject($subject){
         $sql = "SELECT * FROM coop_subject where name = '".$subject."'";
@@ -112,38 +144,49 @@ class Enroll_model extends CI_Model {
     // print data pdf-excel
     function get_report_data($param){
         
+        $project = "";
         $subject ="";
         $province = "";
         $start_date_sql = $this->center_function->ConvertToSQLDate($param['start_date']);
         $end_date_sql = $this->center_function->ConvertToSQLDate($param['end_date']);
+        
+        
+        //เลือกโครงการ
+        if ($param['project'] != ''){
+            $project .= " AND t1.enroll_project = '".$param['project']."'";
+        }
 
+        //เลือกหลักสูตร
+        if ($param['subject'] != ''){
+            $subject .= " AND t1.enroll_subject = '".$param['subject']."'";
+        }
+        
         //เลือกจังหวัด
         if($param['province'] != ''){
             $province .= " AND t1.province = '".$param['province']."'";
         }
         
-        //เลือกหลักสูตร
-        if ($param['subject'] != ''){
-            $subject .= " AND t1.enroll_subject = '".$param['subject']."'";
-        }
 
         $type = $param['type'];
             if ($type == 1){
                 $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 INNER JOIN coop_bill AS t2 ON t1.ref_1 = t2.ref_1
+                        
                         WHERE enroll_date BETWEEN "."'".$start_date_sql."'"." AND "."'".$end_date_sql."'"
-                        ." AND t1.payment_status = 'ชำระเงินแล้ว'".$subject.$province;
+                        ." AND t1.payment_status = 'ชำระเงินแล้ว'".$subject.$province." ORDER BY payment_date DESC";
                 
             } 
             else if ($type == 2){
                 $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 INNER JOIN coop_bill AS t2 ON t1.ref_1 = t2.ref_1
+                        
                         WHERE enroll_date BETWEEN "."'".$start_date_sql."'"." AND "."'".$end_date_sql."'"
-                        ." AND t1.payment_status = 'รอชำระเงิน'".$subject.$province;
+                        ." AND t1.payment_status = 'รอชำระเงิน'".$subject.$province." ORDER BY payment_date DESC";
                 
             }
             else if ($type == 3){
                 $sql = "SELECT *, t1.created_at AS order_created FROM coop_enroll AS t1 INNER JOIN coop_bill AS t2 ON t1.ref_1 = t2.ref_1
+                        INNER JOIN coop_project AS t3 ON t1.enroll_project = t3.project_name
                         WHERE enroll_date BETWEEN "."'".$start_date_sql."'"." AND "."'".$end_date_sql."'"
-                        ." AND (t1.payment_status = 'ชำระเงินแล้ว' OR t1.payment_status = 'รอชำระเงิน')".$subject.$province;
+                        ." AND (t1.payment_status = 'ชำระเงินแล้ว' OR t1.payment_status = 'รอชำระเงิน')".$subject.$province.$project." ORDER BY payment_date DESC";
                 
             }
         return $this->db->query($sql)->result_array();
@@ -273,6 +316,71 @@ class Enroll_model extends CI_Model {
             return true;
         }
     }
+
+    // --------------------------------------- import file bank---------------------------------------
+
+    function show_import_page(){
+        
+        $sql = "SELECT * from coop_payment order by pay_date DESC";
+        return $this->db->query($sql)->result_array();
+    }
+
+    function get_import_data($pay_date= null){
+        $where = "";
+        $sql ='';
+        if (!empty($pay_date)){
+            $where .= " where t2.pay_date = '".$pay_date."'";
+            $sql = "SELECT *, t2.ref_1 as t2_ref_1 from coop_payment  AS t1 INNER JOIN coop_import_detail as t2 ON t1.pay_date = t2.pay_date
+            INNER JOIN coop_enroll as t3 ON ((t2.ref_1 = t3.ref_1) or 
+            (t2.enroll_name = CONCAT(t3.name_title, ' ', t3.firstname, ' ', t3.lastname )))".$where;
+            
+            
+        }
+        
+        return $this->db->query($sql)->result_array();
+    }
+
+    function get_import_detail($pay_date){
+        $where = "";
+        $sql ='';
+        if (!empty($pay_date)){
+            $where .= "'".$pay_date."'";
+            $sql = "SELECT * from coop_payment  AS t1 INNER JOIN coop_import_detail as t2 ON t1.pay_date = t2.pay_date
+            INNER JOIN coop_enroll as t3 ON t2.ref_1 = t3.ref_1 where t2.pay_date = ".$where;
+        }
+        else{
+            $sql = "SELECT * from coop_payment  AS t1 INNER JOIN coop_import_detail as t2 ON t1.pay_date = t2.pay_date
+            INNER JOIN coop_enroll as t3 ON t2.ref_1 = t3.ref_1 where t2.pay_date = '".$where."'";
+        }
+        
+        return $this->db->query($sql)->result_array();
+    }
+
+    // function delete_import($date){
+        // $data_insert = array();
+        // $data_insert['status'] = 0;
+        // $this->db->where('id',$id);
+        // $this->db->update('coop_import',$data_insert);
+
+        // $process_time = date("Y-m-d H:i:s");
+        // $sql = "SELECT order_id FROM coop_import_detail WHERE import_id = {$id}";
+        // $rs = $this->db->query($sql)->result_array();
+        // foreach($rs as $row) {
+        //     $_data_update = [];
+        //     $_data_update['payment_status'] = 0;
+        //     $_data_update['updated_at'] = $process_time;
+        //     $this->db->where('id', $row['order_id']);
+        //     $this->db->update('coop_order', $_data_update);
+        // }
+    // }
+
+
+
+
+
+
+
+    // --------------------------------------- import file bank---------------------------------------
 }
 
 ?>

@@ -1,8 +1,16 @@
 <?php
 $start_date_sql = $this->center_function->ConvertToSQLDate($param['start_date']);
 $end_date_sql = $this->center_function->ConvertToSQLDate($param['end_date']);
-$date = "วันที่ ".$this->center_function->ConvertToThaiDate($start_date_sql,1,0)
-    ." ถึงวันที่ ".$this->center_function->ConvertToThaiDate($end_date_sql,1,0);
+$date = $this->center_function->ConvertToThaiDate($start_date_sql,1,0)
+    ." ถึง ".$this->center_function->ConvertToThaiDate($end_date_sql,1,0);
+
+if ($param['project'] != ''){
+    $project_name = $project['project_name'];
+    // print_r($subject);
+}
+else {
+    $project_name = "ทั้งหมด";
+}
 
 if ($param['subject'] != ''){
 $subject_name = $subject['name'];
@@ -20,13 +28,13 @@ if ($param['province'] != ''){
         $province_name = "ทั้งหมด";
     }
 
-$subject_and_province = "หลักสูตร   ".$subject_name."   "."จังหวัด   ".$province_name;
-$total_size = 31;
+$subject_and_province ="โครงการ: ".$project_name."   หลักสูตร: ".$subject_name."   จังหวัด: ".$province_name;
+$total_size = 37;
 
 ?>
 <?php
 header("Content-type: application/vnd.ms-excel;charset=utf-8;");
-header("Content-Disposition: attachment; filename=รายงานผู้สมัครตามจังหวัดและหลักสูตร ".$date.".xls");
+header("Content-Disposition: attachment; filename=".$date.".xls");
 date_default_timezone_set('Asia/Bangkok');
 ?>
 <pre>
@@ -124,6 +132,8 @@ date_default_timezone_set('Asia/Bangkok');
 					<tr>
 						<th class="table_header_top" colspan="1" style="vertical-align: middle;">ลำดับ</th>
 						<th class="table_header_top" colspan="3" style="vertical-align: middle;">ชื่อนามสกุล</th>
+						<th class="table_header_top" colspan="3" style="vertical-align: middle;">โครงการ</th>
+						<th class="table_header_top" colspan="3" style="vertical-align: middle;">หลักสูตร</th>
 						<th class="table_header_top" colspan="2" style="vertical-align: middle;">วันเกิด</th>
 						<th class="table_header_top" colspan="2" style="vertical-align: middle;">เบอร์</th>
 						<th class="table_header_top" colspan="2" style="vertical-align: middle;">E-mail</th>
@@ -151,6 +161,8 @@ date_default_timezone_set('Asia/Bangkok');
                     <tr>
                         <td class="table_body" colspan="1" style="text-align: center;"><?php echo $count;?></td>
                         <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['firstname']."   ".$data['lastname']?></td>
+                        <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['enroll_project']?></td>
+                        <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['enroll_subject']?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['birthday']?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['tel'] ?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['email']?></td>

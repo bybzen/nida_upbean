@@ -65,8 +65,11 @@ $route['enroll/report_pay_pdf'] = 'enroll/report_pay_pdf';
 $route['enroll/report_applicant'] = 'enroll/report_applicant';
 $route['enroll/report_receipts'] = 'enroll/report_receipts';
 
-
-
 $route['subject/index/(:any)'] = 'subject/index/$1';
 $route['project/select_subject'] = 'project/select_subject';
 $route['enroll'] = 'project/enroll';
+$route['project/enroll_subject/(:any)'] = 'project/enroll_subject/$1';
+
+$route['enroll/import_file_bank'] = 'enroll/import_file_bank';
+
+$route['enroll/import_show_report/(:any)'] = 'enroll/import_show_report/$1';

@@ -69,7 +69,7 @@ function get_menu_id($menus, $url) {
     <div class="navbar navbar-default">
         <div class="navbar-header">
             <a class="navbar-brand navbar-brand-center" href="/">
-                <span style="font-size: 28px;font-family: 'upbean';letter-spacing:3px;font-weight:bold;">GSPA NIDA</span>
+                <span style="font-size: 28px;font-family: 'upbean';letter-spacing:3px;font-weight:bold;">MBMNIDA</span>
             </a>
             <button class="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse" data-target="#sidenav">
                 <span class="sr-only">Toggle navigation</span>

@@ -38,7 +38,7 @@
                             <tr>
                                 <th class="text-center">ลำดับ</th>
                                 <th class="text-center">Ref1</th>
-                                <th class="text-center">วันที่/เวลา</th>
+                                <th class="text-center">วันเวลาที่ลงทะเบียน</th>
                                 <th class="text-center">ชื่อนามสกุล</th>
                                 <th class="text-center">เบอร์โทร</th>
                                 <th class="text-center">หลักสูตร</th>
@@ -323,8 +323,15 @@
                                 <label> <input type="radio" name="food_type" value="ปกติ" class="food_type"> ปกติ </label>
                             </div>
                     </div>
-                    
+
                     <div class="g24-col-sm-24 margin-10" style=" margin-top: 20px">
+                        <label class="g24-col-sm-6 text-right label-margin">โครงการ</label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="project" name="project" readonly>
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
                         <label class="g24-col-sm-6 text-right label-margin">หลักสูตร</label>
                         <div class="g24-col-sm-14">
                             <input type="text" class="form-control" id="subject" name="subject" readonly>
@@ -599,6 +606,7 @@ $(document).ready(function(){
                 $('#bill_province').val(data.bill_province);
                 $('#bill_postal_code').val(data.bill_postal_code);
 
+                $('#project').val(data.enroll_project)
                 $('#subject').val(data.enroll_subject);
                 $('#cost').val(data.enroll_cost);
                 $('.payment_status[value=' + data.payment_status + ']').prop('checked', true);
