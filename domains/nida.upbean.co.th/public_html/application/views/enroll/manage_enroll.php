@@ -38,7 +38,7 @@
                             <tr>
                                 <th class="text-center">ลำดับ</th>
                                 <th class="text-center">Ref1</th>
-                                <th class="text-center">วันที่/เวลา</th>
+                                <th class="text-center">วันเวลาที่ลงทะเบียน</th>
                                 <th class="text-center">ชื่อนามสกุล</th>
                                 <th class="text-center">เบอร์โทร</th>
                                 <th class="text-center">หลักสูตร</th>

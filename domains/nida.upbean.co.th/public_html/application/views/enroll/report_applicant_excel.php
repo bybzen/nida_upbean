@@ -29,7 +29,7 @@ if ($param['province'] != ''){
     }
 
 $subject_and_province ="โครงการ: ".$project_name."   หลักสูตร: ".$subject_name."   จังหวัด: ".$province_name;
-$total_size = 31;
+$total_size = 37;
 
 ?>
 <?php
@@ -132,6 +132,8 @@ date_default_timezone_set('Asia/Bangkok');
 					<tr>
 						<th class="table_header_top" colspan="1" style="vertical-align: middle;">ลำดับ</th>
 						<th class="table_header_top" colspan="3" style="vertical-align: middle;">ชื่อนามสกุล</th>
+						<th class="table_header_top" colspan="3" style="vertical-align: middle;">โครงการ</th>
+						<th class="table_header_top" colspan="3" style="vertical-align: middle;">หลักสูตร</th>
 						<th class="table_header_top" colspan="2" style="vertical-align: middle;">วันเกิด</th>
 						<th class="table_header_top" colspan="2" style="vertical-align: middle;">เบอร์</th>
 						<th class="table_header_top" colspan="2" style="vertical-align: middle;">E-mail</th>
@@ -159,6 +161,8 @@ date_default_timezone_set('Asia/Bangkok');
                     <tr>
                         <td class="table_body" colspan="1" style="text-align: center;"><?php echo $count;?></td>
                         <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['firstname']."   ".$data['lastname']?></td>
+                        <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['enroll_project']?></td>
+                        <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['enroll_subject']?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['birthday']?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['tel'] ?></td>
                         <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['email']?></td>
