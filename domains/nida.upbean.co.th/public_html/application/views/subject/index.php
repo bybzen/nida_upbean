@@ -87,7 +87,7 @@
                 <button type="button" class="close" data-dismiss="modal">x</button>
                 <h2 class="modal-title" id="type_name">หลักสูตร</h2>
             </div>
-            <div class="modal-body" style="height: 222rem">
+            <div class="modal-body" style="height: 227rem">
                 <form id="modal_form">
                     <input type="hidden" id="modal_type">
                     <input type="hidden" id="subject_id" name="subject_id">
@@ -125,8 +125,11 @@
                         </div>
                     </div>
 
-                    <div>
-                        <textarea name="mytextarea" id="mytextarea"></textarea>
+                    <div class="g24-col-sm-24 margin-10">
+                        <label>รายละเอียดหลักสูตร</label>
+                        <div>
+                            <textarea name="mytextarea" id="mytextarea"></textarea>
+                        </div>
                     </div>
 
                     <div class="g24-col-sm-24 margin-10">
