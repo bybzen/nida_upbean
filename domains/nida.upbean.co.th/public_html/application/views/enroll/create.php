@@ -56,12 +56,18 @@
                 <div class="card border-0" >
                     <h3 class="text-center mt-3">ลงทะเบียน</h3>
                     <h5 class="text-center mt-3"><?php echo $project['project_name'] ?></h5>
-
                     <form id="modal_form" method="post" enctype="multipart/form-data" class="px-2">
 
                         <div class="my-3">
+                            <label for="subject_name" class="form-label">เลือกหลักสูตร</label>
+                            <input class="form-control" type="text" name="subject_name" id="subject_name" disabled>
+                            <!-- <input class="form-control" type="hidden" name="subject_name" id="subject_name"> -->
+                        </div>
+
+                        <div class="my-3">
                             <label for="work_province" class="form-label">จังหวัดที่ท่านทำงานอยู่</label>
-                            <select class="form-control" id="work_province" name="work_province" onchange="show_subject()">
+                            <!-- <select class="form-control" id="work_province" name="work_province" onchange="show_open_province()"> -->
+                            <select class="form-control" id="work_province" name="work_province">
                                 <option selected></option>  
                                 <?php foreach($province as $index => $value) { ?>
                                         <option value="<?php echo $value['geo_id'] ?>">
@@ -71,17 +77,25 @@
                             </select>
                         </div>
 
-                        <div class="my-3">
+                        <!-- <div class="my-3">
                             <label for="subject_name" class="form-label">เลือกหลักสูตร</label>
                             <select class="form-control" id="subject_name" name="subject_name" onchange="show_open_province()">
                                 <option selected></option>
                             </select>
-                        </div>
+                        </div> -->
 
                         <div class="my-3">
                             <label for="open_province" class="form-label">เลือกจังหวัด</label>
-                            <select class="form-control" id="open_province" name="open_province">
+                            <!-- <select class="form-control" id="open_province" name="open_province">
                                 <option selected></option>                                
+                            </select> -->
+                            <select class="form-control" id="open_province" name="open_province">
+                                <option selected></option>  
+                                <?php foreach($open_province as $index => $value) { ?>
+                                        <option value="<?php echo $value['open_province'] ?>">
+                                            <?php echo $value['open_province'] ?>
+                                        </option>
+                                 <?php } ?>                              
                             </select>
                         </div>
 
@@ -108,7 +122,7 @@
                             <!-- <div class="mb-3">
                                 <label for="id" class="form-label">เลขบัตรประจำตัวประชาชน</label>
                                 <input id="id" name="id" type="text" class="form-control">
-                            </div>-->                        
+                            </div>-->
                             <div class="row my-3">
                                 <label for="birthday" class="form-label">วัน/เดือน/ปี เกิด</label>
                                 <div class="col-3">
@@ -204,6 +218,10 @@
                                 <input type="checkbox" id="check" name="check" onclick="getSameAddress()">
                                 <label for="check">ชื่อหน่วยงานและที่อยู่เดียวกับที่ทำงาน</label>
                             </div>
+                            <div>
+                                <label for="tax_number" class='form-label'>เลขประจำตัวผู้เสียภาษี</label>
+                                <input id='tax_number' name='tax_number' type="text" class="form-control">
+                            </div>
                             <div class="my-3">
                                 <label for="bill_name" class='form-label'>ชื่อที่ใช้ในการออกใบเสร็จ</label>
                                 <input id='bill_name' name='bill_name' type="text" class="form-control">
@@ -295,25 +313,25 @@
                             <div class="m-2">
                                 <input type="checkbox" id="check_01" name="check_01" onclick="policy_enroll_check()">
                                 <p class="font-size-p" style="display: inline;">ข้าพเจ้าได้อ่านและยอมรับนโยบายคุ้มครองข้อมูลส่วนบุคคลนี้แล้ว
-                                    <span id="dot01">...</span>
-                                    <span id="read01" onclick="showMore(1)">อ่านต่อ...</span> 
+                                    <!-- <span id="dot01">...</span> -->
+                                    <span id="read01" onclick="showMore(1)" style="color: blue;">อ่านต่อ...</span> 
                                     <span id="more01" style="display: none;">ข้าพเจ้ายินยอมให้หลักสูตรฯ เก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลของข้าพเจ้า
                                     เพื่อให้บรรลุวัตถุประสงค์ในการฝึกอบรมรวมถึงการรับบริการวิชาการและวัตถุประสงค์อื่นใดที่เกี่ยวเนื่องกัน</span>
                                 </p><br>
                                 <input type="checkbox" id="check_02" name="check_02" onclick="policy_enroll_check()">
                                 <p class="font-size-p" style="display: inline;">ข้าพเจ้ายินยอมให้หลักสูตรฯ เก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลของข้าพเจ้า
-                                    <span id="dot02">...</span>
-                                    <span id="read02" onclick="showMore(2)">อ่านต่อ...</span>
+                                    <!-- <span id="dot02">...</span> -->
+                                    <span id="read02" onclick="showMore(2)" style="color: blue;">อ่านต่อ...</span>
                                     <span id="more02" style="display: none;">เพื่อให้บรรลุวัตถุประสงค์ในการทำการตลาดแบบตรง ประชาสัมพันธ์เพื่อส่งเสริมการขายต่างๆ สถาบันบัณฑิตพัฒนบริหารศาสตร์ผ่านทางอีเมล 
                                     (email) ข้อความสั้น(SMS/MMS) และโซเชียลมีเดีย (social media) ให้กับข้าพเจ้าได้ ทั้งนี้ ข้าพเจ้าเข้าใจดีว่า 
                                     ข้าพเจ้าสามารถยกเลิกการรับข้อความการสื่อสารทางการตลาดจากหลักสูตรฯ เมื่อใดก็ได้ โดยกดลิงค์ขอยกเลิกการรับข้อความการสื่อสารทางการตลาด 
                                     (unsubscribe) หรือแจ้งยกเลิกการรับข้อความการสื่อสารทางการตลาดไปยังหลักสูตรฯ เบอร์โทรศัพท์ 098-6397859 
-                                    อีเมล modern.budgeting.management@gmail.com</span>
+                                    อีเมล mbmnida@gmail.com</span>
                                 </p><br>
                                 <input type="checkbox" id="check_03" name="check_03" onclick="policy_enroll_check()">
                                 <p class="font-size-p" style="display: inline;">ข้าพเจ้ายินยอมให้หลักสูตรฯ เก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลชนิดพิเศษของข้าพเจ้า
-                                    <span id="dot03">...</span>
-                                    <span id="read03" onclick="showMore(3)">อ่านต่อ...</span>                                    
+                                    <!-- <span id="dot03">...</span> -->
+                                    <span id="read03" onclick="showMore(3)" style="color: blue;">อ่านต่อ...</span>                                    
                                     <span id="more03" style="display: none;">อาทิเช่น ข้อมูลจำลองใบหน้า เป็นต้น เพื่อให้บรรลุวัตถุประสงค์ในการรักษาความปลอดภัยของสถานที่ 
                                     รวมทั้งป้องกันหรือระงับอันตรายต่อชีวิต ร่างกาย สุขภาพและทรัพย์สินของบุคคลเท่านั้น ทั้งนี้ ข้าพเจ้าเข้าใจดีว่า 
                                     ข้าพเจ้ามีสิทธิถอนความยินยอมข้างต้นเสียเมื่อใดก็ได้ โดยส่งข้อความไปยัง หลักสูตรฯ การถอนความยินยอมไม่ส่งผลกระทบต่อเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคล
@@ -357,8 +375,10 @@
         let bill_house = ''
         let bill_road = ''
         $(document).ready(function(){
+            $("#enroll_id").val('<?php echo $subject['code']?>')
             $("#project_id").val(<?php echo $project['id'] ?>)
             $("#project_name").val('<?php echo $project['project_name'] ?>')
+            $("#subject_name").val('<?php echo $subject['name'] ?>')
             $('input[name=bill_name]').change(function() {
                 bill_name = $("#bill_name").val()
             });
@@ -386,9 +406,6 @@
                 }
                 else if($("#open_province").val() == ''){
                     swal('ผิดพลาด','กรุณาเลือกจังหวัดที่ต้องการลงทะเบียนเรียน','warning')
-                }
-                else if($("#subject_name").val() == ''){
-                    swal('ผิดพลาด','กรุณาเลือกจังหวัดที่ท่านทำงาน','warning')
                 }
                 else if($("#email").val() == ''){
                     swal('ผิดพลาด','กรุณากรอกอีเมล','warning')
@@ -466,7 +483,6 @@
                     swal('ผิดพลาด','กรุณากรอกรหัสไปษณีย์ที่ต้องการออกใบเสร็จ','warning')
                 }
                 else if(waring_text !== ''){
-                    //check upload file
                     swal('ผิดพลาด',waring_text,'warning')
                 }
                 else if($("#food_type").val() == ''){
@@ -478,7 +494,6 @@
                         url: url,
                         data: $('#modal_form').serialize(),           
                         success:function(res){
-                            console.log('upload photo in process')
                             data = JSON.parse(res)
                             let url = window.location.origin + "/Enroll/upload"
                             let form_data = new FormData()
@@ -494,7 +509,8 @@
                                 contentType: false,
                                 processData: false,
                                 success: function(res){
-                                    document.location.href = window.location.origin + '/pay/' + data.ref_1; 
+                                    // document.location.href = window.location.origin + '/pay/' + data.ref_1;
+                                    document.location.href = window.location.origin + '/pay?ref_1=' + data.ref_1; 
                                 }
                             });
                         }
@@ -503,52 +519,51 @@
             });
         });
 
-        function show_subject(){
-            // เลือก จังหวัดที่ท่านทำงานอยู่ จากนั้นแสดงวิชาที่เปิด
-            let x = $("#work_province").val()
-            if(x == 4){
-                x = 2
-            }
-            let project_id = $('#project_id').val()
-            $('#subject_name').empty()
-            $.ajax({
-                type: 'POST',
-                url: window.location.origin + '/subject/get_subject_in_geo',
-                data:{
-                    geo_id: x,
-                    project_id: project_id
-                },
-                success: function(res){
-                    data = JSON.parse(res)
-                    // console.log(data)
-                    createOptionTag(data, 'subject_name', 'code', 'name')
-                }
-            })
-        }
+        // function show_subject(){
+        //     // เลือก จังหวัดที่ท่านทำงานอยู่ จากนั้นแสดงวิชาที่เปิด
+        //     let x = $("#work_province").val()
+        //     if(x == 4){
+        //         x = 2
+        //     }
+        //     let project_id = $('#project_id').val()
+        //     $('#subject_name').empty()
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: window.location.origin + '/subject/get_subject_in_geo',
+        //         data:{
+        //             geo_id: x,
+        //             project_id: project_id
+        //         },
+        //         success: function(res){
+        //             data = JSON.parse(res)
+        //             // console.log(data)
+        //             createOptionTag(data, 'subject_name', 'code', 'name')
+        //         }
+        //     })
+        // }
 
-        function show_open_province(){
-            //เลือกวิชาเสร็จ แสดงจังหวัดที่เปิดสอน
-            var geo_id = $("#work_province").val()
-            if(geo_id == 4){
-                geo_id = 2
-            }
-            var x = $("#subject_name").val()
-            $("#enroll_id").val(x)
-            $("#open_province").empty()
-            $.ajax({
-                type:'POST',
-                url: window.location.origin + '/subject/ajax_get_open_province',
-                data: {
-                    geo_id: geo_id,
-                    subject_code : x
-                },
-                success: function(res){
-                    data = JSON.parse(res)
-                    // console.log(data)
-                    createOptionTag(data, 'open_province', 'open_province', 'open_province')
-                }
-            });
-        }
+        // function show_open_province(){
+        //     //เลือกวิชาเสร็จ แสดงจังหวัดที่เปิดสอน
+        //     var geo_id = $("#work_province").val()
+        //     if(geo_id == 4){
+        //         geo_id = 2
+        //     }
+        //     var x = $("#subject_name").val()
+        //     $("#enroll_id").val(x)
+        //     $("#open_province").empty()
+        //     $.ajax({
+        //         type:'POST',
+        //         url: window.location.origin + '/subject/ajax_get_open_province',
+        //         data: {
+        //             geo_id: geo_id,
+        //             subject_code : x
+        //         },
+        //         success: function(res){
+        //             data = JSON.parse(res)
+        //             createOptionTag(data, 'open_province', 'open_province', 'open_province')
+        //         }
+        //     });
+        // }
 
         function showAmphure(type){
             let province_id = ''
@@ -579,6 +594,7 @@
                 },
                 success: function(res){
                     data = JSON.parse(res)
+                    // console.log(data)
                     if(type == 2){
                         createOptionTag(data, 'bill_area_select', 'amphur_id', 'amphur_name')
                     }
@@ -616,6 +632,7 @@
                 },
                 success: function(res){
                     data = JSON.parse(res)
+                    // console.log(data)
                     if(type === 2){
                         createOptionTag(data, 'bill_sub_area_select', 'district_code', 'district_name')
                     }else{
@@ -726,10 +743,10 @@
         }
 
         function showMore(hide){
-            let dot = "dot0" + hide
+            // let dot = "dot0" + hide
             let read = "read0" + hide
             let more = "more0" + hide
-            document.getElementById(dot).style.display = "none"
+            // document.getElementById(dot).style.display = "none"
             document.getElementById(read).style.display = "none"
             document.getElementById(more).style.display = "inline"
         }
@@ -758,7 +775,6 @@
             if(filePath_2 === ''){
                 waring_text += '-กรุณาอัพโหลดสำเนาบัตรราชการหรือสำเนาบัตรประจำตัวผู้สมัคร'
             }
-            console.log(waring_text)
             return waring_text
         }
 

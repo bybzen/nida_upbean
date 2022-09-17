@@ -5,8 +5,8 @@
 .g24-col, .g24-col-xs-1, .g24-col-sm-1, .g24-col-md-1, .g24-col-lg-1, .g24-col-xs-2, .g24-col-sm-2, .g24-col-md-2, .g24-col-lg-2, .g24-col-xs-3, .g24-col-sm-3, .g24-col-md-3, .g24-col-lg-3, .g24-col-xs-4, .g24-col-sm-4, .g24-col-md-4, .g24-col-lg-4, .g24-col-xs-5, .g24-col-sm-5, .g24-col-md-5, .g24-col-lg-5, .g24-col-xs-6, .g24-col-sm-6, .g24-col-md-6, .g24-col-lg-6, .g24-col-xs-7, .g24-col-sm-7, .g24-col-md-7, .g24-col-lg-7, .g24-col-xs-8, .g24-col-sm-8, .g24-col-md-8, .g24-col-lg-8, .g24-col-xs-9, .g24-col-sm-9, .g24-col-md-9, .g24-col-lg-9, .g24-col-xs-10, .g24-col-sm-10, .g24-col-md-10, .g24-col-lg-10, .g24-col-xs-11, .g24-col-sm-11, .g24-col-md-11, .g24-col-lg-11, .g24-col-xs-12, .g24-col-sm-12, .g24-col-md-12, .g24-col-lg-12, .g24-col-xs-13, .g24-col-sm-13, .g24-col-md-13, .g24-col-lg-13, .g24-col-xs-14, .g24-col-sm-14, .g24-col-md-14, .g24-col-lg-14, .g24-col-xs-15, .g24-col-sm-15, .g24-col-md-15, .g24-col-lg-15, .g24-col-xs-16, .g24-col-sm-16, .g24-col-md-16, .g24-col-lg-16, .g24-col-xs-17, .g24-col-sm-17, .g24-col-md-17, .g24-col-lg-17, .g24-col-xs-18, .g24-col-sm-18, .g24-col-md-18, .g24-col-lg-18, .g24-col-xs-19, .g24-col-sm-19, .g24-col-md-19, .g24-col-lg-19, .g24-col-xs-20, .g24-col-sm-20, .g24-col-md-20, .g24-col-lg-20, .g24-col-xs-21, .g24-col-sm-21, .g24-col-md-21, .g24-col-lg-21, .g24-col-xs-22, .g24-col-sm-22, .g24-col-md-22, .g24-col-lg-22, .g24-col-xs-23, .g24-col-sm-23, .g24-col-md-23, .g24-col-lg-23, .g24-col-xs-24, .g24-col-sm-24, .g24-col-md-24, .g24-col-lg-24 {
   position: relative;
   min-height: 1px;
-  padding-left: 7.5px;
-  padding-right: 7.5px;
+  padding-left: 0px;
+  padding-right: 15px;
 }
 .g24-col, .g24-col-xs-1, .g24-col-xs-2, .g24-col-xs-3, .g24-col-xs-4, .g24-col-xs-5, .g24-col-xs-6, .g24-col-xs-7, .g24-col-xs-8, .g24-col-xs-9, .g24-col-xs-10, .g24-col-xs-11, .g24-col-xs-12, .g24-col-xs-13, .g24-col-xs-14, .g24-col-xs-15, .g24-col-xs-16, .g24-col-xs-17, .g24-col-xs-18, .g24-col-xs-19, .g24-col-xs-20, .g24-col-xs-21, .g24-col-xs-22, .g24-col-xs-23, .g24-col-xs-24 {
   float: left;

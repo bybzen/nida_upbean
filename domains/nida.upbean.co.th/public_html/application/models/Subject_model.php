@@ -8,7 +8,7 @@ class Subject_model extends CI_Model{
 
     function get_subject($id = null){
         // $sql = "SELECT * from coop_subject where is_deleted = 0 and project_id = ".$id;
-        $sql = "SELECT t1.id, t1.project_id, t1.name, t1.code, t1.cost, t1.start_date, t1.end_date, 
+        $sql = "SELECT t1.id, t1.project_id, t1.name, t1.name_eng, t1.name_short, t1.code, t1.cost, t1.start_date, t1.end_date, 
                 t1.geography, t1.is_deleted, GROUP_CONCAT(t2.open_province SEPARATOR ',') as open_province from coop_subject as t1 
                 INNER JOIN subject_open_province as t2 ON ( t1.is_deleted = 0 and t1.project_id = ".$id." and t1.code = t2.subject_code) 
                 GROUP BY t1.code";
@@ -22,11 +22,14 @@ class Subject_model extends CI_Model{
         $data_insert = array();
         $data_insert['project_id'] = $param['project_id'];
         $data_insert['name'] = $param['name'];
+        $data_insert['name_eng'] = $param['name_eng'];
+        $data_insert['name_short'] = $param['name_short'];
         $data_insert['code'] = $param['code'];
         $data_insert['cost'] = $param['cost'];
         $data_insert['start_date'] = $param['start_date'];
         $data_insert['end_date'] = $param['end_date'];
         $data_insert['geography'] = $param['open_geo'];
+        $data_insert['detail'] = $param['detail'];
         $this->build_open_province($param);
         $this->db->insert('coop_subject', $data_insert);
     }
@@ -46,16 +49,19 @@ class Subject_model extends CI_Model{
     function edit_subject($param){
         $data_insert = array();
         $data_insert['name'] = $param['name'];
+        $data_insert['name_eng'] = $param['name_eng'];
+        $data_insert['name_short'] = $param['name_short'];
         $data_insert['code'] = $param['code'];
         $data_insert['cost'] = $param['cost'];
         $data_insert['start_date'] = $param['start_date'];
         $data_insert['end_date'] = $param['end_date'];
-        if($param['pv'] != ''){
+        $data_insert['detail'] = $param['detail'];
+        if($param['pv'] != 'not change'){
             $this->db->where('subject_code',$param['subject_id']);
             $this->db->delete('subject_open_province', ['subject_code' => $param['subject_id']]);
             $this->build_open_province($param);
         }
-        if($param['open_geo'] != ''){
+        if($param['open_geo'] != 'not change'){
             $this->db->where('geography',$param['subject_id']);
             $this->db->delete('coop_subject', ['geography' => $param['subject_id']]);
             $data_insert['geography'] = $param['open_geo'];
@@ -112,7 +118,8 @@ class Subject_model extends CI_Model{
     }
 
     function subject_in_geo($geo_id = null, $project_id = null){
-        $sql = "SELECT * FROM coop_subject where geography LIKE '%".$geo_id."%' and project_id = ".$project_id." and is_deleted = 0";
+        $date_now = date("Y-m-d");
+        $sql = "SELECT * FROM coop_subject where geography LIKE '%".$geo_id."%' and project_id = ".$project_id." and is_deleted = 0 and start_date <= '".$date_now."'";
         return $this->db->query($sql)->result_array();
         // return $sql;
     }

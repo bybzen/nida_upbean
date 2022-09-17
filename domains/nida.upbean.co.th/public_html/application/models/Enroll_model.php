@@ -31,6 +31,7 @@ class Enroll_model extends CI_Model {
         $ref_1 = (date("Y")+543).$subject['code'].str_pad($number[0]['number']+1, 5, '0', STR_PAD_LEFT);
         $data_insert['ref_1'] = $ref_1;
         $data_insert['ref_2'] = $param['tel'];
+        $data_insert['tax_number'] = $param['tax_number'];
         $data_insert['enroll_project'] = $param['project_name'];
         $data_insert['enroll_subject'] = $subject['name'];
         $data_insert['enroll_province'] = $param['open_province'];

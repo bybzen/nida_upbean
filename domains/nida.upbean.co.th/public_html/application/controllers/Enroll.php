@@ -17,8 +17,8 @@ class Enroll extends CI_Controller {
         exit;
     }
 
-    function print_pay_in($id = null){
-        $sql = "SELECT * FROM coop_enroll where ref_1 = ".'\''.$id.'\'';
+    function print_pay_in(){
+        $sql = "SELECT * FROM coop_enroll where ref_1 = ".'\''.$_GET['ref_1'].'\'';
         $res['enroll_data'] = $this->db->query($sql)->result_array();
         $this->load->view('template/navbar');
         $this->load->view('enroll/print_pay_in', $res);

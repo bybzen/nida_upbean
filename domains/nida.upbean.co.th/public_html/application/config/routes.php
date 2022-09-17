@@ -53,7 +53,8 @@ $route['default_controller'] = 'Auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['pay/(:any)'] = 'Enroll/print_pay_in/$1';
+// $route['pay/(:any)'] = 'Enroll/print_pay_in/$1';
+$route['pay'] = 'Enroll/print_pay_in';
 $route['enroll/bill_payment/(:any)'] = 'Enroll/print_qr/$1';
 //$route['folder_view/file_view'] = 'folder_controller/function_controller';
 $route['enroll/manage_enroll'] = 'enroll/manage_enroll';
@@ -67,4 +68,5 @@ $route['enroll/report_receipts'] = 'enroll/report_receipts';
 
 
 $route['subject/index/(:any)'] = 'subject/index/$1';
-$route['project/enroll_subject/(:any)'] = 'project/enroll_subject/$1';
+$route['project/select_subject'] = 'project/select_subject';
+$route['enroll'] = 'project/enroll';

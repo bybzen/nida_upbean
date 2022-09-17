@@ -158,7 +158,6 @@
             },
             success: function(res){
                 data = JSON.parse(res)
-                console.log(data.id)
                 document.location.href = window.location.origin + '/subject/index/' + data.id
             }
         })
@@ -166,21 +165,7 @@
 
     function enroll(id){
         $("#pj_id").val(id)
-        // $('#enroll_form').attr('action', base_url + 'project/enroll_subject/' + id);
-        // $('#enroll_form').submit();
-        $.ajax({
-            // type: 'POST',
-            // url: base_url + 'project/enroll_subject',
-            // data: {
-            //     id: $("#pj_id").val()
-            // },
-            success: function(){
-                // data = JSON.parse(res)
-                // console.log(data.id)
-                // document.location.href = window.location.origin + '/project/enroll_subject/' + id
-                window.open(window.location.origin + '/project/enroll_subject/' + id); 
-            }
-        })
+        window.open(window.location.origin + '/project/select_subject?project_id=' + id); 
     }
 
     function edit(id){
