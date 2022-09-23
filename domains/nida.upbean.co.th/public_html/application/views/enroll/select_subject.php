@@ -35,7 +35,7 @@
     <input type="hidden" name="project_id" id="project_id">
         <div class="row mt-4">
             <?php foreach ($subject as $index => $value) { ?>
-                <div class="col-md-3 m-4 set-btn" style="background-color: #EEDC82;">
+                <div class="col-md-3 m-4 set-btn" style="">
                     <div class="card text-center" style="background-color: #EEDC82; border: none;">
                         <div class="p-1">
                             <label for="name_short">
@@ -56,7 +56,7 @@
                             <?php echo $value['detail'] ?>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row " >
                         <button class="btn btn-primary" onclick="enroll_subject(<?php echo $value['id'] ?>,'<?php echo $value['code'] ?>')">สมัครเข้าร่วมโครงการ</button>
                     </div>
                 </div>
