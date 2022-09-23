@@ -11,7 +11,7 @@
     <style>
         body{
             font-family: 'Kanit', sans-serif;
-            background-color: #E8E8E8;
+            background-color: white;
         }
         label{
             font-size: calc(60% + 0.6vmin);
@@ -379,6 +379,7 @@
             $("#project_id").val(<?php echo $project['id'] ?>)
             $("#project_name").val('<?php echo $project['project_name'] ?>')
             $("#subject_name").val('<?php echo $subject['name'] ?>')
+            console.log($("#enroll_id").val())
             $('input[name=bill_name]').change(function() {
                 bill_name = $("#bill_name").val()
             });

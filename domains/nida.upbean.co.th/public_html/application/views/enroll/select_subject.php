@@ -17,6 +17,10 @@
     .btn.btn-primary{
         background-color: #097969;
         border-color: #097969;
+        border: 2px solid #097969;
+        border-radius: 0.5rem;
+        width: 18.5rem;
+        margin-bottom: 0.9rem;
     }
     .btn.btn-primary:hover{
         background-color: #50C878;
@@ -29,34 +33,43 @@
         position: absolute;
         bottom: 0;
     }
+    .set-shadow{
+        box-shadow: 8px 8px 10px #CCCCCC;
+    }
+    .col-md-3{
+        border: 2px solid #EEDC82;
+        border-radius: 0.5rem;
+    }
 </style>
 <body>
     <div class="container">
     <input type="hidden" name="project_id" id="project_id">
-        <div class="row mt-4">
+        <div class="row justify-content-center my-4">
             <?php foreach ($subject as $index => $value) { ?>
-                <div class="col-md-3 m-4 set-btn" style="background-color: #EEDC82;">
+                <div class="col-md-3 m-4 set-shadow set-btn" style="background-color: #EEDC82;">
                     <div class="card text-center" style="background-color: #EEDC82; border: none;">
-                        <div class="p-1">
-                            <label for="name_short">
-                                <?php echo $value['name_short'] ?>
-                            </label>
-                        </div>
-                        <div class="p-1">
-                            <label for="name">
-                                <?php echo $value['name'] ?>
-                            </label>
-                        </div>
-                        <div class="p-1">
-                            <label for="name_eng">
-                                <?php echo $value['name_eng'] ?>
-                            </label>
-                        </div>
-                        <div class="p-1" style="text-align:left">
-                            <?php echo $value['detail'] ?>
+                        <div class="card-body">
+                            <div class="p-1">
+                                <label for="name_short">
+                                    <?php echo $value['name_short'] ?>
+                                </label>
+                            </div>
+                            <div class="p-1">
+                                <label for="name">
+                                    <?php echo $value['name'] ?>
+                                </label>
+                            </div>
+                            <div class="p-1">
+                                <label for="name_eng">
+                                    <?php echo $value['name_eng'] ?>
+                                </label>
+                            </div>
+                            <div class="p-1" style="text-align:left">
+                                <?php echo $value['detail'] ?>
+                            </div>
                         </div>
                     </div>
-                    <div class="row mt-5">
+                    <div class="row justify-content-center my-5">
                         <button class="btn btn-primary" onclick="enroll_subject(<?php echo $value['id'] ?>,'<?php echo $value['code'] ?>')">สมัครเข้าร่วมโครงการ</button>
                     </div>
                 </div>

@@ -65,10 +65,10 @@ class Project_model extends CI_Model{
         return $result;
     }
 
-    function get_subject(){
+    function get_subject($id = null){
         $now = date('Y-m-d');
-        if(isset($_GET['project_id'])){
-            $where = "where project_id = ".$_GET['project_id']." and is_deleted = 0 and date(start_date) <= '".$now."' and date(end_date) >= '".$now."'";
+        if(!empty($id)){
+            $where = "where project_id = ".$id." and is_deleted = 0 and date(start_date) <= '".$now."' and date(end_date) >= '".$now."'";
         }
         $sql = "SELECT * FROM coop_subject ".$where;
         $result = $this->db->query($sql)->result_array();

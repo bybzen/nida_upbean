@@ -35,9 +35,9 @@ class Project extends CI_Controller{
 
     function select_subject($id = null){
         $arr_data = array();
-        $res = $this->Project->get_project_data();
+        $res = $this->Project->get_project_data($id);
         $arr_data['project'] = $res;
-        $res = $this->Project->get_subject();
+        $res = $this->Project->get_subject($id);
         $arr_data['subject'] = $res;
         $this->load->view('template/navbar');        
         $this->load->view('enroll/select_subject',$arr_data);

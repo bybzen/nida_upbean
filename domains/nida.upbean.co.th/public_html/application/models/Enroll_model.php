@@ -7,7 +7,8 @@ class Enroll_model extends CI_Model {
 
     // นับหลักสูตรนั้นว่ามีลงทะเบียนแล้วกี่คน
     function count_subject_enroll($code){
-        $sql = "SELECT COUNT(ref_1) AS number from coop_enroll where ref_1 LIKE ".'\''.(date("Y")+543).$code.'%'.'\'';
+        // $sql = "SELECT COUNT(ref_1) AS number from coop_enroll where ref_1 LIKE ".'\''.(date("Y")+543).$code.'%'.'\'';
+        $sql = "SELECT right(ref_1,5) AS number from coop_enroll where ref_1 LIKE "."'".(date("Y")+543).$code."%"."' ORDER BY ref_1 DESC limit 1";
         return $this->db->query($sql)->result_array();
     }
 
@@ -29,6 +30,7 @@ class Enroll_model extends CI_Model {
         $data_insert = array();
         $number = $this->count_subject_enroll($subject['code']);
         $ref_1 = (date("Y")+543).$subject['code'].str_pad($number[0]['number']+1, 5, '0', STR_PAD_LEFT);
+        // echo $ref_1;
         $data_insert['ref_1'] = $ref_1;
         $data_insert['ref_2'] = $param['tel'];
         $data_insert['tax_number'] = $param['tax_number'];

@@ -165,7 +165,7 @@
 
     function enroll(id){
         $("#pj_id").val(id)
-        window.open(window.location.origin + '/project/select_subject?project_id=' + id); 
+        window.open(window.location.origin + '/project/enroll_subject/' + id); 
     }
 
     function edit(id){

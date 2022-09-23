@@ -66,9 +66,10 @@ $route['enroll/report_applicant'] = 'enroll/report_applicant';
 $route['enroll/report_receipts'] = 'enroll/report_receipts';
 
 $route['subject/index/(:any)'] = 'subject/index/$1';
-$route['project/select_subject'] = 'project/select_subject';
+// $route['project/select_subject'] = 'project/select_subject';
+$route['project/enroll_subject/(:any)'] = 'project/select_subject/$1';
 $route['enroll'] = 'project/enroll';
-$route['project/enroll_subject/(:any)'] = 'project/enroll_subject/$1';
+// $route['project/enroll_subject/(:any)'] = 'project/enroll_subject/$1';
 
 $route['enroll/import_file_bank'] = 'enroll/import_file_bank';
 
