@@ -218,10 +218,6 @@
                                 <input type="checkbox" id="check" name="check" onclick="getSameAddress()">
                                 <label for="check">ชื่อหน่วยงานและที่อยู่เดียวกับที่ทำงาน</label>
                             </div>
-                            <div>
-                                <label for="tax_number" class='form-label'>เลขประจำตัวผู้เสียภาษี</label>
-                                <input id='tax_number' name='tax_number' type="text" class="form-control">
-                            </div>
                             <div class="my-3">
                                 <label for="bill_name" class='form-label'>ชื่อที่ใช้ในการออกใบเสร็จ</label>
                                 <input id='bill_name' name='bill_name' type="text" class="form-control">
@@ -229,6 +225,10 @@
                             <div class="my-3">
                                 <label for="bill_cop" class='form-label'>ชื่อหน่วยงาน</label>
                                 <input id='bill_cop' name='bill_cop' type="text" class="form-control">
+                            </div>
+                            <div class="my-3">
+                                <label for="tax_number" class='form-label'>เลขประจำตัวผู้เสียภาษี</label>
+                                <input id='tax_number' name='tax_number' type="text" class="form-control">
                             </div>
                             <div class="row my-3">
                                 <div class="col">

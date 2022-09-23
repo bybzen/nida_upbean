@@ -48,7 +48,7 @@
                             </label>
                         </div>
                         <div class="p-1">
-                            <label for="name">
+                            <label for="name_eng">
                                 <?php echo $value['name_eng'] ?>
                             </label>
                         </div>
@@ -56,7 +56,7 @@
                             <?php echo $value['detail'] ?>
                         </div>
                     </div>
-                    <div class="row " >
+                    <div class="row mt-5">
                         <button class="btn btn-primary" onclick="enroll_subject(<?php echo $value['id'] ?>,'<?php echo $value['code'] ?>')">สมัครเข้าร่วมโครงการ</button>
                     </div>
                 </div>
