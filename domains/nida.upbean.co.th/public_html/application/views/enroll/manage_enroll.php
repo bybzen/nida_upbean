@@ -41,6 +41,7 @@
                                 <th class="text-center">วันเวลาที่ลงทะเบียน</th>
                                 <th class="text-center">ชื่อนามสกุล</th>
                                 <th class="text-center">เบอร์โทร</th>
+                                <th class="text-center">จังหวัดที่ลงทะเบียน</th>
                                 <th class="text-center">หลักสูตร</th>
                                 <th class="text-center">จำนวนเงิน</th>
                                 <th class="text-center">สถานะ</th>
@@ -55,7 +56,8 @@
                                     <!-- วันที่ลงทะเบียน -->
                                     <td class="text-center"><?php echo $this->center_function->ConvertToThaiDate($value['created_at']) ?></td>
                                     <td class="text-center"><?php echo $value['firstname']." "." ".$value['lastname'] ?></td> <!-- ชื่อนามสกุล -->
-                                    <td class="text-center"><?php echo $value['tel'] ?></td> <!-- เบอร์ + บัตร ปชช -->
+                                    <td class="text-center"><?php echo $value['tel'] ?></td> <!-- เบอร์ -->
+                                    <td class="text-center"><?php echo $value['enroll_province'] ?></td> <!-- จังหวัดที่ลทบ. -->
                                     <td class="text-center"><?php echo $value['enroll_subject'] ?></td> <!-- หลักสูตร -->
                                     <td class="text-center"><?php echo number_format($value['enroll_cost'],2) ?></td>
                                     <!-- สถานะ -->
@@ -683,9 +685,10 @@ $(document).ready(function(){
                             `<tr>
                                 <th class="text-center">ลำดับ</th>
                                 <th class="text-center">Ref1</th>
-                                <th class="text-center">วันที่/เวลา</th>
+                                <th class="text-center">วันเวลาที่ลงทะเบียน</th>
                                 <th class="text-center">ชื่อนามสกุล</th>
-                                <th class="text-center">เบอร์โทร/เลขบัตร ปชช</th>
+                                <th class="text-center">เบอร์โทร</th>
+                                <th class="text-center">จังหวัดที่ลงทะเบียน</th>
                                 <th class="text-center">หลักสูตร</th>
                                 <th class="text-center">จำนวนเงิน</th>
                                 <th class="text-center">สถานะ</th>
@@ -701,6 +704,7 @@ $(document).ready(function(){
                                 <td class="text-center">${toSplitDate(value.created_at)}</td>
                                 <td class="text-center">${value.firstname} ${value.lastname}</td>
                                 <td class="text-center">${value.tel}</td>
+                                <td class="text-center">${value.enroll_province}</td>
                                 <td class="text-center">${value.enroll_subject}</td>
                                 <td class="text-center">${new Intl.NumberFormat('en-US', {minimumFractionDigits: 2}).format(value.enroll_cost)}</td>
                                 <td class="text-center" style="color:#006633;">${value.payment_status}</td>

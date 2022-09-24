@@ -157,7 +157,6 @@ class Enroll extends CI_Controller {
         
         // เรียก function ใน Model
         $arr_data['datas'] = $this->Enroll->get_report_data($_GET);
-        // $arr_data['data_bill'] = $this->Enroll->get_data_bill();
         $arr_data['param'] = $_GET;
 
         if ($_GET['project'] != ''){

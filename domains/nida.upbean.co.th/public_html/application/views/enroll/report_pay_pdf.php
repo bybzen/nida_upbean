@@ -52,17 +52,17 @@ else {
 
 
  if ($_GET['paid'] == 'on'){
-    $type_and_subject = "สถานะ: ชำระเงินแล้ว   โครงการ: ".$project_name."   หลักสูตร: ".$subject_name;
+    $type_and_subject = "สถานะ: ชำระเงินแล้ว  โครงการ: ".$project_name."  หลักสูตร: ".$subject_name;
 
 
 } 
 else if ($_GET['unpaid'] == 'on'){
-    $type_and_subject = "สถานะ: รอชำระเงิน   โครงการ: ".$project_name."   หลักสูตร: ".$subject_name;
+    $type_and_subject = "สถานะ: รอชำระเงิน  โครงการ: ".$project_name."  หลักสูตร: ".$subject_name;
     
 }
 
 else{
-    $type_and_subject = "สถานะ: ทั้งหมด   โครงการ: ".$project_name."   หลักสูตร: ".$subject_name;
+    $type_and_subject = "สถานะ: ทั้งหมด  โครงการ: ".$project_name."  หลักสูตร: ".$subject_name;
 }
 
 
