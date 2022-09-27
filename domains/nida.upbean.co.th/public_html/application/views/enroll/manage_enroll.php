@@ -118,6 +118,13 @@
                     </div>
 
                     <div class="g24-col-sm-24 margin-10">
+                        <label class="g24-col-sm-6 text-right label-margin"> จังหวัดที่ลงทะเบียน</label>
+                        <div class="g24-col-sm-14">
+                            <input type="text" class="form-control" id="enroll_province" name="enroll_province" readonly >
+                        </div>
+                    </div>
+
+                    <div class="g24-col-sm-24 margin-10">
                         <label class="g24-col-sm-6 text-right label-margin"> ชื่อนามสกุล </label>
                         <div class="g24-col-sm-14">
                             <input type="text" class="form-control" id="name" name="name">
@@ -578,6 +585,7 @@ $(document).ready(function(){
 
                 $('#ref_1').val(data.ref_1);
                 $('#created_at').val(toSplitDate(data.created_at));
+                $('#enroll_province').val(data.enroll_province);
                 $('#name').val(firstname.concat("  ", lastname));
 
                 toSplitBirthday(data.birthday);
@@ -655,7 +663,7 @@ $(document).ready(function(){
 
 
     $('#btn_search').click(function() {
-            console.log("filter = " , $('#filter_search').val())
+            // console.log("filter = " , $('#filter_search').val())
 
             let filter_search = $('#filter_search').val()
             event.preventDefault()
@@ -731,6 +739,7 @@ $(document).ready(function(){
                                 <td class="text-center">${toSplitDate(value.created_at)}</td>
                                 <td class="text-center">${value.firstname} ${value.lastname}</td>
                                 <td class="text-center">${value.tel}</td>
+                                <td class="text-center">${value.enroll_province}</td>
                                 <td class="text-center">${value.enroll_subject}</td>
                                 <td class="text-center">${new Intl.NumberFormat('en-US', {minimumFractionDigits: 2}).format(value.enroll_cost)}</td>
                                 <td class="text-center" style="color:#CB824AFF;">${value.payment_status}</td>
