@@ -172,39 +172,39 @@ date_default_timezone_set('Asia/Bangkok');
                     $count++;
                     ?>
                     <tr>
-								<td class="table_body" colspan="2" style="text-align: center;"><?php echo $count;?></td>
-                                <!-- ****************** ข้อมูลส่วนบุคคล ****************** -->
-                                <td class="table_body" colspan="3" style="text-align: center;"><?php echo $this->center_function->ConvertToThaiDate($data['order_created']); ?></td>
-                                <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['ref_1']?></td>
-                                <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['enroll_project']?></td>
-                                <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['enroll_subject']?></td>
-                                <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['enroll_province']?></td>
-                                <td class="table_body" colspan="3" style="text-align: left;"><?php echo $data['firstname']."   ".$data['lastname'] ?></td>
-                                <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['birthday']?></td>
-                                <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['phone_number']?></td>
-                                <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['tel']?></td>
-                                <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['email']?></td>
-                                <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['cop']?></td>
-                                <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['position']?></td>
-                                <td class="table_body" colspan="7" style="text-align: left;"><?php echo " เลขที่ ".$data['address']." ถนน ".$data['road']
-                                                                                                        ." แขวง ".$data['area']." เขต ".$data['sub_area']." ".
-                                                                                                        $data['province']." ".$data['postal_code']?></td>
-                                <td class="table_body" colspan="3" style="text-align: left;"><?php echo $data['person_to_notify']?></td>
-                                <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['tel_person_to_notify']?></td>
-                                <!-- ****************** ข้อมูลส่วนบุคคล ****************** -->
+                        <td class="table_body" colspan="2" style="text-align: center;"><?php echo $count;?></td>
+                        <!-- ****************** ข้อมูลส่วนบุคคล ****************** -->
+                        <td class="table_body" colspan="3" style="text-align: center;"><?php echo $this->center_function->ConvertToThaiDate($data['order_created']); ?></td>
+                        <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['ref_1']?></td>
+                        <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['enroll_project']?></td>
+                        <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['enroll_subject']?></td>
+                        <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['enroll_province']?></td>
+                        <td class="table_body" colspan="3" style="text-align: left;"><?php echo $data['firstname']."   ".$data['lastname'] ?></td>
+                        <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['birthday']?></td>
+                        <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['phone_number']?></td>
+                        <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['tel']?></td>
+                        <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['email']?></td>
+                        <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['cop']?></td>
+                        <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['position']?></td>
+                        <td class="table_body" colspan="7" style="text-align: left;"><?php echo " เลขที่ ".$data['address']." ถนน ".$data['road']
+                                                                                                ." แขวง ".$data['area']." เขต ".$data['sub_area']." ".
+                                                                                                $data['province']." ".$data['postal_code']?></td>
+                        <td class="table_body" colspan="3" style="text-align: left;"><?php echo $data['person_to_notify']?></td>
+                        <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['tel_person_to_notify']?></td>
+                        <!-- ****************** ข้อมูลส่วนบุคคล ****************** -->
 
-                                <!-- ****************** ข้อมูลออกใบเสร็จ ****************** -->
-                                <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['bill_name']?></td>
-                                <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['bill_cop']?></td>
-                                <td class="table_body" colspan="7" style="text-align: left;"><?php echo " เลขที่ ".$data['bill_house']." ถนน ".$data['bill_road']
-                                                                                                        ." แขวง ".$data['bill_area']." เขต ".$data['bill_sub_area']." ".
-                                                                                                        $data['bill_province']." ".$data['bill_postal_code']?></td>
-                                <!-- ****************** ข้อมูลออกใบเสร็จ ****************** -->
+                        <!-- ****************** ข้อมูลออกใบเสร็จ ****************** -->
+                        <td class="table_body" colspan="3" style="text-align: center;"><?php echo $data['bill_name']?></td>
+                        <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['bill_cop']?></td>
+                        <td class="table_body" colspan="7" style="text-align: left;"><?php echo " เลขที่ ".$data['bill_house']." ถนน ".$data['bill_road']
+                                                                                                ." แขวง ".$data['bill_area']." เขต ".$data['bill_sub_area']." ".
+                                                                                                $data['bill_province']." ".$data['bill_postal_code']?></td>
+                        <!-- ****************** ข้อมูลออกใบเสร็จ ****************** -->
 
-                                <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['food_type']?></td>
-                                <td class="table_body" colspan="2" style="text-align: left;"><?php echo $data['payment_status'] ?></td>
-								<td class="table_body" colspan="2" style="text-align: right;"><?php echo number_format($data['enroll_cost'],2) ?></td>
-						  </tr>
+                        <td class="table_body" colspan="2" style="text-align: center;"><?php echo $data['food_type']?></td>
+                        <td class="table_body" colspan="2" style="text-align: left;"><?php echo $data['payment_status'] ?></td>
+                        <td class="table_body" colspan="2" style="text-align: right;"><?php echo number_format($data['enroll_cost'],2) ?></td>
+                    </tr>
                     <?php
                         $total += $data['enroll_cost'];
                     }

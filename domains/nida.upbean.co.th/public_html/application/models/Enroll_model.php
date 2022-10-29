@@ -82,16 +82,15 @@ class Enroll_model extends CI_Model {
      // หน้า manage_qr show data
      function get_enroll_data(){
         $data_insert = array();
-        $up_sql = "SELECT *, t2.ref_1 as t2_ref_1 from coop_enroll as t1 INNER JOIN coop_import_detail as t2 ON t1.ref_1 = t2.ref_1 ORDER BY created_at";
+        $up_sql = "SELECT *, t2.ref_1 as t2_ref_1 from coop_enroll as t1 INNER JOIN coop_import_detail as t2 
+                    ON t1.ref_1 = t2.ref_1 ORDER BY created_at";
         $rs = $this->db->query($up_sql)->result_array();
         
         foreach($rs as $row) {
             $t2_ref_1 = $rs[0]['ref_1'];
             if(  $row['ref_1'] == $t2_ref_1 && $row['status'] == 'ชำระเงินแล้ว' && $row['payment_status'] == 'รอชำระเงิน'){
-                
                 $data_insert['payment_date'] = $row['pay_date']." ".$row['pay_time'];
                 $data_insert['payment_status'] = 'ชำระเงินแล้ว';
-
             $this->db->where('ref_1',$t2_ref_1);
             $this->db->update('coop_enroll',$data_insert);
         }
@@ -177,7 +176,7 @@ class Enroll_model extends CI_Model {
                         INNER JOIN coop_bill AS t4 ON t1.ref_1 = t4.ref_1
 
                         WHERE enroll_date BETWEEN "."'".$start_date_sql."'"." AND "."'".$end_date_sql."'"
-                        ." AND t1.payment_status = 'ชำระเงินแล้ว'".$subject.$province." ORDER BY t1.created_at DESC";
+                        ." AND t1.payment_status = 'ชำระเงินแล้ว'".$subject.$province.$project." ORDER BY t1.created_at DESC";
                 
             } 
             else if ($type == 2){
@@ -185,7 +184,7 @@ class Enroll_model extends CI_Model {
                         INNER JOIN coop_project AS t3 ON t1.enroll_project = t3.project_name
                         INNER JOIN coop_bill AS t4 ON t1.ref_1 = t4.ref_1
                         WHERE enroll_date BETWEEN "."'".$start_date_sql."'"." AND "."'".$end_date_sql."'"
-                        ." AND t1.payment_status = 'รอชำระเงิน'".$subject.$province." ORDER BY t1.created_at DESC";
+                        ." AND t1.payment_status = 'รอชำระเงิน'".$subject.$province.$project." ORDER BY t1.created_at DESC";
                 
             }
             else if ($type == 3){

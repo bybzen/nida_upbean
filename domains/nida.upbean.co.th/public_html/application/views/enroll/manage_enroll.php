@@ -47,20 +47,17 @@
                                 <th class="text-center">สถานะ</th>
                                 <th class="text-center"></th>
                             </tr>
+                            
                             <?php foreach ($enroll as $index => $value){ ?>
-                                
                                 <tr>
-                                    <!-- <?php print_r($value['name']) ?>  print array  -->
-                                    <td class="text-center"><?php echo $index+1 ?></td> <!-- ลำดับ -->
-                                    <td class="text-center"><?php echo $value['ref_1'] ?></td> <!-- ref 1 -->
-                                    <!-- วันที่ลงทะเบียน -->
+                                    <td class="text-center"><?php echo $index+1 ?></td> 
+                                    <td class="text-center"><?php echo $value['ref_1'] ?></td> 
                                     <td class="text-center"><?php echo $this->center_function->ConvertToThaiDate($value['created_at']) ?></td>
-                                    <td class="text-center"><?php echo $value['firstname']." "." ".$value['lastname'] ?></td> <!-- ชื่อนามสกุล -->
-                                    <td class="text-center"><?php echo $value['tel'] ?></td> <!-- เบอร์ -->
-                                    <td class="text-center"><?php echo $value['enroll_province'] ?></td> <!-- จังหวัดที่ลทบ. -->
-                                    <td class="text-center"><?php echo $value['enroll_subject'] ?></td> <!-- หลักสูตร -->
+                                    <td class="text-center"><?php echo $value['firstname']." "." ".$value['lastname'] ?></td>
+                                    <td class="text-center"><?php echo $value['tel'] ?></td> 
+                                    <td class="text-center"><?php echo $value['enroll_province'] ?></td> 
+                                    <td class="text-center"><?php echo $value['enroll_subject'] ?></td> 
                                     <td class="text-center"><?php echo number_format($value['enroll_cost'],2) ?></td>
-                                    <!-- สถานะ -->
                                     <?php if($value['payment_status'] == "ชำระเงินแล้ว"){ ?>
                                         <td class=" text-center" style="color:#006633;" ><?php echo $value['payment_status']?></td>
                                     <?php } else{?>
