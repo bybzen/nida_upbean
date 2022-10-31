@@ -139,11 +139,6 @@
                 warning_text += "กรุณากรอกวันที่\n";
                 
             }
-            // else if ($('#subject').val() == ''){
-            //     warning_text += "กรุณาเลือกหลักสูตร\n"
-            // }
-
-
             if (warning_text == ""){
                 $('#pdf_excel_form').attr("action",base_url + "enroll/report_pay_pdf");
                 $('#pdf_excel_form').submit();

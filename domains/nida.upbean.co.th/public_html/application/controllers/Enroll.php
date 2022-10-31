@@ -36,18 +36,14 @@ class Enroll extends CI_Controller {
         $arr_data['data'] = $data;
         $this->load->view('enroll/gen_qr',$arr_data);
     }
+
     function manage_enroll(){
         $arr_data = array();
         $enroll = $this->Enroll->get_enroll_data();
         $arr_data['enroll'] = $enroll;
-
-        // $arr_subject = array();
-        // $subject_name = $this->Enroll->get_subject();
-        // $arr_subject['subject_name'] = $subject_name;
-
-        // print_r($arr_data);
         $this->libraries->template('enroll/manage_enroll', $arr_data);
     }
+
 // --------------------------------------- รายการ select  ---------------------------------------
     function report_pay(){
         $arr_data = array();
@@ -129,7 +125,6 @@ class Enroll extends CI_Controller {
             $_GET['type'] = 3;
         }
         
-        // เรียก function ใน Model
         $arr_data['datas'] = $this->Enroll->get_report_data($_GET);
         $arr_data['param'] = $_GET;
 
@@ -157,7 +152,6 @@ class Enroll extends CI_Controller {
         
         // เรียก function ใน Model
         $arr_data['datas'] = $this->Enroll->get_report_data($_GET);
-        // $arr_data['data_bill'] = $this->Enroll->get_data_bill();
         $arr_data['param'] = $_GET;
 
         if ($_GET['project'] != ''){
