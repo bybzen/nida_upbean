@@ -32,7 +32,7 @@ class Subject extends CI_Controller{
     }
 
     function ajax_delete_subject(){
-        $this->Subject->delete_subject($_POST['id']);
+        $this->Subject->delete_subject($_POST['id'],$_POST['code']);
     }
     
     function enroll_subject(){

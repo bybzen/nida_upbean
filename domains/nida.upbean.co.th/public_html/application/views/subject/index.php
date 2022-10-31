@@ -64,7 +64,7 @@
                                     <td class="text-center">
                                         <a onclick="edit('<?php echo $value['code'] ?>')">แก้ไข</a>
                                         |
-                                        <a onclick="del(<?php echo $value['id'] ?>)" style="color: red">ลบ</a>
+                                        <a onclick="del(<?php echo $value['id'] ?>, '<?php echo $value['code'] ?>')" style="color: red">ลบ</a>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -479,7 +479,7 @@
         });
     }
 
-    function del(subject_id){
+    function del(subject_id, code){
         swal({
             title: "ท่านต้องการลบข้อมูลใช่หรือไม่",
             text: "",
@@ -497,7 +497,8 @@
                     type:'POST',
                     url: base_url+"subject/ajax_delete_subject",
                     data:{
-                        id : subject_id
+                        id : subject_id,
+                        code: code
                     },
                     success: function(data){
                         location.reload();

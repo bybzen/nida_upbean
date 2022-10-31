@@ -72,7 +72,7 @@ class Subject_model extends CI_Model{
 
     function get_subject_data($id=null){
         if(!empty($id)){
-            $where = "where code = ".$id;
+            $where = "where code = ".$id." and is_deleted = 0";
         }
         $sql = "SELECT * FROM coop_subject ".$where;
         $result = $this->db->query($sql)->result_array();
@@ -80,11 +80,14 @@ class Subject_model extends CI_Model{
         // return $sql;
     }
 
-    function delete_subject($id){
+    function delete_subject($id, $code){
         $data_insert = array();
         $data_insert['is_deleted'] = 1;
         $this->db->where('id', $id);
         $this->db->update('coop_subject', $data_insert);
+        
+        $this->db->where('subject_code',$code);
+        $this->db->delete('subject_open_province', ['subject_code' => $code]);
     }
 
     function get_subject_name($id){

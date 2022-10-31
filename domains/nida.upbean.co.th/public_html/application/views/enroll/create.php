@@ -490,6 +490,7 @@
                     swal('ผิดพลาด','กรุณาเลือกประเภทอาหารที่รับประทาน','warning')
                 }
                 else{
+                    $("#save_btn").hide()
                     $.ajax({
                         type:'POST',
                         url: url,

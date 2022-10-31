@@ -14,7 +14,7 @@ class Enroll_model extends CI_Model {
 
     //เอาค่าจากตาราง coop_subject มา เพื่อเอามาใส่ในตาราง coop_enroll
     function get_subject_data($code){
-        $sql = "SELECT * from coop_subject where code = ".$code;
+        $sql = "SELECT * from coop_subject where code = ".$code." and is_deleted = 0";
         $res = $this->db->query($sql)->result_array();
         return $res[0];
     }

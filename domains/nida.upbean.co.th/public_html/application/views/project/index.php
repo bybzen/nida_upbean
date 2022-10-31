@@ -149,18 +149,7 @@
     });
 
     function add_subject(id){
-        $("#pj_id").val(id)
-        $.ajax({
-            type: 'POST',
-            url: base_url + 'project/ajax_get_project_data',
-            data: {
-                id: $("#pj_id").val()
-            },
-            success: function(res){
-                data = JSON.parse(res)
-                document.location.href = window.location.origin + '/subject/index/' + data.id
-            }
-        })
+        document.location.href = window.location.origin + '/subject/index/' + id
     }
 
     function enroll(id){

@@ -74,3 +74,5 @@ $route['enroll'] = 'project/enroll';
 $route['enroll/import_file_bank'] = 'enroll/import_file_bank';
 
 $route['enroll/import_show_report/(:any)'] = 'enroll/import_show_report/$1';
+
+$route['project/index'] = 'project/index';
