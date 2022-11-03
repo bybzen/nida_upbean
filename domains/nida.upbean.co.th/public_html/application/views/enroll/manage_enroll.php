@@ -49,6 +49,7 @@
                             </tr>
                             
                             <?php foreach ($enroll as $index => $value){ ?>
+                                <!-- <?php echo $enroll[$index]['ref_1'] ?> -->
                                 <tr>
                                     <td class="text-center"><?php echo $index+1 ?></td> 
                                     <td class="text-center"><?php echo $value['ref_1'] ?></td> 

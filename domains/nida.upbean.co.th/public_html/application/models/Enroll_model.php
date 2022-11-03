@@ -86,10 +86,12 @@ class Enroll_model extends CI_Model {
                     ON t1.ref_1 = t2.ref_1 ORDER BY created_at";
         $rs = $this->db->query($up_sql)->result_array();
         
-        foreach($rs as $row) {
-            $t2_ref_1 = $rs[0]['ref_1'];
-            if(  $row['ref_1'] == $t2_ref_1 && $row['status'] == 'ชำระเงินแล้ว' && $row['payment_status'] == 'รอชำระเงิน'){
-                $data_insert['payment_date'] = $row['pay_date']." ".$row['pay_time'];
+        foreach($rs as $index => $value) {
+            $t2_ref_1 = $rs[$index]['ref_1'];
+        // foreach($rs as $value) {
+        //     $t2_ref_1 = $rs[0]['ref_1'];
+            if(  $value['ref_1'] == $t2_ref_1 && $value['status'] == 'ชำระเงินแล้ว' && $value['payment_status'] == 'รอชำระเงิน'){
+                $data_insert['payment_date'] = $value['pay_date']." ".$value['pay_time'];
                 $data_insert['payment_status'] = 'ชำระเงินแล้ว';
             $this->db->where('ref_1',$t2_ref_1);
             $this->db->update('coop_enroll',$data_insert);
